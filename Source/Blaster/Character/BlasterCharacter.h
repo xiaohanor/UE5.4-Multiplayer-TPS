@@ -7,6 +7,7 @@
 #include "EnhancedInput/Public/InputMappingContext.h"
 #include "BlasterCharacter.generated.h"
 
+class AWeapon;
 class UWidgetComponent;
 class UCameraComponent;
 class USpringArmComponent;
@@ -17,15 +18,13 @@ class BLASTER_API ABlasterCharacter : public ACharacter
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
 	ABlasterCharacter();
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 private:
@@ -37,6 +36,12 @@ private:
 
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,meta=(AllowPrivateAccess="true"))
 	TObjectPtr<UWidgetComponent> OverheadWidget;
+
+	UPROPERTY(ReplicatedUsing = OnRep_OverlappingWeapon)
+	TObjectPtr<AWeapon> OverlappingWeapon;
+
+	UFUNCTION()
+	void OnRep_OverlappingWeapon(AWeapon* LastWeapon);
 
 	//玩家输入映射
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="PlayerInput",meta=(AllowPrivateAccess="true"))
@@ -56,7 +61,8 @@ private:
 
 	
 	
-public:	
+public:
+	void SetOverlappingWeapon(AWeapon* Weapon);
 
 
 };

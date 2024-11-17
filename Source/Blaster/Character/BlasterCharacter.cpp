@@ -5,10 +5,12 @@
 
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "Blaster/Weapon/Weapon.h"
 #include "Camera/CameraComponent.h"
 #include "Components/WidgetComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Net/UnrealNetwork.h"
 
 ABlasterCharacter::ABlasterCharacter()
 {
@@ -30,6 +32,13 @@ ABlasterCharacter::ABlasterCharacter()
 	OverheadWidget-> SetupAttachment(RootComponent);
 }
 
+void ABlasterCharacter::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME_CONDITION(ABlasterCharacter,OverlappingWeapon,COND_OwnerOnly);
+}
+
 void ABlasterCharacter::BeginPlay()
 {
 	Super::BeginPlay();
@@ -46,6 +55,44 @@ void ABlasterCharacter::BeginPlay()
 		//设置摄像机视角限制
 		PlayerControl->PlayerCameraManager->ViewPitchMax = 400.f;
 		PlayerControl->PlayerCameraManager->ViewPitchMin = -40.f;
+	}
+	
+}
+
+void ABlasterCharacter::Tick(float DeltaTime)
+{ 
+	Super::Tick(DeltaTime);
+	
+}
+
+void ABlasterCharacter::SetOverlappingWeapon(AWeapon* Weapon)
+{
+	if(OverlappingWeapon)
+	{
+		OverlappingWeapon->ShowPickUpWidget(false);
+	}
+	
+	OverlappingWeapon = Weapon;
+	if(IsLocallyControlled())
+	{
+		if(OverlappingWeapon)
+		{
+			OverlappingWeapon->ShowPickUpWidget(true);
+		}
+	}
+	
+}
+
+//当OverlappingWeapon更新时调用
+void ABlasterCharacter::OnRep_OverlappingWeapon(AWeapon* LastWeapon)
+{
+	if(OverlappingWeapon)
+	{
+		OverlappingWeapon->ShowPickUpWidget(true);
+	}
+	if(LastWeapon)
+	{
+		LastWeapon->ShowPickUpWidget(false);
 	}
 	
 }
@@ -74,12 +121,6 @@ void ABlasterCharacter::Look(const FInputActionValue& Value)
 	}
 }
 
-void ABlasterCharacter::Tick(float DeltaTime)
-{ 
-	Super::Tick(DeltaTime);
-
-}
-
 void ABlasterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
@@ -93,4 +134,6 @@ void ABlasterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 	}
 
 }
+
+
 
