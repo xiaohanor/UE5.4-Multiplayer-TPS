@@ -7,6 +7,7 @@
 #include "EnhancedInput/Public/InputMappingContext.h"
 #include "BlasterCharacter.generated.h"
 
+class UCombatComponent;
 class AWeapon;
 class UWidgetComponent;
 class UCameraComponent;
@@ -24,6 +25,8 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
+	virtual void PostInitializeComponents() override;
+	
 protected:
 	virtual void BeginPlay() override;
 
@@ -43,6 +46,12 @@ private:
 	UFUNCTION()
 	void OnRep_OverlappingWeapon(AWeapon* LastWeapon);
 
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<UCombatComponent> Combat;
+
+	UFUNCTION(Server,Reliable)
+	void ServerEquipButtonPressed();
+	
 	//玩家输入映射
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="PlayerInput",meta=(AllowPrivateAccess="true"))
 	TObjectPtr<UInputMappingContext> PlayerInputMapping;
@@ -54,15 +63,27 @@ private:
 	TObjectPtr <UInputAction> PlayerLook;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="PlayerInput",meta=(AllowPrivateAccess="true"))
 	TObjectPtr <UInputAction> PlayerJump;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="PlayerInput",meta=(AllowPrivateAccess="true"))
+	TObjectPtr <UInputAction> Equip;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="PlayerInput",meta=(AllowPrivateAccess="true"))
+	TObjectPtr <UInputAction> PlayerCrouch;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="PlayerInput",meta=(AllowPrivateAccess="true"))
+	TObjectPtr <UInputAction> PlayerAim;
 
 	//玩家输入函数
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);
+	void EquipButtonPressed();
+	void CrouchButtonPressed();
+	void AimButtonPressed();
+	void AimButtonReleased();
 
 	
 	
 public:
 	void SetOverlappingWeapon(AWeapon* Weapon);
+	bool IsWeaponEquipped();
+	bool IsAiming();
 
 
 };
