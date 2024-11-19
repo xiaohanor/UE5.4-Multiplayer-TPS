@@ -8,9 +8,11 @@
 #include "Blaster/BlasterComponents/CombatComponent.h"
 #include "Blaster/Weapon/Weapon.h"
 #include "Camera/CameraComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "Components/WidgetComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Kismet/KismetMathLibrary.h"
 #include "Net/UnrealNetwork.h"
 
 ABlasterCharacter::ABlasterCharacter()
@@ -36,6 +38,10 @@ ABlasterCharacter::ABlasterCharacter()
 	Combat->SetIsReplicated(true);
 
 	GetCharacterMovement()->NavAgentProps.bCanCrouch = true;
+
+	//关闭摄像机和角色的碰撞
+	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Camera,ECR_Ignore);
+	GetMesh()->SetCollisionResponseToChannel(ECC_Camera,ECR_Ignore);
 }
 
 void ABlasterCharacter::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
@@ -74,10 +80,37 @@ void ABlasterCharacter::BeginPlay()
 	
 }
 
+
 void ABlasterCharacter::Tick(float DeltaTime)
 { 
 	Super::Tick(DeltaTime);
+	AimOffset(DeltaTime);
 	
+}
+
+void ABlasterCharacter::AimOffset(float DeltaTime)
+{
+	if(Combat == nullptr || Combat->EquippedWeapon == nullptr) return;
+	FVector Velocity = GetVelocity();
+	Velocity.Z = 0;
+	float Speed = Velocity.Size();
+	bool bIsInAir = GetCharacterMovement()->IsFalling();
+
+	if(Speed ==0.f && !bIsInAir) //站立静止不动时
+	{
+		FRotator CurrentAimRotation = FRotator(0,GetControlRotation().Yaw,0);
+		FRotator DeltaAimRotaion = UKismetMathLibrary::NormalizedDeltaRotator(CurrentAimRotation,StartingAimRotation);
+		AO_Yaw = DeltaAimRotaion.Yaw;
+		bUseControllerRotationYaw = false;
+	}
+	if(Speed>0.f || bIsInAir) //跑或跳时
+	{
+		StartingAimRotation = FRotator(0,GetControlRotation().Yaw,0);
+		AO_Yaw = 0.f;
+		bUseControllerRotationYaw = true;
+	}
+	
+	AO_Pitch = GetBaseAimRotation().Pitch;
 }
 
 void ABlasterCharacter::SetOverlappingWeapon(AWeapon* Weapon)
