@@ -111,6 +111,13 @@ void ABlasterCharacter::AimOffset(float DeltaTime)
 	}
 	
 	AO_Pitch = GetBaseAimRotation().Pitch;
+	if(AO_Pitch>90.f && !IsLocallyControlled())
+	{
+		//将Pitch值从[270,360)映射到[-90,0)之间
+		FVector2D InRange(270.f,360.f);
+		FVector2D OutRange(-90.f,0.f);
+		AO_Pitch=FMath::GetMappedRangeValueClamped(InRange,OutRange,AO_Pitch);
+	}
 }
 
 void ABlasterCharacter::SetOverlappingWeapon(AWeapon* Weapon)
@@ -248,6 +255,12 @@ bool ABlasterCharacter::IsAiming()
 {
 	return (Combat && Combat->bAiming);
 
+}
+
+AWeapon* ABlasterCharacter::GetEquippedWeapon()
+{
+	if(Combat==nullptr) return nullptr;
+	return Combat->EquippedWeapon;
 }
 
 
