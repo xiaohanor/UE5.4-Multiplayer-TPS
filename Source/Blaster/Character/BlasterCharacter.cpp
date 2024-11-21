@@ -43,9 +43,13 @@ ABlasterCharacter::ABlasterCharacter()
 	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Camera,ECR_Ignore);
 	GetMesh()->SetCollisionResponseToChannel(ECC_Camera,ECR_Ignore);
 
+	GetCharacterMovement()->RotationRate = FRotator(0,840.f,0);
 	TurningInPlace = ETurningInPlace::ETIP_NotTurning;
 	NetUpdateFrequency = 66.f;
 	MinNetUpdateFrequency = 33.f;
+
+	BaseSpeed = 800.f;
+	SprintSpeed = 1200.f;
 }
 
 void ABlasterCharacter::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
@@ -152,6 +156,20 @@ void ABlasterCharacter::TurnInPlcae(float DeltaTime)
 	}
 }
 
+void ABlasterCharacter::PlayerFireMontage(bool bAiming)
+{
+	if(Combat == nullptr || Combat->EquippedWeapon == nullptr) return;
+
+	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+	if(AnimInstance && FireWeaponMontage)
+	{
+		AnimInstance->Montage_Play(FireWeaponMontage);
+		FName SectionName;
+		SectionName = bAiming ? FName("RifleHip") : FName("RifleAim");
+		AnimInstance->Montage_JumpToSection(SectionName);
+	}
+}
+
 void ABlasterCharacter::SetOverlappingWeapon(AWeapon* Weapon)
 {
 	if(OverlappingWeapon)
@@ -244,6 +262,16 @@ void ABlasterCharacter::CrouchButtonPressed()
 	}
 }
 
+void ABlasterCharacter::SprintButtonPressed()
+{
+	GetCharacterMovement()->MaxWalkSpeed = SprintSpeed;
+}
+
+void ABlasterCharacter::SprintButtonReleased()
+{
+	GetCharacterMovement()->MaxWalkSpeed = BaseSpeed;
+}
+
 void ABlasterCharacter::AimButtonPressed()
 {
 	if(Combat)
@@ -257,6 +285,34 @@ void ABlasterCharacter::AimButtonReleased()
 	if(Combat)
 	{
 		Combat->SetAiming(false);
+	}
+}
+
+void ABlasterCharacter::FireButtonPressed()
+{
+	if(Combat)
+	{
+		Combat->FireButtonPressed(true);
+	}
+}
+
+void ABlasterCharacter::FireButtonReleased()
+{
+	if(Combat)
+	{
+		Combat->FireButtonPressed(false);
+	}
+}
+
+void ABlasterCharacter::Jump()
+{
+	if(bIsCrouched)
+	{
+		UnCrouch();
+	}
+	else
+	{
+		Super::Jump();
 	}
 }
 
@@ -274,7 +330,10 @@ void ABlasterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 		PlayerInputC->BindAction(PlayerCrouch,ETriggerEvent::Started,this,&ABlasterCharacter::CrouchButtonPressed);
 		PlayerInputC->BindAction(PlayerAim,ETriggerEvent::Started,this,&ABlasterCharacter::AimButtonPressed);
 		PlayerInputC->BindAction(PlayerAim,ETriggerEvent::Completed,this,&ABlasterCharacter::AimButtonReleased);
-
+		PlayerInputC->BindAction(PlayerSprint,ETriggerEvent::Started,this,&ABlasterCharacter::SprintButtonPressed);
+		PlayerInputC->BindAction(PlayerSprint,ETriggerEvent::Completed,this,&ABlasterCharacter::SprintButtonReleased);
+		PlayerInputC->BindAction(PlayerFire,ETriggerEvent::Started,this,&ABlasterCharacter::FireButtonPressed);
+		PlayerInputC->BindAction(PlayerFire,ETriggerEvent::Completed,this,&ABlasterCharacter::FireButtonReleased);
 	}
 }
 

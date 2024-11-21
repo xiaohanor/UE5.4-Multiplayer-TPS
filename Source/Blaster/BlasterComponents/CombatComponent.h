@@ -22,6 +22,7 @@ public:
 	
 	void EquipWeapon(AWeapon* WeaponToEquip);
 
+
 protected:
 	virtual void BeginPlay() override;
 	void SetAiming(bool bIsAiming);
@@ -31,6 +32,16 @@ protected:
 
 	UFUNCTION()
 	void OnRep_EquippedWeapon();
+
+	void FireButtonPressed(bool bPressed);
+
+	UFUNCTION(Server,Reliable)
+	void ServerFire();
+
+	UFUNCTION(NetMulticast,Reliable)
+	void MulticastFire();
+
+	void TraceUnderCrosshair(FHitResult& TraceHitResult);
 
 private:
 	TObjectPtr<ABlasterCharacter> Character;
@@ -42,9 +53,12 @@ private:
 	bool bAiming;
 
 	UPROPERTY(EditAnywhere)
-	float BaseSpeed;
-	UPROPERTY(EditAnywhere)
 	float AimSpeed;
+
+	bool bFireButtonPressed;
+
+	FVector HitTarget;
+
 public:	
 
 		

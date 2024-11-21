@@ -28,9 +28,10 @@ public:
 	// Sets default values for this actor's properties
 	AWeapon();
 	virtual void Tick(float DeltaTime) override;
+	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
 
 	void ShowPickUpWidget(bool bShow);
-	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
+	virtual void Fire(const FVector& HitTarget);
 
 protected:
 	virtual void BeginPlay() override;
@@ -55,6 +56,9 @@ private:
 
 	UPROPERTY(VisibleAnywhere,Category="Weapon Properties")
 	TObjectPtr<UWidgetComponent> PickUpWidget;
+
+	UPROPERTY(EditAnywhere,Category="Weapon Properties")
+	TObjectPtr<UAnimationAsset> FireAnimation;
 
 
 public:

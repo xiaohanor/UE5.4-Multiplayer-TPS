@@ -27,6 +27,9 @@ public:
 
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
 	virtual void PostInitializeComponents() override;
+
+	void PlayerFireMontage(bool bAiming);
+
 	
 protected:
 	virtual void BeginPlay() override;
@@ -72,15 +75,29 @@ private:
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="PlayerInput",meta=(AllowPrivateAccess="true"))
 	TObjectPtr <UInputAction> PlayerCrouch;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="PlayerInput",meta=(AllowPrivateAccess="true"))
+	TObjectPtr <UInputAction> PlayerSprint;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="PlayerInput",meta=(AllowPrivateAccess="true"))
 	TObjectPtr <UInputAction> PlayerAim;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="PlayerInput",meta=(AllowPrivateAccess="true"))
+	TObjectPtr <UInputAction> PlayerFire;
 
 	//玩家输入函数
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);
 	void EquipButtonPressed();
 	void CrouchButtonPressed();
+	void SprintButtonPressed();
+	void SprintButtonReleased();
 	void AimButtonPressed();
 	void AimButtonReleased();
+	void FireButtonPressed();
+	void FireButtonReleased();
+	virtual void Jump() override;
+
+	UPROPERTY(EditAnywhere)
+	float SprintSpeed;
+	UPROPERTY(EditAnywhere)
+	float BaseSpeed;
 
 	float AO_Yaw;
 	float InterpAO_Yaw;
@@ -88,6 +105,9 @@ private:
 	FRotator StartingAimRotation;
 
 	ETurningInPlace TurningInPlace;
+
+	UPROPERTY(EditAnywhere,Category="Combat")
+	TObjectPtr<UAnimMontage> FireWeaponMontage;
 
 	
 public:
@@ -99,6 +119,7 @@ public:
 	FORCEINLINE float GetAOYaw() const { return AO_Yaw; }
 	FORCEINLINE float GetAOPitch() const { return AO_Pitch; }
 	FORCEINLINE ETurningInPlace GetTurningInPlace() const { return TurningInPlace; }
+	FORCEINLINE float GetBaseSpeed() const { return BaseSpeed; }
 
 
 };
