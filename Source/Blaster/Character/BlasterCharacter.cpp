@@ -42,6 +42,10 @@ ABlasterCharacter::ABlasterCharacter()
 	//关闭摄像机和角色的碰撞
 	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Camera,ECR_Ignore);
 	GetMesh()->SetCollisionResponseToChannel(ECC_Camera,ECR_Ignore);
+
+	TurningInPlace = ETurningInPlace::ETIP_NotTurning;
+	NetUpdateFrequency = 66.f;
+	MinNetUpdateFrequency = 33.f;
 }
 
 void ABlasterCharacter::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
@@ -98,16 +102,22 @@ void ABlasterCharacter::AimOffset(float DeltaTime)
 
 	if(Speed ==0.f && !bIsInAir) //站立静止不动时
 	{
-		FRotator CurrentAimRotation = FRotator(0,GetControlRotation().Yaw,0);
+		FRotator CurrentAimRotation = FRotator(0,GetBaseAimRotation().Yaw,0);
 		FRotator DeltaAimRotaion = UKismetMathLibrary::NormalizedDeltaRotator(CurrentAimRotation,StartingAimRotation);
 		AO_Yaw = DeltaAimRotaion.Yaw;
-		bUseControllerRotationYaw = false;
+		if (TurningInPlace == ETurningInPlace::ETIP_NotTurning)
+		{
+			InterpAO_Yaw = AO_Yaw;
+		}
+		bUseControllerRotationYaw = true;
+		TurnInPlcae(DeltaTime);
 	}
 	if(Speed>0.f || bIsInAir) //跑或跳时
 	{
-		StartingAimRotation = FRotator(0,GetControlRotation().Yaw,0);
+		StartingAimRotation = FRotator(0,GetBaseAimRotation().Yaw,0);
 		AO_Yaw = 0.f;
 		bUseControllerRotationYaw = true;
+		TurningInPlace = ETurningInPlace::ETIP_NotTurning;
 	}
 	
 	AO_Pitch = GetBaseAimRotation().Pitch;
@@ -117,6 +127,28 @@ void ABlasterCharacter::AimOffset(float DeltaTime)
 		FVector2D InRange(270.f,360.f);
 		FVector2D OutRange(-90.f,0.f);
 		AO_Pitch=FMath::GetMappedRangeValueClamped(InRange,OutRange,AO_Pitch);
+	}
+}
+
+void ABlasterCharacter::TurnInPlcae(float DeltaTime)
+{
+	if(AO_Yaw>90.f)
+	{
+		TurningInPlace = ETurningInPlace::ETIP_Right;
+	}
+	else if(AO_Yaw<-90.f)
+	{
+		TurningInPlace = ETurningInPlace::ETIP_Left;
+	}
+	if(TurningInPlace != ETurningInPlace::ETIP_NotTurning)
+	{
+		InterpAO_Yaw = FMath::FInterpTo(InterpAO_Yaw,0.f,DeltaTime,6.f);
+		AO_Yaw = InterpAO_Yaw;
+		if(FMath::Abs(AO_Yaw)<15.f)
+		{
+			TurningInPlace = ETurningInPlace::ETIP_NotTurning;
+			StartingAimRotation = FRotator(0,GetBaseAimRotation().Yaw,0);
+		}
 	}
 }
 

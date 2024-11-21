@@ -35,6 +35,7 @@ void UBlasterAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	EquippedWeapon = BlasterCharacter->GetEquippedWeapon();
 	bIsCrouched = BlasterCharacter->bIsCrouched;
 	bIsAiming = BlasterCharacter->IsAiming();
+	TurningInPlace = BlasterCharacter->GetTurningInPlace();
 
 	// 计算横向移动动画的Yaw Offset
 	FRotator AimRotation = BlasterCharacter->GetBaseAimRotation();
@@ -63,5 +64,4 @@ void UBlasterAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 		LeftHandTransform.SetLocation(OutPosition);
 		LeftHandTransform.SetRotation(FQuat(OutRotation));
 	}
-	
 }

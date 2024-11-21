@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Animation/AnimInstance.h"
+#include  "Blaster/BlasterTypes/TurningInPlace.h"
 #include "BlasterAnimInstance.generated.h"
 
 class AWeapon;
@@ -19,7 +20,7 @@ class BLASTER_API UBlasterAnimInstance : public UAnimInstance
 public:
 	virtual void NativeInitializeAnimation() override;
 	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
-	
+
 private:
 	UPROPERTY(BlueprintReadOnly, Category="Character", meta=(AllowPrivateAccess="true"))
 	TObjectPtr<ABlasterCharacter> BlasterCharacter;
@@ -58,6 +59,9 @@ private:
 
 	UPROPERTY(BlueprintReadOnly, Category="Character", meta=(AllowPrivateAccess="true"))
 	FTransform LeftHandTransform;
+
+	UPROPERTY(BlueprintReadOnly, Category="Character", meta=(AllowPrivateAccess="true"))
+	ETurningInPlace TurningInPlace;
 
 
 	FRotator CharacterRotationLastFrame;
