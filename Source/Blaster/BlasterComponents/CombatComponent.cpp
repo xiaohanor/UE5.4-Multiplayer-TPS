@@ -62,6 +62,26 @@ void UCombatComponent::SetHUDCrosshairs(float DeltaTime)
                 HUDPackage.CrossHairTop = nullptr;
                 HUDPackage.CrossHairBottom = nullptr;
 			}
+			//计算准星扩散
+
+			//[0,最大速度] -> [0,1]
+			FVector2d WalkSpeedRange(0.f,Character->GetSprintSpeed());
+			FVector2d VelocityMultiplierRange(0.f,1.f);
+			FVector Velocity = Character->GetVelocity();
+			Velocity.Y = 0.f;
+
+			CrossHairVelocityFactor=FMath::GetMappedRangeValueClamped(WalkSpeedRange,VelocityMultiplierRange,Velocity.Size());
+			if(Character->GetCharacterMovement()->IsFalling())
+			{
+				CrossHairInAirFactor = FMath::FInterpTo(CrossHairInAirFactor,2.25f,DeltaTime,2.25f);
+			}
+			else
+			{
+				CrossHairInAirFactor = FMath::FInterpTo(CrossHairInAirFactor,0.f,DeltaTime,30.f);
+			}
+			
+			HUDPackage.CrossHairSpread = CrossHairVelocityFactor+CrossHairInAirFactor;
+			
 			HUD->SetHUDPackage(HUDPackage);
 		}
 	}

@@ -63,6 +63,12 @@ private:
 
 	bool bFireButtonPressed;
 
+	/**
+	* HUD 和准星
+	*/
+	float CrossHairVelocityFactor;
+	float CrossHairInAirFactor;
+
 public:	
 
 		

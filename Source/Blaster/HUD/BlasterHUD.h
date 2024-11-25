@@ -16,6 +16,8 @@ public:
 	TObjectPtr<UTexture2D> CrossHairRight;
 	TObjectPtr<UTexture2D> CrossHairTop;
 	TObjectPtr<UTexture2D> CrossHairBottom;
+
+	float CrossHairSpread;
 };
 
 UCLASS()
@@ -29,7 +31,10 @@ public:
 private:
 	FHUDPackage HUDPackage;
 
-	void DrawCrosshair(UTexture2D* Texture, FVector2d ViewportCenter);
+	void DrawCrosshair(UTexture2D* Texture, FVector2d ViewportCenter,FVector2d Spread);
+
+	UPROPERTY(EditAnywhere)
+	float CrosshairSpreadMax = 16.f;
 
 public:
 	FORCEINLINE void SetHUDPackage(const FHUDPackage& Package) { HUDPackage = Package; }

@@ -14,34 +14,44 @@ void ABlasterHUD::DrawHUD()
 		GEngine->GameViewport->GetViewportSize(ViewportSize);
 		const FVector2d ViewportCenter(ViewportSize.X / 2.f, ViewportSize.Y / 2.f);
 
+		float SpreadScaled = HUDPackage.CrossHairSpread * CrosshairSpreadMax;
+		
 		if(HUDPackage.CrossHairCenter)
 		{
-			DrawCrosshair(HUDPackage.CrossHairCenter, ViewportCenter);
+			FVector2d Spread(0.f,.0f);
+			DrawCrosshair(HUDPackage.CrossHairCenter, ViewportCenter,Spread);
 		}
 		if(HUDPackage.CrossHairLeft)
 		{
-			DrawCrosshair(HUDPackage.CrossHairLeft, ViewportCenter);
+			FVector2d Spread(-SpreadScaled,0.f);
+			DrawCrosshair(HUDPackage.CrossHairLeft, ViewportCenter,Spread);
 		}
 		if(HUDPackage.CrossHairRight)
 		{
-			DrawCrosshair(HUDPackage.CrossHairRight, ViewportCenter);
+			FVector2d Spread(SpreadScaled,0.f);
+			DrawCrosshair(HUDPackage.CrossHairRight, ViewportCenter,Spread);
 		}
 		if(HUDPackage.CrossHairTop)
 		{
-			DrawCrosshair(HUDPackage.CrossHairTop, ViewportCenter);
+			FVector2d Spread(0.f,-SpreadScaled);	//UV坐标系Y轴向下
+			DrawCrosshair(HUDPackage.CrossHairTop, ViewportCenter,Spread);
 		}
 		if(HUDPackage.CrossHairBottom)
 		{
-			DrawCrosshair(HUDPackage.CrossHairBottom, ViewportCenter);
+			FVector2d Spread(0.f,SpreadScaled);
+			DrawCrosshair(HUDPackage.CrossHairBottom, ViewportCenter,Spread);
 		}
 	}
 }
 
-void ABlasterHUD::DrawCrosshair(UTexture2D* Texture, FVector2d ViewportCenter)
+void ABlasterHUD::DrawCrosshair(UTexture2D* Texture, FVector2d ViewportCenter,FVector2d Spread)
 {
 	const float TextureWidth = Texture->GetSizeX();
 	const float TextureHeight = Texture->GetSizeY();
-	const FVector2d TextureDrawPoint(ViewportCenter.X - TextureWidth / 2.f, ViewportCenter.Y - TextureHeight / 2.f);
+	const FVector2d TextureDrawPoint(
+		(ViewportCenter.X - TextureWidth / 2.f)+Spread.X,
+		(ViewportCenter.Y - TextureHeight / 2.f)+Spread.Y
+		);
 
 	DrawTexture(
 		Texture,
@@ -55,7 +65,5 @@ void ABlasterHUD::DrawCrosshair(UTexture2D* Texture, FVector2d ViewportCenter)
 		1.f,
 		FLinearColor::White
 		);
-
-	UE_LOG(LogTemp, Warning, TEXT("DrawHUD"));
-
+	
 }

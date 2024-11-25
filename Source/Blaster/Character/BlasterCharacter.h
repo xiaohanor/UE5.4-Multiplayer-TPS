@@ -120,6 +120,7 @@ public:
 	FORCEINLINE float GetAOPitch() const { return AO_Pitch; }
 	FORCEINLINE ETurningInPlace GetTurningInPlace() const { return TurningInPlace; }
 	FORCEINLINE float GetBaseSpeed() const { return BaseSpeed; }
+	FORCEINLINE float GetSprintSpeed() const { return SprintSpeed; }
 
 
 };
