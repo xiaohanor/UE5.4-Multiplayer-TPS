@@ -33,6 +33,22 @@ public:
 	void ShowPickUpWidget(bool bShow);
 	virtual void Fire(const FVector& HitTarget);
 
+	/*准星纹理*/
+	UPROPERTY(EditAnywhere,Category="Crosshair")
+	TObjectPtr<UTexture2D> CrossHairCenter;
+
+	UPROPERTY(EditAnywhere,Category="Crosshair")
+	TObjectPtr<UTexture2D> CrossHairLeft;
+
+	UPROPERTY(EditAnywhere,Category="Crosshair")
+	TObjectPtr<UTexture2D> CrossHairRight;
+
+	UPROPERTY(EditAnywhere,Category="Crosshair")
+	TObjectPtr<UTexture2D> CrossHairTop;
+
+	UPROPERTY(EditAnywhere,Category="Crosshair")
+	TObjectPtr<UTexture2D> CrossHairBottom;
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -59,6 +75,9 @@ private:
 
 	UPROPERTY(EditAnywhere,Category="Weapon Properties")
 	TObjectPtr<UAnimationAsset> FireAnimation;
+
+	UPROPERTY(EditAnywhere, Category="Weapon Properties")
+	TSubclassOf<class ACasing> CasingClass;
 
 
 public:

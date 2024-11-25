@@ -7,6 +7,8 @@
 #include "CombatComponent.generated.h"
 
 
+class ABlasterHUD;
+class ABlasterPlayerController;
 class AWeapon;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -36,15 +38,19 @@ protected:
 	void FireButtonPressed(bool bPressed);
 
 	UFUNCTION(Server,Reliable)
-	void ServerFire();
+	void ServerFire(const FVector_NetQuantize& TraceHitTarget);
 
 	UFUNCTION(NetMulticast,Reliable)
-	void MulticastFire();
+	void MulticastFire(const FVector_NetQuantize& TraceHitTarget);
 
 	void TraceUnderCrosshair(FHitResult& TraceHitResult);
 
+	void SetHUDCrosshairs(float DeltaTime);
+
 private:
 	TObjectPtr<ABlasterCharacter> Character;
+	TObjectPtr<ABlasterPlayerController> Controller;
+	TObjectPtr<ABlasterHUD> HUD;
 	
 	UPROPERTY(ReplicatedUsing=OnRep_EquippedWeapon)
 	TObjectPtr<AWeapon> EquippedWeapon;
@@ -56,8 +62,6 @@ private:
 	float AimSpeed;
 
 	bool bFireButtonPressed;
-
-	FVector HitTarget;
 
 public:	
 
