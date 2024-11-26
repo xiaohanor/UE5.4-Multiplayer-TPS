@@ -49,6 +49,63 @@ void UCombatComponent::TickComponent(float DeltaTime, ELevelTick TickType,
 	}
 }
 
+void UCombatComponent::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(UCombatComponent, EquippedWeapon);
+	DOREPLIFETIME(UCombatComponent, bAiming);
+}
+
+void UCombatComponent::TraceUnderCrosshair(FHitResult& TraceHitResult)
+{
+	FVector2d ViewportSize;
+	if (GEngine && GEngine->GameViewport)
+	{
+		GEngine->GameViewport->GetViewportSize(ViewportSize);
+	}
+
+	FVector2d CrossHairLocation(ViewportSize.X / 2.f, ViewportSize.Y / 2.f);
+	FVector CrossHairWorldPosition;
+	FVector CrossHairWorldDirection;
+	bool bScreenToWorld = UGameplayStatics::DeprojectScreenToWorld(
+		UGameplayStatics::GetPlayerController(this, 0),
+		CrossHairLocation,
+		CrossHairWorldPosition,
+		CrossHairWorldDirection);
+
+	if (bScreenToWorld)
+	{
+		FVector Start = CrossHairWorldPosition;
+		if (Character)
+		{
+			float DistanceToCharacter = (Character->GetActorLocation() - Start).Size();
+			Start += CrossHairWorldDirection * (DistanceToCharacter + 50.f);
+		}
+		FVector End = Start + CrossHairWorldDirection * TRACE_LENGHT;
+
+		GetWorld()->LineTraceSingleByChannel(
+			TraceHitResult,
+			Start,
+			End,
+			ECollisionChannel::ECC_Visibility);
+
+		if (!TraceHitResult.bBlockingHit)
+		{
+			TraceHitResult.ImpactPoint = End;
+		}
+
+		if (TraceHitResult.GetActor() && TraceHitResult.GetActor()->Implements<UInteractWithCrossHairInterface>())
+		{
+			HUDPackage.CrossHairColor = FLinearColor::Red;
+		}
+		else
+		{
+			HUDPackage.CrossHairColor = FLinearColor::White;
+		}
+	}
+}
+
 void UCombatComponent::SetHUDCrosshairs(float DeltaTime)
 {
 	if (Character == nullptr || Character->Controller == nullptr) return;
@@ -152,12 +209,38 @@ void UCombatComponent::ServerSetAiming_Implementation(bool bIsAiming)
 	}
 }
 
-void UCombatComponent::OnRep_EquippedWeapon()
+void UCombatComponent::Fire()
 {
-	if (EquippedWeapon && Character)
+	if (bCanFire && EquippedWeapon)
 	{
-		Character->GetCharacterMovement()->bOrientRotationToMovement = false;
-		Character->bUseControllerRotationYaw = true;
+		bCanFire = false;
+		ServerFire(HitTarget);
+		if (EquippedWeapon)
+		{
+			CrossHairShootingFactor = .75f;
+		}
+		StartFireTimer();
+	}
+}
+
+void UCombatComponent::StartFireTimer()
+{
+	if(EquippedWeapon==nullptr||Character==nullptr) return;
+	Character->GetWorldTimerManager().SetTimer(
+		FireTimer,
+		this,
+		&UCombatComponent::FireTImerFinished,
+		EquippedWeapon->FireDelay
+		);
+}
+
+void UCombatComponent::FireTImerFinished()
+{
+	if(EquippedWeapon==nullptr) return;
+	bCanFire = true;
+	if(bFireButtonPressed&&EquippedWeapon->bAutomatic)
+	{
+		Fire();	
 	}
 }
 
@@ -166,63 +249,7 @@ void UCombatComponent::FireButtonPressed(bool bPressed)
 	bFireButtonPressed = bPressed;
 	if (bFireButtonPressed)
 	{
-		FHitResult HitResult;
-		TraceUnderCrosshair(HitResult);
-		ServerFire(HitResult.ImpactPoint);
-
-		if (EquippedWeapon)
-		{
-			CrossHairShootingFactor = 0.7f;
-		}
-	}
-}
-
-void UCombatComponent::TraceUnderCrosshair(FHitResult& TraceHitResult)
-{
-	FVector2d ViewportSize;
-	if (GEngine && GEngine->GameViewport)
-	{
-		GEngine->GameViewport->GetViewportSize(ViewportSize);
-	}
-
-	FVector2d CrossHairLocation(ViewportSize.X / 2.f, ViewportSize.Y / 2.f);
-	FVector CrossHairWorldPosition;
-	FVector CrossHairWorldDirection;
-	bool bScreenToWorld = UGameplayStatics::DeprojectScreenToWorld(
-		UGameplayStatics::GetPlayerController(this, 0),
-		CrossHairLocation,
-		CrossHairWorldPosition,
-		CrossHairWorldDirection);
-
-	if (bScreenToWorld)
-	{
-		FVector Start = CrossHairWorldPosition;
-		if (Character)
-		{
-			float DistanceToCharacter = (Character->GetActorLocation() - Start).Size();
-			Start += CrossHairWorldDirection * (DistanceToCharacter + 50.f);
-		}
-		FVector End = Start + CrossHairWorldDirection * TRACE_LENGHT;
-
-		GetWorld()->LineTraceSingleByChannel(
-			TraceHitResult,
-			Start,
-			End,
-			ECollisionChannel::ECC_Visibility);
-
-		if (!TraceHitResult.bBlockingHit)
-		{
-			TraceHitResult.ImpactPoint = End;
-		}
-
-		if (TraceHitResult.GetActor() && TraceHitResult.GetActor()->Implements<UInteractWithCrossHairInterface>())
-		{
-			HUDPackage.CrossHairColor = FLinearColor::Red;
-		}
-		else
-		{
-			HUDPackage.CrossHairColor = FLinearColor::White;
-		}
+		Fire();
 	}
 }
 
@@ -241,14 +268,6 @@ void UCombatComponent::MulticastFire_Implementation(const FVector_NetQuantize& T
 	}
 }
 
-void UCombatComponent::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
-{
-	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-
-	DOREPLIFETIME(UCombatComponent, EquippedWeapon);
-	DOREPLIFETIME(UCombatComponent, bAiming);
-}
-
 void UCombatComponent::EquipWeapon(AWeapon* WeaponToEquip)
 {
 	if (Character == nullptr || WeaponToEquip == nullptr) return;
@@ -262,6 +281,15 @@ void UCombatComponent::EquipWeapon(AWeapon* WeaponToEquip)
 		}
 		EquippedWeapon->SetOwner(Character);
 
+		Character->GetCharacterMovement()->bOrientRotationToMovement = false;
+		Character->bUseControllerRotationYaw = true;
+	}
+}
+
+void UCombatComponent::OnRep_EquippedWeapon()
+{
+	if (EquippedWeapon && Character)
+	{
 		Character->GetCharacterMovement()->bOrientRotationToMovement = false;
 		Character->bUseControllerRotationYaw = true;
 	}

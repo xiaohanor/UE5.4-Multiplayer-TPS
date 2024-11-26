@@ -34,6 +34,7 @@ protected:
 
 	UFUNCTION()
 	void OnRep_EquippedWeapon();
+	void Fire();
 
 	void FireButtonPressed(bool bPressed);
 
@@ -73,9 +74,7 @@ private:
 
 	FHUDPackage HUDPackage;
 
-
 	/*瞄准和FOV*/
-
 	float DefaultFOV;
 	float CurrentFOV;
 	
@@ -86,6 +85,15 @@ private:
 	float ZoomInterpSpeed = 20.f;
 
 	void InterpFOV(float DeltaTime);
+
+	/*自动开火*/
+	FTimerHandle FireTimer;
+	
+	void StartFireTimer();
+	void FireTImerFinished();
+	
+	bool bCanFire=true;
+	
 public:	
 
 		
