@@ -15,6 +15,7 @@
 #include "Kismet/KismetMathLibrary.h"
 #include "Net/UnrealNetwork.h"
 #include "Blaster/Blaster.h"
+#include "Blaster/PlayerController/BlasterPlayerController.h"
 
 ABlasterCharacter::ABlasterCharacter()
 {
@@ -62,6 +63,7 @@ void ABlasterCharacter::GetLifetimeReplicatedProps(TArray<class FLifetimePropert
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
 	DOREPLIFETIME_CONDITION(ABlasterCharacter, OverlappingWeapon, COND_OwnerOnly);
+	DOREPLIFETIME(ABlasterCharacter, Health);
 }
 
 void ABlasterCharacter::PostInitializeComponents()
@@ -84,19 +86,25 @@ void ABlasterCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	//注册增强输入子系统
-	APlayerController* PlayerControl = Cast<APlayerController>(Controller);
-	if (PlayerControl)
+	BlasterPlayerController = Cast<ABlasterPlayerController>(Controller);
+	if (BlasterPlayerController)
 	{
+		//注册增强输入子系统
 		UEnhancedInputLocalPlayerSubsystem* LocalSS = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(
-			PlayerControl->GetLocalPlayer());
+			BlasterPlayerController->GetLocalPlayer());
 		if (LocalSS)
 		{
 			LocalSS->AddMappingContext(PlayerInputMapping, 0);
 		}
+		
 		//设置摄像机视角限制
-		PlayerControl->PlayerCameraManager->ViewPitchMax = 400.f;
-		PlayerControl->PlayerCameraManager->ViewPitchMin = -40.f;
+		BlasterPlayerController->PlayerCameraManager->ViewPitchMax = 400.f;
+		BlasterPlayerController->PlayerCameraManager->ViewPitchMin = -40.f;
+	}
+	UpdateHUDHealth();
+	if (HasAuthority())
+	{
+		OnTakeAnyDamage.AddDynamic(this,&ThisClass::ReciveDamage);
 	}
 }
 
@@ -224,6 +232,23 @@ void ABlasterCharacter::SimProxiesTurn()
 	TurningInPlace = ETurningInPlace::ETIP_NotTurning;
 }
 
+void ABlasterCharacter::ReciveDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType,
+	AController* InstigatedBy, AActor* DamageCauser)
+{
+	Health=FMath::Clamp(Health-Damage,0.f,MaxHealth);
+	UpdateHUDHealth();
+	PlayerHitReactMontage();
+}
+
+void ABlasterCharacter::UpdateHUDHealth()
+{
+	BlasterPlayerController = BlasterPlayerController == nullptr ? TObjectPtr<ABlasterPlayerController>(Cast<ABlasterPlayerController>(Controller)) : BlasterPlayerController;
+	if(BlasterPlayerController)
+	{
+		BlasterPlayerController->SetHUDHealth(Health,MaxHealth);
+	}
+}
+
 void ABlasterCharacter::PlayerFireMontage(bool bAiming)
 {
 	if (Combat == nullptr || Combat->EquippedWeapon == nullptr) return;
@@ -258,6 +283,12 @@ float ABlasterCharacter::CalculateSpeed()
 	return Velocity.Size();
 }
 
+void ABlasterCharacter::OnRep_Health()
+{
+	UpdateHUDHealth();
+	PlayerHitReactMontage();
+}
+
 void ABlasterCharacter::SetOverlappingWeapon(AWeapon* Weapon)
 {
 	if (OverlappingWeapon)
@@ -286,11 +317,6 @@ void ABlasterCharacter::OnRep_OverlappingWeapon(AWeapon* LastWeapon)
 	{
 		LastWeapon->ShowPickUpWidget(false);
 	}
-}
-
-void ABlasterCharacter::MutilcastHit_Implementation()
-{
-	PlayerHitReactMontage();
 }
 
 void ABlasterCharacter::HideCameraIfCharacterClose()

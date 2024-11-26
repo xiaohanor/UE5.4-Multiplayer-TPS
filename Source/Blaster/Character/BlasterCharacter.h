@@ -9,6 +9,7 @@
 #include "Blaster/Interfaces/InteractWithCrossHairInterface.h"
 #include "BlasterCharacter.generated.h"
 
+class ABlasterPlayerController;
 class UCombatComponent;
 class AWeapon;
 class UWidgetComponent;
@@ -33,11 +34,12 @@ public:
 	void PlayerFireMontage(bool bAiming);
 	void PlayerHitReactMontage();
 
-	UFUNCTION(NetMulticast,Unreliable)
-	void MutilcastHit();
-
 	virtual void OnRep_ReplicatedMovement() override;
+	
+	UFUNCTION()
+	void ReciveDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser);
 
+	void UpdateHUDHealth();
 	
 protected:
 	virtual void BeginPlay() override;
@@ -45,6 +47,8 @@ protected:
 	void AimOffset(float DeltaTime);
 	void TurnInPlcae(float DeltaTime);
 	void SimProxiesTurn();
+	
+
 
 private:
 	UPROPERTY(VisibleAnywhere, Category="Camera")
@@ -72,6 +76,8 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	float CameraThreshold =200.f;
+
+	TObjectPtr<ABlasterPlayerController> BlasterPlayerController;
 	
 	//玩家输入映射
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="PlayerInput",meta=(AllowPrivateAccess="true"))
@@ -134,6 +140,15 @@ private:
 	UPROPERTY(EditAnywhere,Category="Combat")
 	TObjectPtr<UAnimMontage> HitReactMontage;
 
+	/*玩家生命值*/
+	UPROPERTY(EditAnywhere, Category = "Player Stats")
+	float MaxHealth = 100.f;
+	
+	UPROPERTY(ReplicatedUsing = OnRep_Health, VisibleAnywhere, Category = "Player Stats")
+	float Health = 100.f;
+	
+	UFUNCTION()
+	void OnRep_Health();
 	
 public:
 	void SetOverlappingWeapon(AWeapon* Weapon);

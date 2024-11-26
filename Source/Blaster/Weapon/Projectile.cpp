@@ -55,11 +55,6 @@ void AProjectile::BeginPlay()
 void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent,
 	FVector NormalImpulse, const FHitResult& Hit)
 {
-	ABlasterCharacter* BlasterCharacter = Cast<ABlasterCharacter>(OtherActor);
-	if(BlasterCharacter)
-	{
-		BlasterCharacter->MutilcastHit();
-	}
 	Destroy();
 }
 
