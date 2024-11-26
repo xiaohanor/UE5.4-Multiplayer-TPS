@@ -23,6 +23,7 @@ class BLASTER_API ABlasterCharacter : public ACharacter,public IInteractWithCros
 public:
 	ABlasterCharacter();
 	virtual void Tick(float DeltaTime) override;
+	void CalculateAO_Pitch();
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
@@ -30,6 +31,12 @@ public:
 	virtual void PostInitializeComponents() override;
 
 	void PlayerFireMontage(bool bAiming);
+	void PlayerHitReactMontage();
+
+	UFUNCTION(NetMulticast,Unreliable)
+	void MutilcastHit();
+
+	virtual void OnRep_ReplicatedMovement() override;
 
 	
 protected:
@@ -37,6 +44,7 @@ protected:
 
 	void AimOffset(float DeltaTime);
 	void TurnInPlcae(float DeltaTime);
+	void SimProxiesTurn();
 
 private:
 	UPROPERTY(VisibleAnywhere, Category="Camera")
@@ -110,10 +118,21 @@ private:
 	float AO_Pitch;
 	FRotator StartingAimRotation;
 
+	bool bRotateRootBone;
+	float TurnThreshold = 0.5f;
+	FRotator ProxyRotationLastFrame;
+	FRotator ProxyRotation;
+	float ProxyYaw;
+	float TimeSinceLastMovementReplication;
+	float CalculateSpeed();
+
 	ETurningInPlace TurningInPlace;
 
 	UPROPERTY(EditAnywhere,Category="Combat")
 	TObjectPtr<UAnimMontage> FireWeaponMontage;
+	
+	UPROPERTY(EditAnywhere,Category="Combat")
+	TObjectPtr<UAnimMontage> HitReactMontage;
 
 	
 public:
@@ -129,6 +148,6 @@ public:
 	FORCEINLINE float GetSprintSpeed() const { return SprintSpeed; }
 	FVector GetHitTarget() const;
 	FORCEINLINE UCameraComponent* GetFollowCamera() const { return FollowCamera; }
-
+	FORCEINLINE bool ShouldRotateRootBone() const { return bRotateRootBone; }
 
 };
