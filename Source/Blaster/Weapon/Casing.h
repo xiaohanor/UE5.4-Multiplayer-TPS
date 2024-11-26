@@ -29,7 +29,7 @@ private:
 	float ShellEjectImpulse;
 
 	UPROPERTY(EditAnywhere)
-	TObjectPtr<USoundCue> ShellSound;
+	USoundCue* ShellSound;
 
 	bool bIsSoundPlaying=false;
 };

@@ -3,11 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Blaster/HUD/BlasterHUD.h"
 #include "Components/ActorComponent.h"
 #include "CombatComponent.generated.h"
 
 
-class ABlasterHUD;
 class ABlasterPlayerController;
 class AWeapon;
 
@@ -63,12 +63,29 @@ private:
 
 	bool bFireButtonPressed;
 
-	/**
-	* HUD 和准星
-	*/
+	/*HUD和准星*/
 	float CrossHairVelocityFactor;
 	float CrossHairInAirFactor;
+	float CrossHairAimFactor;
+	float CrossHairShootingFactor;
 
+	FVector HitTarget;
+
+	FHUDPackage HUDPackage;
+
+
+	/*瞄准和FOV*/
+
+	float DefaultFOV;
+	float CurrentFOV;
+	
+	UPROPERTY(EditAnywhere,Category="FOV")
+	float ZoomedFOV = 30.f;
+	
+	UPROPERTY(EditAnywhere,Category="FOV")
+	float ZoomInterpSpeed = 20.f;
+
+	void InterpFOV(float DeltaTime);
 public:	
 
 		

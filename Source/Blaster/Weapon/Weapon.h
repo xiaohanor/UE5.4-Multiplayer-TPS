@@ -49,6 +49,13 @@ public:
 	UPROPERTY(EditAnywhere,Category="Crosshair")
 	TObjectPtr<UTexture2D> CrossHairBottom;
 
+	/*瞄准时缩放FOV*/
+	UPROPERTY(EditAnywhere,Category="FOV")
+	float ZoomedFOV = 30.f;
+	
+	UPROPERTY(EditAnywhere,Category="FOV")
+	float ZoomInterpSpeed = 20.f;
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -84,4 +91,6 @@ public:
 	void SetWeaponState(EWeaponState State);
 	FORCEINLINE TObjectPtr<USphereComponent> AreaSphereGetter() const { return AreaSphere; }
 	FORCEINLINE TObjectPtr<USkeletalMeshComponent> WeaponMeshGetter() const { return WeaponMesh; }
+	FORCEINLINE float GetZoomedFOV() const { return ZoomedFOV; }
+	FORCEINLINE float GetZoomInterpSpeed() const { return ZoomInterpSpeed; }
 };

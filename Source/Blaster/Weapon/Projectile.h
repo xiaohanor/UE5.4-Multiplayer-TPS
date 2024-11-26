@@ -8,6 +8,7 @@
 
 class UProjectileMovementComponent;
 class UBoxComponent;
+class USoundCue;
 
 UCLASS()
 class BLASTER_API AProjectile : public AActor
@@ -41,6 +42,6 @@ private:
 	TObjectPtr<UParticleSystem> ImpactParticle;
 
 	UPROPERTY(EditAnywhere)
-	TObjectPtr<USoundCue> ImpactSound;
+	USoundCue* ImpactSound;
 
 };

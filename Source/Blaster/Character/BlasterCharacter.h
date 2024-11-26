@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "EnhancedInput/Public/InputMappingContext.h"
 #include  "Blaster/BlasterTypes/TurningInPlace.h"
+#include "Blaster/Interfaces/InteractWithCrossHairInterface.h"
 #include "BlasterCharacter.generated.h"
 
 class UCombatComponent;
@@ -15,7 +16,7 @@ class UCameraComponent;
 class USpringArmComponent;
 
 UCLASS()
-class BLASTER_API ABlasterCharacter : public ACharacter
+class BLASTER_API ABlasterCharacter : public ACharacter,public IInteractWithCrossHairInterface
 {
 	GENERATED_BODY()
 
@@ -58,6 +59,11 @@ private:
 
 	UFUNCTION(Server,Reliable)
 	void ServerEquipButtonPressed();
+
+	void HideCameraIfCharacterClose();
+
+	UPROPERTY(EditAnywhere)
+	float CameraThreshold =200.f;
 	
 	//玩家输入映射
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="PlayerInput",meta=(AllowPrivateAccess="true"))
@@ -121,6 +127,8 @@ public:
 	FORCEINLINE ETurningInPlace GetTurningInPlace() const { return TurningInPlace; }
 	FORCEINLINE float GetBaseSpeed() const { return BaseSpeed; }
 	FORCEINLINE float GetSprintSpeed() const { return SprintSpeed; }
+	FVector GetHitTarget() const;
+	FORCEINLINE UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 
 
 };

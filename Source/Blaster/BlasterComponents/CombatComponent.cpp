@@ -4,9 +4,9 @@
 #include "CombatComponent.h"
 
 #include "Blaster/Character/BlasterCharacter.h"
-#include "Blaster/HUD/BlasterHUD.h"
 #include "Blaster/PlayerController/BlasterPlayerController.h"
 #include "Blaster/Weapon/Weapon.h"
+#include "Camera/CameraComponent.h"
 #include "Engine/SkeletalMeshSocket.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
@@ -22,31 +22,46 @@ UCombatComponent::UCombatComponent()
 void UCombatComponent::BeginPlay()
 {
 	Super::BeginPlay();
-	if(Character)
+	if (Character)
 	{
 		Character->GetCharacterMovement()->MaxWalkSpeed = Character->GetBaseSpeed();
+		if (Character->GetFollowCamera())
+		{
+			DefaultFOV = Character->GetFollowCamera()->FieldOfView;
+			CurrentFOV = DefaultFOV;
+		}
 	}
 }
 
 void UCombatComponent::TickComponent(float DeltaTime, ELevelTick TickType,
-									 FActorComponentTickFunction* ThisTickFunction)
+                                     FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-	SetHUDCrosshairs(DeltaTime);
+
+	if (Character && Character->IsLocallyControlled())
+	{
+		FHitResult HitResult;
+		TraceUnderCrosshair(HitResult);
+		HitTarget = HitResult.ImpactPoint;
+
+		SetHUDCrosshairs(DeltaTime);
+		InterpFOV(DeltaTime);
+	}
 }
 
 void UCombatComponent::SetHUDCrosshairs(float DeltaTime)
 {
-	if(Character==nullptr ||Character->Controller==nullptr) return;
+	if (Character == nullptr || Character->Controller == nullptr) return;
 
-	Controller = Controller==nullptr ? TObjectPtr<ABlasterPlayerController>(Cast<ABlasterPlayerController>(Character->Controller)) : Controller;
-	if(Controller)
+	Controller = Controller == nullptr
+		             ? TObjectPtr<ABlasterPlayerController>(Cast<ABlasterPlayerController>(Character->Controller))
+		             : Controller;
+	if (Controller)
 	{
-		HUD = HUD==nullptr ? TObjectPtr<ABlasterHUD>(Cast<ABlasterHUD>(Controller->GetHUD())) : HUD;
-		if(HUD)
+		HUD = HUD == nullptr ? TObjectPtr<ABlasterHUD>(Cast<ABlasterHUD>(Controller->GetHUD())) : HUD;
+		if (HUD)
 		{
-			FHUDPackage HUDPackage;
-			if(EquippedWeapon)
+			if (EquippedWeapon)
 			{
 				HUDPackage.CrossHairCenter = EquippedWeapon->CrossHairCenter;
 				HUDPackage.CrossHairLeft = EquippedWeapon->CrossHairLeft;
@@ -57,33 +72,64 @@ void UCombatComponent::SetHUDCrosshairs(float DeltaTime)
 			else
 			{
 				HUDPackage.CrossHairCenter = nullptr;
-                HUDPackage.CrossHairLeft = nullptr;
-                HUDPackage.CrossHairRight = nullptr;
-                HUDPackage.CrossHairTop = nullptr;
-                HUDPackage.CrossHairBottom = nullptr;
+				HUDPackage.CrossHairLeft = nullptr;
+				HUDPackage.CrossHairRight = nullptr;
+				HUDPackage.CrossHairTop = nullptr;
+				HUDPackage.CrossHairBottom = nullptr;
 			}
 			//计算准星扩散
 
 			//[0,最大速度] -> [0,1]
-			FVector2d WalkSpeedRange(0.f,Character->GetSprintSpeed());
-			FVector2d VelocityMultiplierRange(0.f,1.f);
+			FVector2d WalkSpeedRange(0.f, Character->GetSprintSpeed());
+			FVector2d VelocityMultiplierRange(0.f, 1.f);
 			FVector Velocity = Character->GetVelocity();
 			Velocity.Y = 0.f;
 
-			CrossHairVelocityFactor=FMath::GetMappedRangeValueClamped(WalkSpeedRange,VelocityMultiplierRange,Velocity.Size());
-			if(Character->GetCharacterMovement()->IsFalling())
+			CrossHairVelocityFactor = FMath::GetMappedRangeValueClamped(WalkSpeedRange, VelocityMultiplierRange,
+			                                                            Velocity.Size());
+			if (Character->GetCharacterMovement()->IsFalling())
 			{
-				CrossHairInAirFactor = FMath::FInterpTo(CrossHairInAirFactor,2.25f,DeltaTime,2.25f);
+				CrossHairInAirFactor = FMath::FInterpTo(CrossHairInAirFactor, 2.25f, DeltaTime, 2.25f);
 			}
 			else
 			{
-				CrossHairInAirFactor = FMath::FInterpTo(CrossHairInAirFactor,0.f,DeltaTime,30.f);
+				CrossHairInAirFactor = FMath::FInterpTo(CrossHairInAirFactor, 0.f, DeltaTime, 30.f);
 			}
-			
-			HUDPackage.CrossHairSpread = CrossHairVelocityFactor+CrossHairInAirFactor;
-			
+			if (bAiming)
+			{
+				CrossHairAimFactor = FMath::FInterpTo(CrossHairAimFactor, 0.58f, DeltaTime, 30.f);
+			}
+			else
+			{
+				CrossHairAimFactor = FMath::FInterpTo(CrossHairAimFactor, 0.f, DeltaTime, 30.f);
+			}
+			CrossHairShootingFactor = FMath::FInterpTo(CrossHairShootingFactor, 0.f, DeltaTime, 40.f);
+
+			HUDPackage.CrossHairSpread = 0.5f + CrossHairVelocityFactor + CrossHairInAirFactor - CrossHairAimFactor +
+				CrossHairShootingFactor;
+
 			HUD->SetHUDPackage(HUDPackage);
 		}
+	}
+}
+
+void UCombatComponent::InterpFOV(float DeltaTime)
+{
+	if (EquippedWeapon == nullptr) return;
+	if (bAiming)
+	{
+		//使用 EquippedWeapon->ZoomInterpSpeed 因为不同武器的瞄准速度可能不同
+		CurrentFOV = FMath::FInterpTo(CurrentFOV, EquippedWeapon->GetZoomedFOV(), DeltaTime,
+		                              EquippedWeapon->ZoomInterpSpeed);
+	}
+	else
+	{
+		//使用 ZoomInterpSpeed 保证取消瞄准时速度一致
+		CurrentFOV = FMath::FInterpTo(CurrentFOV, DefaultFOV, DeltaTime, ZoomInterpSpeed);
+	}
+	if (Character && Character->GetFollowCamera())
+	{
+		Character->GetFollowCamera()->SetFieldOfView(CurrentFOV);
 	}
 }
 
@@ -91,7 +137,7 @@ void UCombatComponent::SetAiming(bool bIsAiming)
 {
 	bAiming = bIsAiming;
 	ServerSetAiming(bIsAiming);
-	if(Character)
+	if (Character)
 	{
 		Character->GetCharacterMovement()->MaxWalkSpeed = bIsAiming ? AimSpeed : Character->GetBaseSpeed();
 	}
@@ -100,7 +146,7 @@ void UCombatComponent::SetAiming(bool bIsAiming)
 void UCombatComponent::ServerSetAiming_Implementation(bool bIsAiming)
 {
 	bAiming = bIsAiming;
-	if(Character)
+	if (Character)
 	{
 		Character->GetCharacterMovement()->MaxWalkSpeed = bIsAiming ? AimSpeed : Character->GetBaseSpeed();
 	}
@@ -108,7 +154,7 @@ void UCombatComponent::ServerSetAiming_Implementation(bool bIsAiming)
 
 void UCombatComponent::OnRep_EquippedWeapon()
 {
-	if(EquippedWeapon && Character)
+	if (EquippedWeapon && Character)
 	{
 		Character->GetCharacterMovement()->bOrientRotationToMovement = false;
 		Character->bUseControllerRotationYaw = true;
@@ -118,18 +164,23 @@ void UCombatComponent::OnRep_EquippedWeapon()
 void UCombatComponent::FireButtonPressed(bool bPressed)
 {
 	bFireButtonPressed = bPressed;
-	if(bFireButtonPressed)
+	if (bFireButtonPressed)
 	{
 		FHitResult HitResult;
 		TraceUnderCrosshair(HitResult);
 		ServerFire(HitResult.ImpactPoint);
+
+		if (EquippedWeapon)
+		{
+			CrossHairShootingFactor = 0.7f;
+		}
 	}
 }
 
 void UCombatComponent::TraceUnderCrosshair(FHitResult& TraceHitResult)
 {
 	FVector2d ViewportSize;
-	if(GEngine && GEngine->GameViewport)
+	if (GEngine && GEngine->GameViewport)
 	{
 		GEngine->GameViewport->GetViewportSize(ViewportSize);
 	}
@@ -138,14 +189,19 @@ void UCombatComponent::TraceUnderCrosshair(FHitResult& TraceHitResult)
 	FVector CrossHairWorldPosition;
 	FVector CrossHairWorldDirection;
 	bool bScreenToWorld = UGameplayStatics::DeprojectScreenToWorld(
-		UGameplayStatics::GetPlayerController(this,0),
+		UGameplayStatics::GetPlayerController(this, 0),
 		CrossHairLocation,
 		CrossHairWorldPosition,
 		CrossHairWorldDirection);
 
-	if(bScreenToWorld)
+	if (bScreenToWorld)
 	{
 		FVector Start = CrossHairWorldPosition;
+		if (Character)
+		{
+			float DistanceToCharacter = (Character->GetActorLocation() - Start).Size();
+			Start += CrossHairWorldDirection * (DistanceToCharacter + 50.f);
+		}
 		FVector End = Start + CrossHairWorldDirection * TRACE_LENGHT;
 
 		GetWorld()->LineTraceSingleByChannel(
@@ -153,6 +209,20 @@ void UCombatComponent::TraceUnderCrosshair(FHitResult& TraceHitResult)
 			Start,
 			End,
 			ECollisionChannel::ECC_Visibility);
+
+		if (!TraceHitResult.bBlockingHit)
+		{
+			TraceHitResult.ImpactPoint = End;
+		}
+
+		if (TraceHitResult.GetActor() && TraceHitResult.GetActor()->Implements<UInteractWithCrossHairInterface>())
+		{
+			HUDPackage.CrossHairColor = FLinearColor::Red;
+		}
+		else
+		{
+			HUDPackage.CrossHairColor = FLinearColor::White;
+		}
 	}
 }
 
@@ -163,8 +233,8 @@ void UCombatComponent::ServerFire_Implementation(const FVector_NetQuantize& Trac
 
 void UCombatComponent::MulticastFire_Implementation(const FVector_NetQuantize& TraceHitTarget)
 {
-	if(EquippedWeapon == nullptr) return;
-	if(Character)
+	if (EquippedWeapon == nullptr) return;
+	if (Character)
 	{
 		Character->PlayerFireMontage(bAiming);
 		EquippedWeapon->Fire(TraceHitTarget);
@@ -196,4 +266,3 @@ void UCombatComponent::EquipWeapon(AWeapon* WeaponToEquip)
 		Character->bUseControllerRotationYaw = true;
 	}
 }
-
