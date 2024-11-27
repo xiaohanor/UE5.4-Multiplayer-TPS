@@ -36,15 +36,15 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UProjectileMovementComponent> ProjectileMovement;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category="VFX")
 	TObjectPtr<UParticleSystem> Tracer;
 
 	TObjectPtr<UParticleSystemComponent> TracerComponent;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere,Category="VFX")
 	TObjectPtr<UParticleSystem> ImpactParticle;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere,Category="VFX")
 	USoundCue* ImpactSound;
 
 

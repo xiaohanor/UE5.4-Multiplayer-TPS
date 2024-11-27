@@ -40,6 +40,7 @@ void UBlasterAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
     bIsAiming = BlasterCharacter->IsAiming();
     TurningInPlace = BlasterCharacter->GetTurningInPlace();
     bRotateRootBone = BlasterCharacter->ShouldRotateRootBone();
+    bElimmed = BlasterCharacter->IsElimmed();
 
     // 计算 Yaw 偏移
     if (Velocity.SizeSquared() > 0) // 仅在有移动时计算

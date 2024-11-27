@@ -7,8 +7,11 @@
 #include "EnhancedInput/Public/InputMappingContext.h"
 #include  "Blaster/BlasterTypes/TurningInPlace.h"
 #include "Blaster/Interfaces/InteractWithCrossHairInterface.h"
+#include "Components/TimelineComponent.h"
 #include "BlasterCharacter.generated.h"
 
+class FOnTimelineFloat;
+class UTimelineComponent;
 class ABlasterPlayerController;
 class UCombatComponent;
 class AWeapon;
@@ -33,6 +36,7 @@ public:
 
 	void PlayerFireMontage(bool bAiming);
 	void PlayerHitReactMontage();
+	void PlayerElimMontage();
 
 	virtual void OnRep_ReplicatedMovement() override;
 	
@@ -40,6 +44,11 @@ public:
 	void ReciveDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser);
 
 	void UpdateHUDHealth();
+
+	void Elim();
+	
+	UFUNCTION(NetMulticast,Reliable)
+	void MulticastElim();
 	
 protected:
 	virtual void BeginPlay() override;
@@ -139,6 +148,9 @@ private:
 	
 	UPROPERTY(EditAnywhere,Category="Combat")
 	TObjectPtr<UAnimMontage> HitReactMontage;
+	
+	UPROPERTY(EditAnywhere,Category="Combat")
+	TObjectPtr<UAnimMontage> ElimMontage;
 
 	/*玩家生命值*/
 	UPROPERTY(EditAnywhere, Category = "Player Stats")
@@ -149,6 +161,36 @@ private:
 	
 	UFUNCTION()
 	void OnRep_Health();
+
+	bool bElimmed = false;
+
+	FTimerHandle ElimTimer;
+
+	float ElimDelay = 3.f;
+
+	void ElimTimerFinished();
+
+	/**
+	 * 溶解效果
+	 */
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<UTimelineComponent> DissolveTimeline;
+	FOnTimelineFloat DissolveTrack;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UCurveFloat> DissolveCurve;
+
+	UFUNCTION()
+	void UpdateDissolveMaterial(float DissolveValue);
+	void StartDissolve();
+
+	//修改运行时的动态实例
+	UPROPERTY(VisibleAnywhere,Category="Elim")
+	TObjectPtr<UMaterialInstanceDynamic> DynamicDissolveMaterialInstance;
+
+	//在蓝图中设置的材质实例，用于动态材质实例
+	UPROPERTY(EditAnywhere,Category="Elim")
+	TObjectPtr<UMaterialInstance> DissolveMaterialInstance;
 	
 public:
 	void SetOverlappingWeapon(AWeapon* Weapon);
@@ -164,5 +206,5 @@ public:
 	FVector GetHitTarget() const;
 	FORCEINLINE UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 	FORCEINLINE bool ShouldRotateRootBone() const { return bRotateRootBone; }
-
+	FORCEINLINE bool IsElimmed() const { return bElimmed; }
 };
