@@ -14,15 +14,12 @@
     <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/Character/Animation/ABP_Blaster.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Character/Animation/ABP_Blaster.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Character/BP_BlasterCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Character/BP_BlasterCharacter.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/GameModes/BP_BlasterGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/GameModes/BP_BlasterGameMode.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Weapon/BP_AssaultRifle.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Weapon/BP_AssaultRifle.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Character/Animation/Montage_Elim.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Character/Animation/Montage_Elim.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/BlasterMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/BlasterMap.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterAnimInstance.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterAnimInstance.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterAnimInstance.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterAnimInstance.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/Projectile.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Projectile.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -80,11 +77,15 @@
     <setting file="file://$PROJECT_DIR$/../../UE_5.4/Engine/Source/Runtime/Engine/Classes/Engine/EngineTypes.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.4/Engine/Source/Runtime/Engine/Classes/GameFramework/Actor.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.4/Engine/Source/Runtime/Engine/Classes/GameFramework/Character.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../UE_5.4/Engine/Source/Runtime/Engine/Classes/GameFramework/MovementComponent.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../UE_5.4/Engine/Source/Runtime/Engine/Classes/GameFramework/NavMovementComponent.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.4/Engine/Source/Runtime/Engine/Classes/GameFramework/Pawn.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.4/Engine/Source/Runtime/Engine/Classes/Kismet/KismetMathLibrary.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.4/Engine/Source/Runtime/Engine/Classes/Sound/SoundCue.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.4/Engine/Source/Runtime/Engine/Private/Actor.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.4/Engine/Source/Runtime/Engine/Private/Character.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../UE_5.4/Engine/Source/Runtime/Engine/Private/Components/CharacterMovementComponent.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../UE_5.4/Engine/Source/Runtime/Engine/Private/Components/NavMovementComponent.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.4/Engine/Source/Runtime/Engine/Private/Pawn.cpp" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="KubernetesApiPersistence">{}</component>
@@ -562,6 +563,7 @@
       <workItem from="1732424051174" duration="2949000" />
       <workItem from="1732492944427" duration="16814000" />
       <workItem from="1732542056846" duration="51152000" />
+      <workItem from="1732792659924" duration="4656000" />
     </task>
     <task id="LOCAL-00001" summary="initial">
       <option name="closed" value="true" />

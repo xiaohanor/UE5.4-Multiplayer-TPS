@@ -18,6 +18,7 @@ class AWeapon;
 class UWidgetComponent;
 class UCameraComponent;
 class USpringArmComponent;
+class USoundCue;
 
 UCLASS()
 class BLASTER_API ABlasterCharacter : public ACharacter,public IInteractWithCrossHairInterface
@@ -92,7 +93,10 @@ private:
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="PlayerInput",meta=(AllowPrivateAccess="true"))
 	TObjectPtr<UInputMappingContext> PlayerInputMapping;
 
-	//玩家输入Action
+	/**
+	 * 玩家输入Action
+	 */
+	
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="PlayerInput",meta=(AllowPrivateAccess="true"))
 	TObjectPtr <UInputAction> PlayerMove;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="PlayerInput",meta=(AllowPrivateAccess="true"))
@@ -110,7 +114,10 @@ private:
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="PlayerInput",meta=(AllowPrivateAccess="true"))
 	TObjectPtr <UInputAction> PlayerFire;
 
-	//玩家输入函数
+	/**
+	 * 玩家输入函数
+	 */
+	
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);
 	void EquipButtonPressed();
@@ -122,6 +129,7 @@ private:
 	void FireButtonPressed();
 	void FireButtonReleased();
 	virtual void Jump() override;
+	
 
 	UPROPERTY(EditAnywhere)
 	float SprintSpeed;
@@ -152,7 +160,10 @@ private:
 	UPROPERTY(EditAnywhere,Category="Combat")
 	TObjectPtr<UAnimMontage> ElimMontage;
 
-	/*玩家生命值*/
+	/**
+	 * 玩家生命值
+	 */
+	
 	UPROPERTY(EditAnywhere, Category = "Player Stats")
 	float MaxHealth = 100.f;
 	
@@ -173,6 +184,7 @@ private:
 	/**
 	 * 溶解效果
 	 */
+	
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UTimelineComponent> DissolveTimeline;
 	FOnTimelineFloat DissolveTrack;
@@ -191,6 +203,19 @@ private:
 	//在蓝图中设置的材质实例，用于动态材质实例
 	UPROPERTY(EditAnywhere,Category="Elim")
 	TObjectPtr<UMaterialInstance> DissolveMaterialInstance;
+
+	/**
+	 * Eilm Bot
+	 */
+
+	UPROPERTY(EditAnywhere)
+	USoundCue* ElimBotSound;
+	
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UParticleSystem> ElimBotEffect;
+
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<UParticleSystemComponent> ElimBotComponent;
 	
 public:
 	void SetOverlappingWeapon(AWeapon* Weapon);

@@ -17,6 +17,8 @@
 #include "Blaster/Blaster.h"
 #include "Blaster/GameMode/BlasterGameMode.h"
 #include "Blaster/PlayerController/BlasterPlayerController.h"
+#include "Kismet/GameplayStatics.h"
+#include "Sound/SoundCue.h"
 
 ABlasterCharacter::ABlasterCharacter()
 {
@@ -265,6 +267,10 @@ void ABlasterCharacter::UpdateHUDHealth()
 
 void ABlasterCharacter::Elim()
 {
+	if(Combat&&Combat->EquippedWeapon)
+	{
+		Combat->EquippedWeapon->Dropped();
+	}
 	MulticastElim();
 	GetWorldTimerManager().SetTimer(
 		ElimTimer,
@@ -279,6 +285,7 @@ void ABlasterCharacter::MulticastElim_Implementation()
 	bElimmed=true;
 	PlayerElimMontage();
 
+	//开始溶解效果
 	if(DissolveMaterialInstance)
 	{
 		DynamicDissolveMaterialInstance = UMaterialInstanceDynamic::Create(DissolveMaterialInstance,this);
@@ -287,6 +294,38 @@ void ABlasterCharacter::MulticastElim_Implementation()
 		DynamicDissolveMaterialInstance->SetScalarParameterValue(TEXT("Glow"),400.f);
 	}
 	StartDissolve();
+
+	//禁用角色移动
+	GetCharacterMovement()->DisableMovement();
+	GetCharacterMovement()->StopMovementImmediately();
+	if(BlasterPlayerController)
+	{	
+		DisableInput(BlasterPlayerController);
+	}
+
+	//禁用碰撞
+	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	GetMesh()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+	//生成 Elim Bot
+	if(ElimBotEffect)
+	{
+		FVector ElimBotSpawnPoint(GetActorLocation().X,GetActorLocation().Y,GetActorLocation().Z+200.f);
+		ElimBotComponent = UGameplayStatics::SpawnEmitterAtLocation(
+			GetWorld(),
+			ElimBotEffect,
+			ElimBotSpawnPoint,
+			GetActorRotation()
+			);
+	}
+	if(ElimBotSound)
+	{
+		UGameplayStatics::SpawnSoundAtLocation(
+			this,
+			ElimBotSound,
+			GetActorLocation()
+			);
+ 	}
 }
 
 void ABlasterCharacter::ElimTimerFinished()

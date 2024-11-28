@@ -32,6 +32,7 @@ public:
 
 	void ShowPickUpWidget(bool bShow);
 	virtual void Fire(const FVector& HitTarget);
+	void Dropped();
 
 	/*准星纹理*/
 	UPROPERTY(EditAnywhere,Category="Crosshair")
