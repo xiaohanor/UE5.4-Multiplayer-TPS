@@ -32,8 +32,9 @@ public:
 	virtual void DrawHUD() override;
 
 	UPROPERTY(EditAnywhere,Category="Player States")
-	TSubclassOf<class UUserWidget> CharacterOverlayClass;  
+	TSubclassOf<class UUserWidget> CharacterOverlayClass;
 	
+	UPROPERTY()
 	TObjectPtr<UCharacterOverlay> CharacterOverlay;
 
 protected:

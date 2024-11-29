@@ -39,6 +39,7 @@ private:
 	UPROPERTY(EditAnywhere, Category="VFX")
 	TObjectPtr<UParticleSystem> Tracer;
 
+	UPROPERTY()
 	TObjectPtr<UParticleSystemComponent> TracerComponent;
 
 	UPROPERTY(EditAnywhere,Category="VFX")

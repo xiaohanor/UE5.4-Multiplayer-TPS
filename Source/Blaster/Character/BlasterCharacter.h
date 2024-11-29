@@ -89,6 +89,7 @@ private:
 	UPROPERTY(EditAnywhere)
 	float CameraThreshold =200.f;
 
+	UPROPERTY()
 	TObjectPtr<ABlasterPlayerController> BlasterPlayerController;
 	
 	//玩家输入映射
