@@ -96,6 +96,8 @@ private:
 	void FireTImerFinished();
 	
 	bool bCanFire=true;
+
+	bool CanFire();
 	
 public:	
 

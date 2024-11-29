@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "Weapon.generated.h"
 
+class ABlasterPlayerController;
+class ABlasterCharacter;
 class UWidgetComponent;
 class USphereComponent;
 
@@ -29,6 +31,9 @@ public:
 	AWeapon();
 	virtual void Tick(float DeltaTime) override;
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
+
+	virtual void OnRep_Owner() override;
+	void SetHUDAmmo();
 
 	void ShowPickUpWidget(bool bShow);
 	virtual void Fire(const FVector& HitTarget);
@@ -94,6 +99,22 @@ private:
 	UPROPERTY(EditAnywhere, Category="Weapon Properties")
 	TSubclassOf<class ACasing> CasingClass;
 
+	UPROPERTY(EditAnywhere, ReplicatedUsing=OnRep_Ammo,Category="Weapon Properties")
+	int32 Ammo;
+
+	UPROPERTY(EditAnywhere, Category="Weapon Properties")
+	int32 MagCapacity;
+
+	UFUNCTION()
+	void OnRep_Ammo();
+
+	void SpendRound();
+
+	UPROPERTY()
+	TObjectPtr<ABlasterCharacter> BlasterOwnerCharacter;
+
+	UPROPERTY()
+	TObjectPtr<ABlasterPlayerController> BlasterOwnerController;
 
 public:
 	void SetWeaponState(EWeaponState State);
@@ -101,4 +122,5 @@ public:
 	FORCEINLINE TObjectPtr<USkeletalMeshComponent> WeaponMeshGetter() const { return WeaponMesh; }
 	FORCEINLINE float GetZoomedFOV() const { return ZoomedFOV; }
 	FORCEINLINE float GetZoomInterpSpeed() const { return ZoomInterpSpeed; }
+	bool IsEmpty() const { return Ammo <= 0; }
 };

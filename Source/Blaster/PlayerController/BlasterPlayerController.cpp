@@ -64,3 +64,14 @@ void ABlasterPlayerController::SetHUDDefeats(int32 Defeats)
 	}
 }
 
+void ABlasterPlayerController::SetHUDWeaponAmmo(int32 WeaponAmmo)
+{
+	BlasterHUD == nullptr?BlasterHUD = Cast<ABlasterHUD>(GetHUD()):BlasterHUD;
+	bool bHUDValid = BlasterHUD && BlasterHUD->CharacterOverlay && BlasterHUD->CharacterOverlay->WeaponAmmoAmount;
+	if(bHUDValid)
+	{
+		FString WeaponAmmoText = FString::Printf(TEXT("%d"), WeaponAmmo);
+		BlasterHUD->CharacterOverlay->WeaponAmmoAmount->SetText(FText::FromString(WeaponAmmoText));
+	}
+}
+
