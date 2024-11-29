@@ -10,6 +10,7 @@
 #include "Components/TimelineComponent.h"
 #include "BlasterCharacter.generated.h"
 
+class ABlasterPlayerState;
 class FOnTimelineFloat;
 class UTimelineComponent;
 class ABlasterPlayerController;
@@ -42,7 +43,7 @@ public:
 	virtual void OnRep_ReplicatedMovement() override;
 	
 	UFUNCTION()
-	void ReciveDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser);
+	void ReciveDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* InstigatorController, AActor* DamageCauser);
 
 	void UpdateHUDHealth();
 
@@ -57,8 +58,9 @@ protected:
 	void AimOffset(float DeltaTime);
 	void TurnInPlcae(float DeltaTime);
 	void SimProxiesTurn();
-	
 
+	//轮询任何相关类并初始化我们的 HUD
+	void PollInit();
 
 private:
 	UPROPERTY(VisibleAnywhere, Category="Camera")
@@ -216,6 +218,8 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UParticleSystemComponent> ElimBotComponent;
+
+	TObjectPtr<ABlasterPlayerState> BlasterPlayerState;
 	
 public:
 	void SetOverlappingWeapon(AWeapon* Weapon);
