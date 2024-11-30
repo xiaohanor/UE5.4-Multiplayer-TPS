@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Blaster/BlasterTypes/CombatState.h"
 #include "GameFramework/Character.h"
 #include "EnhancedInput/Public/InputMappingContext.h"
 #include  "Blaster/BlasterTypes/TurningInPlace.h"
@@ -37,6 +38,7 @@ public:
 	virtual void PostInitializeComponents() override;
 
 	void PlayerFireMontage(bool bAiming);
+	void PlayerReloadMontage();
 	void PlayerHitReactMontage();
 	void PlayerElimMontage();
 
@@ -78,7 +80,7 @@ private:
 	UFUNCTION()
 	void OnRep_OverlappingWeapon(AWeapon* LastWeapon);
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,meta=(AllowPrivateAccess="true"))
 	TObjectPtr<UCombatComponent> Combat;
 
 	UFUNCTION(Server,Reliable)
@@ -116,6 +118,8 @@ private:
 	TObjectPtr <UInputAction> PlayerAim;
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="PlayerInput",meta=(AllowPrivateAccess="true"))
 	TObjectPtr <UInputAction> PlayerFire;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="PlayerInput",meta=(AllowPrivateAccess="true"))
+	TObjectPtr <UInputAction> Reload;
 
 	/**
 	 * 玩家输入函数
@@ -131,6 +135,7 @@ private:
 	void AimButtonReleased();
 	void FireButtonPressed();
 	void FireButtonReleased();
+	void ReloadButtonPressed();
 	virtual void Jump() override;
 	
 
@@ -154,8 +159,15 @@ private:
 
 	ETurningInPlace TurningInPlace;
 
+	/**
+	 * 动画蒙太奇
+	 */
+
 	UPROPERTY(EditAnywhere,Category="Combat")
 	TObjectPtr<UAnimMontage> FireWeaponMontage;
+
+	UPROPERTY(EditAnywhere,Category="Combat")
+	TObjectPtr<UAnimMontage> ReloadMontage;
 	
 	UPROPERTY(EditAnywhere,Category="Combat")
 	TObjectPtr<UAnimMontage> HitReactMontage;
@@ -220,6 +232,7 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UParticleSystemComponent> ElimBotComponent;
 
+	UPROPERTY()
 	TObjectPtr<ABlasterPlayerState> BlasterPlayerState;
 	
 public:
@@ -239,4 +252,5 @@ public:
 	FORCEINLINE bool IsElimmed() const { return bElimmed; }
 	FORCEINLINE float GetHealth() const { return Health; }
 	FORCEINLINE float GetMaxHealth() const { return MaxHealth; }
+	ECombatState GetCombatState() const;
 };

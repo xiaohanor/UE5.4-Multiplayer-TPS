@@ -16,15 +16,12 @@ void UBlasterAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 {
     Super::NativeUpdateAnimation(DeltaSeconds);
 
-    // 再次尝试获取 BlasterCharacter 引用
+    //  如果 BlasterCharacter 为空，尝试重新绑定
     if (BlasterCharacter == nullptr)
     {
         BlasterCharacter = Cast<ABlasterCharacter>(TryGetPawnOwner());
-        if (BlasterCharacter == nullptr)
-        {
-            return; // 无法绑定角色，直接返回
-        }
     }
+    if (BlasterCharacter == nullptr) return;
 
     // 获取角色的速度
     FVector Velocity = BlasterCharacter->GetVelocity();
@@ -84,4 +81,6 @@ void UBlasterAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
             RightHandRotation = FMath::RInterpTo(RightHandRotation, LookAtRotation, DeltaSeconds, 30.f);
         }
     }
+
+    bUseFABRIK = BlasterCharacter->GetCombatState() != ECombatState::ECS_Reloading;
 }

@@ -20,6 +20,7 @@
 #include "Blaster/PlayerState/BlasterPlayerState.h"
 #include "Kismet/GameplayStatics.h"
 #include "Sound/SoundCue.h"
+#include "Blaster/Weapon/WeaponTypes.h"
 
 ABlasterCharacter::ABlasterCharacter()
 {
@@ -371,6 +372,26 @@ void ABlasterCharacter::PlayerFireMontage(bool bAiming)
 	}
 }
 
+void ABlasterCharacter::PlayerReloadMontage()
+{
+	if (Combat == nullptr || Combat->EquippedWeapon == nullptr) return;
+
+	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+	if (AnimInstance && ReloadMontage)
+	{
+		AnimInstance->Montage_Play(ReloadMontage);
+		FName SectionName;
+		switch (Combat->EquippedWeapon->GetWeaponType())
+		{
+		case EWeaponType::EWT_AssaultRifle:
+			SectionName = FName("ReloadRifle");
+			break;
+		}
+		
+		AnimInstance->Montage_JumpToSection(SectionName);
+	}
+}
+
 void ABlasterCharacter::PlayerHitReactMontage()
 {
 	if (Combat == nullptr || Combat->EquippedWeapon == nullptr) return;
@@ -576,6 +597,14 @@ void ABlasterCharacter::FireButtonReleased()
 	}
 }
 
+void ABlasterCharacter::ReloadButtonPressed()
+{
+	if(Combat)
+	{
+		Combat->Reload();
+	}
+}
+
 void ABlasterCharacter::Jump()
 {
 	if (bIsCrouched)
@@ -603,10 +632,11 @@ void ABlasterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 		PlayerInputC->BindAction(PlayerAim, ETriggerEvent::Started, this, &ABlasterCharacter::AimButtonPressed);
 		PlayerInputC->BindAction(PlayerAim, ETriggerEvent::Completed, this, &ABlasterCharacter::AimButtonReleased);
 		PlayerInputC->BindAction(PlayerSprint, ETriggerEvent::Started, this, &ABlasterCharacter::SprintButtonPressed);
-		PlayerInputC->BindAction(PlayerSprint, ETriggerEvent::Completed, this,
-		                         &ABlasterCharacter::SprintButtonReleased);
+		PlayerInputC->BindAction(PlayerSprint, ETriggerEvent::Completed, this, &ABlasterCharacter::SprintButtonReleased);
 		PlayerInputC->BindAction(PlayerFire, ETriggerEvent::Started, this, &ABlasterCharacter::FireButtonPressed);
 		PlayerInputC->BindAction(PlayerFire, ETriggerEvent::Completed, this, &ABlasterCharacter::FireButtonReleased);
+		PlayerInputC->BindAction(Reload, ETriggerEvent::Started, this, &ABlasterCharacter::ReloadButtonPressed);
+
 	}
 }
 
@@ -630,4 +660,10 @@ FVector ABlasterCharacter::GetHitTarget() const
 {
 	if (Combat == nullptr) return FVector();
 	return Combat->HitTarget;
+}
+
+ECombatState ABlasterCharacter::GetCombatState() const
+{
+	if(Combat==nullptr) return ECombatState::ECS_MAX;
+	return Combat->CombatState;
 }

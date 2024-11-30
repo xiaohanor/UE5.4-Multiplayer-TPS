@@ -59,6 +59,7 @@ void UCombatComponent::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty
 
 	DOREPLIFETIME(UCombatComponent, EquippedWeapon);
 	DOREPLIFETIME(UCombatComponent, bAiming);
+	DOREPLIFETIME(UCombatComponent,CombatState);
 	DOREPLIFETIME_CONDITION(UCombatComponent,CarriedAmmo,COND_OwnerOnly);
 }
 
@@ -266,7 +267,7 @@ void UCombatComponent::ServerFire_Implementation(const FVector_NetQuantize& Trac
 void UCombatComponent::MulticastFire_Implementation(const FVector_NetQuantize& TraceHitTarget)
 {
 	if (EquippedWeapon == nullptr) return;
-	if (Character)
+	if (Character && CombatState==ECombatState::ECS_Unoccupied)
 	{
 		Character->PlayerFireMontage(bAiming);
 		EquippedWeapon->Fire(TraceHitTarget);
@@ -322,10 +323,61 @@ void UCombatComponent::OnRep_EquippedWeapon()
 	}
 }
 
+void UCombatComponent::Reload()
+{
+	if(CarriedAmmo>0 && CombatState != ECombatState::ECS_Reloading)
+	{
+		ServerReload();
+	}
+}
+
+void UCombatComponent::ServerReload_Implementation()
+{
+	if(Character==nullptr) return;
+	CombatState = ECombatState::ECS_Reloading;
+	HandleReload();
+}
+
+void UCombatComponent::FinishReload()
+{
+	if(Character==nullptr) return;
+	if(Character->HasAuthority())
+	{
+		CombatState=ECombatState::ECS_Unoccupied;
+	}
+	// 如果换弹时仍按下开火键，换弹完成后继续开火
+	if(bFireButtonPressed)
+	{
+		Fire();
+	}
+}
+
+void UCombatComponent::OnRep_ComabtState()
+{
+	switch (CombatState)
+	{
+	case ECombatState::ECS_Reloading:
+		HandleReload();
+		break;
+	case ECombatState::ECS_Unoccupied:
+		if(bFireButtonPressed)
+		{
+			Fire();
+		}
+		break;
+	}
+}
+
+void UCombatComponent::HandleReload()
+{
+	Character->PlayerReloadMontage();
+
+}
+
 bool UCombatComponent::CanFire()
 {
 	if(EquippedWeapon == nullptr) return false;
-	return !EquippedWeapon->IsEmpty() || !bCanFire;
+	return !EquippedWeapon->IsEmpty() && bCanFire && CombatState ==ECombatState::ECS_Unoccupied;
 }
 
 void UCombatComponent::OnRep_CarriedAmmo()
@@ -341,3 +393,5 @@ void UCombatComponent::initializeCarriedAmmo()
 {
 	CarriedAmmoMap.Emplace(EWeaponType::EWT_AssaultRifle, StartingARAmmo);
 }
+
+

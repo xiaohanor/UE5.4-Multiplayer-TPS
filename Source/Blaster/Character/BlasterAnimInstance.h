@@ -23,7 +23,7 @@ public:
 
 private:
 	UPROPERTY(BlueprintReadOnly, Category="Character", meta=(AllowPrivateAccess="true"))
-	TObjectPtr<ABlasterCharacter> BlasterCharacter;
+	ABlasterCharacter* BlasterCharacter;
 
 	UPROPERTY(BlueprintReadOnly, Category="Character", meta=(AllowPrivateAccess="true"))
 	float Speed;
@@ -74,6 +74,9 @@ private:
 
 	UPROPERTY(BlueprintReadOnly, Category="Character", meta=(AllowPrivateAccess="true"))
 	bool bElimmed;
+
+	UPROPERTY(BlueprintReadOnly, Category="Character", meta=(AllowPrivateAccess="true"))
+	bool bUseFABRIK;
 
 
 
