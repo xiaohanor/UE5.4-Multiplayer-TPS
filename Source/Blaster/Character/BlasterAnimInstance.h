@@ -78,7 +78,11 @@ private:
 	UPROPERTY(BlueprintReadOnly, Category="Character", meta=(AllowPrivateAccess="true"))
 	bool bUseFABRIK;
 
+	UPROPERTY(BlueprintReadOnly, Category="Character", meta=(AllowPrivateAccess="true"))
+	bool bUseAimOffset;
 
+	UPROPERTY(BlueprintReadOnly, Category="Character", meta=(AllowPrivateAccess="true"))
+	bool bUseRightHandTransform;
 
 	FRotator CharacterRotationLastFrame;
 	FRotator CharacterRotation;

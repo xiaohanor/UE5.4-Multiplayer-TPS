@@ -41,7 +41,9 @@ public:
 	void Dropped();
 	void AddAmmo(int32 AmmoToAdd);
 
-	/*准星纹理*/
+	/**
+	 * 准星纹理
+	 */
 	UPROPERTY(EditAnywhere,Category="Crosshair")
 	TObjectPtr<UTexture2D> CrossHairCenter;
 
@@ -57,19 +59,26 @@ public:
 	UPROPERTY(EditAnywhere,Category="Crosshair")
 	TObjectPtr<UTexture2D> CrossHairBottom;
 
-	/*瞄准时缩放FOV*/
+	/**
+	 * 瞄准时缩放FOV
+	 */
 	UPROPERTY(EditAnywhere,Category="FOV")
 	float ZoomedFOV = 30.f;
 	
 	UPROPERTY(EditAnywhere,Category="FOV")
 	float ZoomInterpSpeed = 20.f;
 
-	/*自动开火*/
-	UPROPERTY(EditAnywhere,Category="Weapon Properties")
+	/**
+	 * 自动开火
+	 */
+	UPROPERTY(EditAnywhere,Category="武器属性")
 	float FireDelay=.15f;
 	
-	UPROPERTY(EditAnywhere,Category="Weapon Properties")
+	UPROPERTY(EditAnywhere,Category="武器属性")
 	bool bAutomatic;
+
+	UPROPERTY(EditAnywhere,Category="Weapon Properties")
+	TObjectPtr<USoundCue> EquippedSound;
 
 protected:
 	virtual void BeginPlay() override;
@@ -86,7 +95,7 @@ private:
 	UPROPERTY(VisibleAnywhere,Category="Weapon Properties")
 	TObjectPtr<USphereComponent> AreaSphere;
 
-	UPROPERTY(ReplicatedUsing = OnRep_WeaponState,VisibleAnywhere,Category="Weapon Properties")
+	UPROPERTY(ReplicatedUsing = OnRep_WeaponState,VisibleAnywhere)
 	EWeaponState WeaponState;
 
 	UFUNCTION()
@@ -101,15 +110,15 @@ private:
 	UPROPERTY(EditAnywhere, Category="Weapon Properties")
 	TSubclassOf<class ACasing> CasingClass;
 
-	UPROPERTY(EditAnywhere, ReplicatedUsing=OnRep_Ammo,Category="Weapon Properties")
+	UPROPERTY(EditAnywhere, ReplicatedUsing=OnRep_Ammo, Category="武器属性")
 	int32 Ammo;
 
-	UPROPERTY(EditAnywhere, Category="Weapon Properties")
+	UPROPERTY(EditAnywhere, Category="武器属性")
 	int32 MagCapacity;
 
-	UPROPERTY(EditAnywhere, Category="Weapon Properties")
+	UPROPERTY(EditAnywhere, Category="武器属性")
 	EWeaponType WeaponType;
-
+	
 	UFUNCTION()
 	void OnRep_Ammo();
 
@@ -120,7 +129,6 @@ private:
 
 	UPROPERTY()
 	TObjectPtr<ABlasterPlayerController> BlasterOwnerController;
-
 
 public:
 	void SetWeaponState(EWeaponState State);

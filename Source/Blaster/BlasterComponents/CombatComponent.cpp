@@ -11,6 +11,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Net/UnrealNetwork.h"
+#include "Sound/SoundCue.h"
 #define TRACE_LENGHT 8000.f
 
 UCombatComponent::UCombatComponent()
@@ -248,6 +249,10 @@ void UCombatComponent::FireTImerFinished()
 	{
 		Fire();
 	}
+	if(EquippedWeapon->IsEmpty())
+	{
+		Reload();
+	}
 }
 
 void UCombatComponent::FireButtonPressed(bool bPressed)
@@ -305,6 +310,20 @@ void UCombatComponent::EquipWeapon(AWeapon* WeaponToEquip)
 		Controller->SetHUDCarriedAmmo(CarriedAmmo);
 	}
 
+	if(EquippedWeapon->EquippedSound)
+	{
+		UGameplayStatics::PlaySoundAtLocation(
+			this,
+			EquippedWeapon->EquippedSound,
+			Character->GetActorLocation()
+		);
+	}
+
+	if(EquippedWeapon->IsEmpty())
+	{
+		Reload();
+	}
+
 	Character->GetCharacterMovement()->bOrientRotationToMovement = false;
 	Character->bUseControllerRotationYaw = true;
 }
@@ -322,6 +341,15 @@ void UCombatComponent::OnRep_EquippedWeapon()
 
 		Character->GetCharacterMovement()->bOrientRotationToMovement = false;
 		Character->bUseControllerRotationYaw = true;
+
+		if(EquippedWeapon->EquippedSound)
+		{
+			UGameplayStatics::PlaySoundAtLocation(
+				this,
+				EquippedWeapon->EquippedSound,
+				Character->GetActorLocation()
+			);
+		}
 	}
 }
 

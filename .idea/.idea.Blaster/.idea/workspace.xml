@@ -11,11 +11,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="fix: CanFire Bug&#10;fix: use AblasterCharacter* in BlasterAnimInstance.h&#10;feat: Reload Combat State">
+    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Character/Animation/ABP_Blaster.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Character/Animation/ABP_Blaster.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Character/Animation/BS_EquippedRun.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Character/Animation/BS_EquippedRun.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Character/Animation/Montage_Reload.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Character/Animation/Montage_Reload.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Weapon/BP_AssaultRifle.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Weapon/BP_AssaultRifle.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterAnimInstance.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterAnimInstance.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterAnimInstance.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterAnimInstance.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -564,7 +568,10 @@
       <workItem from="1732492944427" duration="16814000" />
       <workItem from="1732542056846" duration="51152000" />
       <workItem from="1732792659924" duration="22156000" />
-      <workItem from="1732943114237" duration="14094000" />
+      <workItem from="1732943114237" duration="15382000" />
+      <workItem from="1732959017434" duration="211000" />
+      <workItem from="1732959305482" duration="278000" />
+      <workItem from="1732959894582" duration="2436000" />
     </task>
     <task id="LOCAL-00001" summary="initial">
       <option name="closed" value="true" />
@@ -726,7 +733,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732953185816</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="feat: Updating Ammo">
+      <option name="closed" value="true" />
+      <created>1732957989656</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1732957989656</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -768,6 +783,7 @@
     <MESSAGE value="feat: Ammo" />
     <MESSAGE value="feat: Display Carried Ammo" />
     <MESSAGE value="fix: CanFire Bug&#10;fix: use AblasterCharacter* in BlasterAnimInstance.h&#10;feat: Reload Combat State" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: CanFire Bug&#10;fix: use AblasterCharacter* in BlasterAnimInstance.h&#10;feat: Reload Combat State" />
+    <MESSAGE value="feat: Updating Ammo" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Updating Ammo" />
   </component>
 </project>
