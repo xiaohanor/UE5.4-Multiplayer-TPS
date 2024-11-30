@@ -45,6 +45,7 @@ protected:
 	void ServerReload();
 
 	void HandleReload();
+	int32 AmountToReload();
 	
 	void FireButtonPressed(bool bPressed);
 
@@ -128,6 +129,8 @@ private:
 
 	UFUNCTION()
 	void OnRep_ComabtState();
+
+	void UpdateAmmoValues();
 
 	
 	

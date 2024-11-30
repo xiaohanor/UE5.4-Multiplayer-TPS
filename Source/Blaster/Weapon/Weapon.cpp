@@ -62,6 +62,7 @@ void AWeapon::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLif
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
 	DOREPLIFETIME(AWeapon, WeaponState);
+	DOREPLIFETIME(AWeapon, Ammo);
 }
 
 void AWeapon::ShowPickUpWidget(bool bShow)
@@ -106,6 +107,15 @@ void AWeapon::Dropped()
 	SetOwner(nullptr);
 	BlasterOwnerCharacter = nullptr;
 	BlasterOwnerController = nullptr;
+}
+
+void AWeapon::AddAmmo(int32 AmmoToAdd)
+{
+	UE_LOG(LogTemp, Warning, TEXT("AmmoToAdd: %d"), AmmoToAdd);
+	UE_LOG(LogTemp, Warning, TEXT("1Ammo: %d"), Ammo);
+	Ammo = FMath::Clamp(Ammo-AmmoToAdd,0,MagCapacity);
+	UE_LOG(LogTemp, Warning, TEXT("2Ammo: %d"), Ammo);
+	SetHUDAmmo();
 }
 
 void AWeapon::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
