@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "WeaponTypes.h"
 #include "Weapon.generated.h"
 
 class ABlasterPlayerController;
@@ -105,6 +106,9 @@ private:
 	UPROPERTY(EditAnywhere, Category="Weapon Properties")
 	int32 MagCapacity;
 
+	UPROPERTY(EditAnywhere, Category="Weapon Properties")
+	EWeaponType WeaponType;
+
 	UFUNCTION()
 	void OnRep_Ammo();
 
@@ -116,6 +120,7 @@ private:
 	UPROPERTY()
 	TObjectPtr<ABlasterPlayerController> BlasterOwnerController;
 
+
 public:
 	void SetWeaponState(EWeaponState State);
 	FORCEINLINE TObjectPtr<USphereComponent> AreaSphereGetter() const { return AreaSphere; }
@@ -123,4 +128,5 @@ public:
 	FORCEINLINE float GetZoomedFOV() const { return ZoomedFOV; }
 	FORCEINLINE float GetZoomInterpSpeed() const { return ZoomInterpSpeed; }
 	bool IsEmpty() const { return Ammo <= 0; }
+	FORCEINLINE EWeaponType GetWeaponType() const { return WeaponType; }
 };

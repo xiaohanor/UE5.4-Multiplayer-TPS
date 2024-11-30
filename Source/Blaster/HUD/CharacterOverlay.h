@@ -32,4 +32,6 @@ public:
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UTextBlock> WeaponAmmoAmount;
 	
+	UPROPERTY(meta=(BindWidget))
+	TObjectPtr<UTextBlock> CarriedAmmoAmount;
 };
