@@ -53,6 +53,8 @@ public:
 	
 	UFUNCTION(NetMulticast,Reliable)
 	void MulticastElim();
+
+	bool bDisableGameplay = false;
 	
 protected:
 	virtual void BeginPlay() override;
@@ -63,6 +65,7 @@ protected:
 
 	//轮询任何相关类并初始化我们的 HUD
 	void PollInit();
+	void RotateInPlace(float DeltaTime);
 
 private:
 	UPROPERTY(VisibleAnywhere, Category="Camera")
@@ -253,4 +256,6 @@ public:
 	FORCEINLINE float GetHealth() const { return Health; }
 	FORCEINLINE float GetMaxHealth() const { return MaxHealth; }
 	ECombatState GetCombatState() const;
+	FORCEINLINE UCombatComponent* GetCombatComponent() const { return Combat; }
+	FORCEINLINE bool GetDisableGameplay() const { return bDisableGameplay; }
 };

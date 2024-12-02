@@ -120,6 +120,20 @@ void ABlasterCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	RotateInPlace(DeltaTime);
+	HideCameraIfCharacterClose();
+	PollInit();
+	
+}
+
+void ABlasterCharacter::RotateInPlace(float DeltaTime)
+{
+	if(bDisableGameplay)
+	{
+		bUseControllerRotationYaw = false;
+		TurningInPlace=ETurningInPlace::ETIP_NotTurning;
+		return;
+	}
 	//如果是服务器或者本地控制的角色
 	if (GetLocalRole() > ENetRole::ROLE_SimulatedProxy && IsLocallyControlled())
 	{
@@ -134,10 +148,6 @@ void ABlasterCharacter::Tick(float DeltaTime)
 		}
 		CalculateAO_Pitch();
 	}
-
-	HideCameraIfCharacterClose();
-	PollInit();
-	
 }
 
 void ABlasterCharacter::CalculateAO_Pitch()
@@ -337,12 +347,11 @@ void ABlasterCharacter::MulticastElim_Implementation()
 	}
 	StartDissolve();
 
-	//禁用角色移动
-	GetCharacterMovement()->DisableMovement();
-	GetCharacterMovement()->StopMovementImmediately();
-	if(BlasterPlayerController)
-	{	
-		DisableInput(BlasterPlayerController);
+	//禁用角色移
+	bDisableGameplay=true;
+	if (Combat)
+	{
+		Combat->FireButtonPressed(false);
 	}
 
 	//禁用碰撞
@@ -527,6 +536,8 @@ void ABlasterCharacter::ServerEquipButtonPressed_Implementation()
 
 void ABlasterCharacter::Move(const FInputActionValue& Value)
 {
+	if(bDisableGameplay) return;
+	
 	const FVector2d F2d = Value.Get<FVector2d>();
 	if (Controller)
 	{
@@ -551,6 +562,8 @@ void ABlasterCharacter::Look(const FInputActionValue& Value)
 
 void ABlasterCharacter::EquipButtonPressed()
 {
+	if(bDisableGameplay) return;
+
 	if (Combat)
 	{
 		if (HasAuthority())
@@ -566,6 +579,8 @@ void ABlasterCharacter::EquipButtonPressed()
 
 void ABlasterCharacter::CrouchButtonPressed()
 {
+	if(bDisableGameplay) return;
+
 	if (bIsCrouched)
 	{
 		UnCrouch();
@@ -578,16 +593,22 @@ void ABlasterCharacter::CrouchButtonPressed()
 
 void ABlasterCharacter::SprintButtonPressed()
 {
+	if(bDisableGameplay) return;
+
 	GetCharacterMovement()->MaxWalkSpeed = SprintSpeed;
 }
 
 void ABlasterCharacter::SprintButtonReleased()
 {
+	if(bDisableGameplay) return;
+
 	GetCharacterMovement()->MaxWalkSpeed = BaseSpeed;
 }
 
 void ABlasterCharacter::AimButtonPressed()
 {
+	if(bDisableGameplay) return;
+
 	if (Combat)
 	{
 		Combat->SetAiming(true);
@@ -596,6 +617,8 @@ void ABlasterCharacter::AimButtonPressed()
 
 void ABlasterCharacter::AimButtonReleased()
 {
+	if(bDisableGameplay) return;
+
 	if (Combat)
 	{
 		Combat->SetAiming(false);
@@ -604,6 +627,8 @@ void ABlasterCharacter::AimButtonReleased()
 
 void ABlasterCharacter::FireButtonPressed()
 {
+	if(bDisableGameplay) return;
+
 	if (Combat)
 	{
 		Combat->FireButtonPressed(true);
@@ -612,6 +637,8 @@ void ABlasterCharacter::FireButtonPressed()
 
 void ABlasterCharacter::FireButtonReleased()
 {
+	if(bDisableGameplay) return;
+
 	if (Combat)
 	{
 		Combat->FireButtonPressed(false);
@@ -620,6 +647,8 @@ void ABlasterCharacter::FireButtonReleased()
 
 void ABlasterCharacter::ReloadButtonPressed()
 {
+	if(bDisableGameplay) return;
+
 	if(Combat)
 	{
 		Combat->Reload();
@@ -628,6 +657,8 @@ void ABlasterCharacter::ReloadButtonPressed()
 
 void ABlasterCharacter::Jump()
 {
+	if(bDisableGameplay) return;
+
 	if (bIsCrouched)
 	{
 		UnCrouch();

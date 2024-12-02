@@ -3,11 +3,14 @@
 
 #include "BlasterPlayerController.h"
 
+#include "Blaster/BlasterComponents/CombatComponent.h"
 #include "Blaster/Character/BlasterCharacter.h"
 #include "Blaster/GameMode/BlasterGameMode.h"
+#include "Blaster/GameState/BlasterGameState.h"
 #include "Blaster/HUD/Announcement.h"
 #include "Blaster/HUD/BlasterHUD.h"
 #include "Blaster/HUD/CharacterOverlay.h"
+#include "Blaster/PlayerState/BlasterPlayerState.h"
 #include "Components/ProgressBar.h"
 #include "Components/TextBlock.h"
 #include "GameFramework/GameMode.h"
@@ -331,9 +334,47 @@ void ABlasterPlayerController::HandleCooldown()
 		if(bHUDValid)
 		{
 			BlasterHUD->Announcement->SetVisibility(ESlateVisibility::Visible);
-			FString AnnouncementText("New Match Starting in ");
-			BlasterHUD->Announcement->AnnouncementText->SetText(FText::FromString(AnnouncementText));
-			BlasterHUD->Announcement->InfoText->SetText(FText());
+			FText AnnouncementText = FText::FromString(TEXT("新比赛倒计时："));
+			BlasterHUD->Announcement->AnnouncementText->SetText(AnnouncementText);
+
+			ABlasterGameState* BlasterGameState = Cast<ABlasterGameState>(UGameplayStatics::GetGameState(this));
+			ABlasterPlayerState* BlasterPlayerState = GetPlayerState<ABlasterPlayerState>();
+
+			if (BlasterGameState && BlasterPlayerState)
+			{
+				FText InfoText;
+				TArray<ABlasterPlayerState*> TopPlayers = BlasterGameState->TopScoringPlayers;
+
+				if (TopPlayers.Num() == 0)
+				{
+					InfoText = FText::FromString(TEXT("无人获胜"));
+				}
+				else if (TopPlayers.Num() == 1 && TopPlayers[0] == BlasterPlayerState)
+				{
+					InfoText = FText::FromString(TEXT("你是赢家！"));
+				}
+				else if (TopPlayers.Num() == 1)
+				{
+					InfoText = FText::Format(NSLOCTEXT("Game", "WinnerIs", "获胜者是：\n{0}"), FText::FromString(TopPlayers[0]->GetPlayerName()));
+				}
+				else if (TopPlayers.Num() > 1)
+				{
+					FString WinnersString = TEXT("获胜者们是：\n");
+					for (const auto& TiedPlayer : TopPlayers)
+					{
+						WinnersString.Append(FString::Printf(TEXT("%s\n"), *TiedPlayer->GetPlayerName()));
+					}
+					InfoText = FText::FromString(WinnersString);
+				}
+				
+				BlasterHUD->Announcement->InfoText->SetText(InfoText);
+			}
 		}
+	}
+	ABlasterCharacter* BlasterCharacter = Cast<ABlasterCharacter>(GetPawn());
+	if (BlasterCharacter && BlasterCharacter->GetCombatComponent())
+	{
+		BlasterCharacter->bDisableGameplay = true;
+		BlasterCharacter->GetCombatComponent()->FireButtonPressed(false);
 	}
 }
