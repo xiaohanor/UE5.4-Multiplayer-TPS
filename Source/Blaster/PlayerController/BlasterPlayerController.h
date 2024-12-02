@@ -6,6 +6,7 @@
 #include "GameFramework/PlayerController.h"
 #include "BlasterPlayerController.generated.h"
 
+class ABlasterGameMode;
 class UCharacterOverlay;
 class ABlasterHUD;
 
@@ -34,6 +35,7 @@ public:
 	virtual void ReceivedPlayer() override;	//当接收玩家时更快与服务器世界时钟同步
 	void OnMatchStateSet(FName State);
 	void HandleMatchHasStarted();
+	void HandleCooldown();
 
 protected:
 	virtual void BeginPlay() override;
@@ -63,16 +65,20 @@ protected:
 	void ServerCheckMatchState();
 
 	UFUNCTION(Client,Reliable)
-	void ClientJoinMidGame(FName StateOfMatch, float Warmup, float Match, float StartingTime);
+	void ClientJoinMidGame(FName StateOfMatch, float Warmup, float Match, float StartingTime,float Cooldown);
 private:
 	UPROPERTY()
 	TObjectPtr<ABlasterHUD> BlasterHUD;
 
+	UPROPERTY()
+	ABlasterGameMode* BlasterGameMode;
+
 	float MatchTime = 0.f;
 	float WarmupTime = 0.f;
-	uint32 CountdownInt = 0;
 	float LevelStartingTime;
-
+	float CooldownTime = 0.f;
+	uint32 CountdownInt = 0;
+	
 	UPROPERTY(ReplicatedUsing=OnRep_MatchState)
 	FName MatchState;
 	

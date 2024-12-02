@@ -108,6 +108,7 @@ void ABlasterCharacter::BeginPlay()
 		BlasterPlayerController->PlayerCameraManager->ViewPitchMax = 400.f;
 		BlasterPlayerController->PlayerCameraManager->ViewPitchMin = -40.f;
 	}
+	
 	UpdateHUDHealth();
 	if (HasAuthority())
 	{
@@ -136,6 +137,7 @@ void ABlasterCharacter::Tick(float DeltaTime)
 
 	HideCameraIfCharacterClose();
 	PollInit();
+	
 }
 
 void ABlasterCharacter::CalculateAO_Pitch()
@@ -249,6 +251,25 @@ void ABlasterCharacter::PollInit()
 		{
 			BlasterPlayerState->AddToScore(0.f);
 			BlasterPlayerState->AddToDefeats(0);
+		}
+	}
+
+	if(BlasterPlayerController == nullptr)
+	{
+		BlasterPlayerController = BlasterPlayerController == nullptr ? TObjectPtr<ABlasterPlayerController>(Cast<ABlasterPlayerController>(Controller)) : BlasterPlayerController;
+		if (BlasterPlayerController)
+		{
+			//注册增强输入子系统
+			UEnhancedInputLocalPlayerSubsystem* LocalSS = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(
+				BlasterPlayerController->GetLocalPlayer());
+			if (LocalSS)
+			{
+				LocalSS->AddMappingContext(PlayerInputMapping, 0);
+			}
+		
+			//设置摄像机视角限制
+			BlasterPlayerController->PlayerCameraManager->ViewPitchMax = 400.f;
+			BlasterPlayerController->PlayerCameraManager->ViewPitchMin = -40.f;
 		}
 	}
 }

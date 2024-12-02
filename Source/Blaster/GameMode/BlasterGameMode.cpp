@@ -8,6 +8,12 @@
 #include "GameFramework/PlayerStart.h"
 #include "Kismet/GameplayStatics.h"
 
+namespace MatchState
+{
+	const FName Cooldown = FName("Cooldown");
+}
+
+
 ABlasterGameMode::ABlasterGameMode()
 {
 	bDelayedStart = true;
@@ -29,6 +35,37 @@ void ABlasterGameMode::Tick(float DeltaSeconds)
 		if(CountdownTime<=0.f)
 		{
 			StartMatch();
+		}
+	}
+	else if (MatchState==MatchState::InProgress)
+	{
+		CountdownTime = WarmupTime + MatchTime - GetWorld()->GetTimeSeconds() + LevelStaringTime;
+		if (CountdownTime<=0.f)
+		{
+			SetMatchState(MatchState::Cooldown);
+		}
+	}
+	else if(MatchState==MatchState::Cooldown)
+	{
+		CountdownTime = CooldownTime + WarmupTime + MatchTime - GetWorld()->GetTimeSeconds() + LevelStaringTime;
+		if(CountdownTime<=0.f)
+		{
+			RestartGame();
+		}
+	}
+}
+
+void ABlasterGameMode::OnMatchStateSet()
+{
+	Super::OnMatchStateSet();
+
+	//通知所有玩家控制器比赛状态
+	for(FConstPlayerControllerIterator It = GetWorld()->GetPlayerControllerIterator(); It; ++It)
+	{
+		ABlasterPlayerController* BlasterPlayerController = Cast<ABlasterPlayerController>(*It);
+		if(BlasterPlayerController)
+		{
+			BlasterPlayerController->OnMatchStateSet(MatchState);
 		}
 	}
 }
@@ -72,17 +109,3 @@ void ABlasterGameMode::RequestRespawn(ACharacter* ElimmedCharacter, AController*
 	}
 }
 
-void ABlasterGameMode::OnMatchStateSet()
-{
-	Super::OnMatchStateSet();
-
-	//通知所有玩家控制器比赛状态
-	for(FConstPlayerControllerIterator It = GetWorld()->GetPlayerControllerIterator(); It; ++It)
-	{
-		ABlasterPlayerController* BlasterPlayerController = Cast<ABlasterPlayerController>(*It);
-		if(BlasterPlayerController)
-		{
-			BlasterPlayerController->OnMatchStateSet(MatchState);
-		}
-	}
-}

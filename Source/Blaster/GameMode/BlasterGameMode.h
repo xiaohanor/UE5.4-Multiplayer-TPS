@@ -7,6 +7,13 @@
 #include "GameFramework/GameMode.h"
 #include "BlasterGameMode.generated.h"
 
+namespace MatchState
+{
+	extern BLASTER_API const FName Cooldown; //比赛时间结束，显示获胜者并进入冷却时间
+}
+
+
+
 class ABlasterPlayerController;
 class ABlasterCharacter;
 /**
@@ -31,8 +38,14 @@ public:
 	UPROPERTY(EditDefaultsOnly)
 	float MatchTime = 120.f;
 
-	float LevelStaringTime;
+	UPROPERTY(EditDefaultsOnly)
+	float CooldownTime = 10.f;
 
+	float LevelStaringTime;
+ 
 private:
 	float CountdownTime = 0.f;
+
+public:
+	FORCEINLINE float GetCountdownTime() const { return CountdownTime; }
 };
