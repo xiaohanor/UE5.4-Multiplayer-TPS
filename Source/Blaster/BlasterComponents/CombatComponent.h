@@ -123,6 +123,8 @@ private:
 	int32 StartingRocketAmmo = 3;
 	UPROPERTY(EditAnywhere)
 	int32 StartingPistolAmmo = 30;
+	UPROPERTY(EditAnywhere)
+	int32 StartingSMGAmmo = 30;
 	
 	TMap<EWeaponType,int32> CarriedAmmoMap;
 

@@ -7,34 +7,35 @@
 #include "Engine/SkeletalMeshSocket.h"
 #include "Kismet/GameplayStatics.h"
 #include "Particles/ParticleSystemComponent.h"
+#include "Sound/SoundCue.h"
 
 void AHitScanWeapon::Fire(const FVector& HitTarget)
 {
 	Super::Fire(HitTarget);
 
 	APawn* OwnerPawn = Cast<APawn>(GetOwner());
-	if(OwnerPawn == nullptr) return;
+	if (OwnerPawn == nullptr) return;
 	AController* InstigatorController = OwnerPawn->GetController();
 
 	const USkeletalMeshSocket* MuzzleFlashSocket = WeaponMeshGetter()->GetSocketByName("MuzzleFlash");
-	if(MuzzleFlashSocket)
+	if (MuzzleFlashSocket)
 	{
 		FTransform SocketTransform = MuzzleFlashSocket->GetSocketTransform(WeaponMeshGetter());
 		FVector Start = SocketTransform.GetLocation();
-		FVector End = Start + (HitTarget- Start) * 1.25f;
+		FVector End = Start + (HitTarget - Start) * 1.25f;
 
 		FHitResult FireHit;
 		UWorld* World = GetWorld();
-		if(World)
+		if (World)
 		{
 			World->LineTraceSingleByChannel(
 				FireHit,
 				Start,
 				End,
 				ECC_Visibility
-				);
+			);
 			FVector BeamEnd = End;
-			if(FireHit.bBlockingHit)
+			if (FireHit.bBlockingHit)
 			{
 				BeamEnd = FireHit.ImpactPoint;
 				ABlasterCharacter* BlasterCharacter = Cast<ABlasterCharacter>(FireHit.GetActor());
@@ -46,9 +47,9 @@ void AHitScanWeapon::Fire(const FVector& HitTarget)
 						InstigatorController,
 						this,
 						UDamageType::StaticClass()
-						);
+					);
 				}
-				if(ImpactParticle)
+				if (ImpactParticle)
 				{
 					UGameplayStatics::SpawnEmitterAtLocation(
 						World,
@@ -57,18 +58,42 @@ void AHitScanWeapon::Fire(const FVector& HitTarget)
 						FireHit.ImpactNormal.Rotation()
 					);
 				}
+				if (HitSound)
+				{
+					UGameplayStatics::PlaySoundAtLocation(
+						this,
+						HitSound,
+						FireHit.ImpactPoint
+					);
+				}
 			}
-			if(BeamParticle)
+			if (BeamParticle)
 			{
 				UParticleSystemComponent* Beam = UGameplayStatics::SpawnEmitterAtLocation(
 					World,
 					BeamParticle,
 					SocketTransform
-					);
-				if(Beam)
+				);
+				if (Beam)
 				{
-					Beam->SetVectorParameter(FName("Target"),BeamEnd);
+					Beam->SetVectorParameter(FName("Target"), BeamEnd);
 				}
+			}
+			if (MuzzleFlash)
+			{
+				UGameplayStatics::SpawnEmitterAtLocation(
+					World,
+					MuzzleFlash,
+					SocketTransform
+				);
+			}
+			if (FireSound)
+			{
+				UGameplayStatics::PlaySoundAtLocation(
+					this,
+					FireSound,
+					GetActorLocation()
+				);
 			}
 		}
 	}
