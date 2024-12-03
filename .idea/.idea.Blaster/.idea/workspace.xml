@@ -11,22 +11,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="">
+    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="add: RocketLauncher">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultEditor.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEditor.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/GameModes/BP_BlasterGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/GameModes/BP_BlasterGameMode.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/HUD/WBP_Announcement.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/HUD/WBP_Announcement.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Weapon/BP_RocketLauncher.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Weapon/BP_RocketLauncher.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/BlasterMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/BlasterMap.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Blaster.Build.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Blaster.Build.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/PlayerController/BlasterPlayerController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/PlayerController/BlasterPlayerController.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/Projectile.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Projectile.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/Projectile.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Projectile.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/ProjectileBullet.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/ProjectileBullet.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/ProjectileBullet.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/ProjectileBullet.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/WeaponTypes.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/WeaponTypes.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -587,7 +577,7 @@
       <workItem from="1732959305482" duration="278000" />
       <workItem from="1732959894582" duration="16839000" />
       <workItem from="1733102021526" duration="20876000" />
-      <workItem from="1733144017323" duration="7455000" />
+      <workItem from="1733144017323" duration="11955000" />
     </task>
     <task id="LOCAL-00001" summary="initial">
       <option name="closed" value="true" />
@@ -789,7 +779,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733130756458</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="add: RocketLauncher">
+      <option name="closed" value="true" />
+      <created>1733193923122</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1733193923122</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -811,7 +809,6 @@
   <component name="VcsManagerConfiguration">
     <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="initial" />
     <MESSAGE value="Variable Replication" />
     <MESSAGE value="feat:Aiming" />
     <MESSAGE value="feat:AimOffset" />
@@ -836,6 +833,7 @@
     <MESSAGE value="feat: Updating Warmup Time" />
     <MESSAGE value="feat: cooldown announcement&#10;fix:客户端在BeginPlay()时无法获取PlayerController，使用Pollinit()在tick中获取" />
     <MESSAGE value="feat: BlasterGameState" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: BlasterGameState" />
+    <MESSAGE value="add: RocketLauncher" />
+    <option name="LAST_COMMIT_MESSAGE" value="add: RocketLauncher" />
   </component>
 </project>
