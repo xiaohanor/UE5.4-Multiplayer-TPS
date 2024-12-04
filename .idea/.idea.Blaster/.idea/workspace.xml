@@ -16,14 +16,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="add: ShotGun&#10;feat: format code">
+    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="add: Sniper">
+      <change afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/ProjectileGrenade.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/ProjectileGrenade.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Character/BP_BlasterCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Character/BP_BlasterCharacter.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/BlasterMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/BlasterMap.umap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/Projectile.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Projectile.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/Projectile.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Projectile.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/ProjectileRocket.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/ProjectileRocket.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/ProjectileRocket.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/ProjectileRocket.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/WeaponTypes.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/WeaponTypes.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -56,6 +60,7 @@
     <setting file="file://$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Character/BlasterAnimInstance.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Character/BlasterAnimInstance.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://F:/Games/Blaster/Source/Blaster/Character/BlasterCharacter.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/GameMode/BlasterGameMode.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/GameMode/BlasterGameMode.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/GameMode/LobbyGameMode.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -628,7 +633,7 @@
       <workItem from="1733144017323" duration="16536000" />
       <workItem from="1733271392772" duration="548000" />
       <workItem from="1733272323288" duration="998000" />
-      <workItem from="1733273472895" duration="10611000" />
+      <workItem from="1733273472895" duration="14642000" />
     </task>
     <task id="LOCAL-00001" summary="initial">
       <option name="closed" value="true" />
@@ -862,7 +867,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733296570641</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="add: Sniper">
+      <option name="closed" value="true" />
+      <created>1733299868563</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1733299868563</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -883,7 +896,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="FABRIK IK" />
     <MESSAGE value="feat:Rotate Root Bone" />
     <MESSAGE value="feat: spawning projectile" />
     <MESSAGE value="feat：Drawing the Crosshairs" />
@@ -908,7 +920,8 @@
     <MESSAGE value="add: Pistol" />
     <MESSAGE value="add: SubMachine Gun" />
     <MESSAGE value="add: ShotGun&#10;feat: format code" />
-    <option name="LAST_COMMIT_MESSAGE" value="add: ShotGun&#10;feat: format code" />
+    <MESSAGE value="add: Sniper" />
+    <option name="LAST_COMMIT_MESSAGE" value="add: Sniper" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

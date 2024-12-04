@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "Projectile.generated.h"
 
+class UNiagaraSystem;
+class UNiagaraComponent;
 class UProjectileMovementComponent;
 class UBoxComponent;
 class USoundCue;
@@ -18,6 +20,8 @@ class BLASTER_API AProjectile : public AActor
 public:
 	AProjectile();
 	virtual void Tick(float DeltaTime) override;
+
+	void StartDestroyTimer();
 	virtual void Destroyed() override;
 
 	UPROPERTY(EditAnywhere)
@@ -25,10 +29,14 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+	void DestroyTimerFinished();
 
 	UFUNCTION()
 	virtual void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent,
 	                   FVector NormalImpulse, const FHitResult& Hit);
+
+	void SpawnTrailSystem();
+	void ExplodeDamege();
 
 	UPROPERTY(EditAnywhere, Category="VFX")
 	TObjectPtr<UParticleSystem> ImpactParticle;
@@ -39,8 +47,23 @@ protected:
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UBoxComponent> CollisionBox;
 
+	UPROPERTY(EditAnywhere, Category="VFX")
+	TObjectPtr<UNiagaraSystem> TrailSystem;
+
+	UPROPERTY()
+	TObjectPtr<UNiagaraComponent> TrailSystemComponent;
+
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UProjectileMovementComponent> ProjectileMovement;
+
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<UStaticMeshComponent> ProjectileMesh;
+
+	UPROPERTY(EditAnywhere)
+	float DamageInnerRadius = 200.f;
+
+	UPROPERTY(EditAnywhere)
+	float DamageOuterRadius = 500.f;
 
 private:
 	UPROPERTY(EditAnywhere, Category="VFX")
@@ -48,4 +71,9 @@ private:
 
 	UPROPERTY()
 	TObjectPtr<UParticleSystemComponent> TracerComponent;
+
+	FTimerHandle DestroyTimer;
+	
+	UPROPERTY(EditAnywhere)
+	float DestroyTime = 3.f;
 };
