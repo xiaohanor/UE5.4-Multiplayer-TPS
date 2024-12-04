@@ -56,6 +56,9 @@ public:
 	void MulticastElim();
 
 	bool bDisableGameplay = false;
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void ShowSniperScope(bool bIsAiming);
 
 protected:
 	virtual void BeginPlay() override;

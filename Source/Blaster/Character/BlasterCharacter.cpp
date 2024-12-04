@@ -391,6 +391,16 @@ void ABlasterCharacter::MulticastElim_Implementation()
 			GetActorLocation()
 		);
 	}
+
+	//关闭狙击枪瞄准镜画面
+	if (IsLocallyControlled())
+	{
+		bool bHideSniperScope = Combat && Combat->bAiming && Combat->EquippedWeapon && Combat->EquippedWeapon->GetWeaponType() == EWeaponType::EWT_SniperRifle;
+		if (bHideSniperScope)
+		{
+			ShowSniperScope(false);
+		}
+	}
 }
 
 void ABlasterCharacter::ElimTimerFinished()
@@ -427,6 +437,12 @@ void ABlasterCharacter::PlayerFireMontage(bool bAiming)
 			SectionName = FName("Rifle");
 			break;
 		case EWeaponType::EWT_SubmachineGun:
+			SectionName = FName("Rifle");
+			break;
+		case EWeaponType::EWT_ShotGun:
+			SectionName = FName("Rifle");
+			break;
+		case EWeaponType::EWT_SniperRifle:
 			SectionName = FName("Rifle");
 			break;
 		}
