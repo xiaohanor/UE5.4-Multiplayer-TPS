@@ -12,14 +12,15 @@ UCLASS()
 class BLASTER_API ACasing : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	ACasing();
 
 protected:
 	virtual void BeginPlay() override;
 	UFUNCTION()
-	virtual void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit); 
+	virtual void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent,
+	                   FVector NormalImpulse, const FHitResult& Hit);
 
 private:
 	UPROPERTY(VisibleAnywhere)
@@ -31,5 +32,5 @@ private:
 	UPROPERTY(EditAnywhere)
 	USoundCue* ShellSound;
 
-	bool bIsSoundPlaying=false;
+	bool bIsSoundPlaying = false;
 };

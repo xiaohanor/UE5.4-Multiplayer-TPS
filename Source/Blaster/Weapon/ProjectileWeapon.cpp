@@ -10,22 +10,25 @@ void AProjectileWeapon::Fire(const FVector& HitTarget)
 {
 	Super::Fire(HitTarget);
 
-	if(!HasAuthority()) return;	//只在服务器端生成子弹
-	
+	if (!HasAuthority())
+	{
+		return; //只在服务器端生成子弹
+	}
+
 	APawn* InstigatorPawn = Cast<APawn>(GetOwner());
 	const USkeletalMeshSocket* MuzzleFlashSocket = WeaponMeshGetter()->GetSocketByName(FName("MuzzleFlash"));
-	if(MuzzleFlashSocket)
+	if (MuzzleFlashSocket)
 	{
 		FTransform SocketTransform = MuzzleFlashSocket->GetSocketTransform(WeaponMeshGetter());
 		FVector ToTarget = HitTarget - SocketTransform.GetLocation();
 		FRotator TargetRotation = ToTarget.Rotation();
-		if(ProjectileClass && InstigatorPawn)
+		if (ProjectileClass && InstigatorPawn)
 		{
 			FActorSpawnParameters SpawnParams;
 			SpawnParams.Owner = GetOwner();
 			SpawnParams.Instigator = InstigatorPawn;
 			UWorld* World = GetWorld();
-			if(World)
+			if (World)
 			{
 				World->SpawnActor<AProjectile>(
 					ProjectileClass,

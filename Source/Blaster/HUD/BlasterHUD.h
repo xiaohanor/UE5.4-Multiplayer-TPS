@@ -13,7 +13,6 @@ USTRUCT(BlueprintType)
 struct FHUDPackage
 {
 	GENERATED_BODY()
-public:
 	TObjectPtr<UTexture2D> CrossHairCenter;
 	TObjectPtr<UTexture2D> CrossHairLeft;
 	TObjectPtr<UTexture2D> CrossHairRight;
@@ -32,14 +31,14 @@ class BLASTER_API ABlasterHUD : public AHUD
 public:
 	virtual void DrawHUD() override;
 	void AddCharacterOverlay();
-	
-	UPROPERTY(EditAnywhere,Category="Player States")
+
+	UPROPERTY(EditAnywhere, Category="Player States")
 	TSubclassOf<class UUserWidget> CharacterOverlayClass;
-	
+
 	UPROPERTY()
 	TObjectPtr<UCharacterOverlay> CharacterOverlay;
 
-	UPROPERTY(EditAnywhere,Category="Announcement")
+	UPROPERTY(EditAnywhere, Category="Announcement")
 	TSubclassOf<class UUserWidget> AnnouncementClass;
 
 	UPROPERTY()
@@ -53,12 +52,11 @@ protected:
 private:
 	FHUDPackage HUDPackage;
 
-	void DrawCrosshair(UTexture2D* Texture, FVector2d ViewportCenter,FVector2d Spread,FLinearColor CrossHairColor);
+	void DrawCrosshair(UTexture2D* Texture, FVector2d ViewportCenter, FVector2d Spread, FLinearColor CrossHairColor);
 
 	UPROPERTY(EditAnywhere)
 	float CrosshairSpreadMax = 16.f;
 
 public:
 	FORCEINLINE void SetHUDPackage(const FHUDPackage& Package) { HUDPackage = Package; }
-	
 };

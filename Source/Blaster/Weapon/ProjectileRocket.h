@@ -21,7 +21,8 @@ public:
 	AProjectileRocket();
 
 protected:
-	virtual void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit) override;
+	virtual void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent,
+	                   FVector NormalImpulse, const FHitResult& Hit) override;
 	virtual void BeginPlay() override;
 	void DestroyTimerFinished();
 	virtual void Destroyed() override;
@@ -43,11 +44,11 @@ protected:
 
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<URocketMovementComponent> RocketMovementComponent;
-	
+
 private:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UStaticMeshComponent> RocketMesh;
 
 	FTimerHandle DestroyTimer;
-	float DestroyTime = 3.f;	
+	float DestroyTime = 3.f;
 };

@@ -13,29 +13,30 @@
 class ABlasterPlayerController;
 class AWeapon;
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class BLASTER_API UCombatComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
-public:	
+public:
 	UCombatComponent();
 	friend class ABlasterCharacter;
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
+	                           FActorComponentTickFunction* ThisTickFunction) override;
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
-	
+
 	void EquipWeapon(AWeapon* WeaponToEquip);
 
 	UFUNCTION(BlueprintCallable)
 	void FinishReload();
-	
+
 	void FireButtonPressed(bool bPressed);
 
 protected:
 	virtual void BeginPlay() override;
 	void SetAiming(bool bIsAiming);
 
-	UFUNCTION(Server,Reliable)
+	UFUNCTION(Server, Reliable)
 	void ServerSetAiming(bool bIsAiming);
 
 	UFUNCTION()
@@ -43,16 +44,16 @@ protected:
 	void Fire();
 
 	void Reload();
-	UFUNCTION(Server,Reliable)
+	UFUNCTION(Server, Reliable)
 	void ServerReload();
 
 	void HandleReload();
 	int32 AmountToReload();
 
-	UFUNCTION(Server,Reliable)
+	UFUNCTION(Server, Reliable)
 	void ServerFire(const FVector_NetQuantize& TraceHitTarget);
 
-	UFUNCTION(NetMulticast,Reliable)
+	UFUNCTION(NetMulticast, Reliable)
 	void MulticastFire(const FVector_NetQuantize& TraceHitTarget);
 
 	void TraceUnderCrosshair(FHitResult& TraceHitResult);
@@ -66,7 +67,7 @@ private:
 	TObjectPtr<ABlasterPlayerController> Controller;
 	UPROPERTY()
 	TObjectPtr<ABlasterHUD> HUD;
-	
+
 	UPROPERTY(ReplicatedUsing=OnRep_EquippedWeapon)
 	TObjectPtr<AWeapon> EquippedWeapon;
 
@@ -91,22 +92,22 @@ private:
 	/*瞄准和FOV*/
 	float DefaultFOV;
 	float CurrentFOV;
-	
-	UPROPERTY(EditAnywhere,Category="FOV")
+
+	UPROPERTY(EditAnywhere, Category="FOV")
 	float ZoomedFOV = 30.f;
-	
-	UPROPERTY(EditAnywhere,Category="FOV")
+
+	UPROPERTY(EditAnywhere, Category="FOV")
 	float ZoomInterpSpeed = 20.f;
 
 	void InterpFOV(float DeltaTime);
 
 	/*自动开火*/
 	FTimerHandle FireTimer;
-	
+
 	void StartFireTimer();
 	void FireTImerFinished();
-	
-	bool bCanFire=true;
+
+	bool bCanFire = true;
 
 	bool CanFire();
 
@@ -118,15 +119,17 @@ private:
 	void OnRep_CarriedAmmo();
 
 	UPROPERTY(EditAnywhere)
-	int32 StartingARAmmo = 30;
+	int32 StartingARAmmo = 0;
 	UPROPERTY(EditAnywhere)
-	int32 StartingRocketAmmo = 3;
+	int32 StartingRocketAmmo = 0;
 	UPROPERTY(EditAnywhere)
-	int32 StartingPistolAmmo = 30;
+	int32 StartingPistolAmmo = 0;
 	UPROPERTY(EditAnywhere)
-	int32 StartingSMGAmmo = 30;
-	
-	TMap<EWeaponType,int32> CarriedAmmoMap;
+	int32 StartingSMGAmmo = 0;
+	UPROPERTY(EditAnywhere)
+	int32 StartingShotGunAmmo = 0;
+
+	TMap<EWeaponType, int32> CarriedAmmoMap;
 
 	void initializeCarriedAmmo();
 
@@ -137,10 +140,4 @@ private:
 	void OnRep_ComabtState();
 
 	void UpdateAmmoValues();
-
-	
-	
-public:	
-
-		
 };

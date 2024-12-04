@@ -25,5 +25,4 @@ public:
 
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UTextBlock> InfoText;
-	
 };

@@ -23,7 +23,7 @@ class USpringArmComponent;
 class USoundCue;
 
 UCLASS()
-class BLASTER_API ABlasterCharacter : public ACharacter,public IInteractWithCrossHairInterface
+class BLASTER_API ABlasterCharacter : public ACharacter, public IInteractWithCrossHairInterface
 {
 	GENERATED_BODY()
 
@@ -43,19 +43,20 @@ public:
 	void PlayerElimMontage();
 
 	virtual void OnRep_ReplicatedMovement() override;
-	
+
 	UFUNCTION()
-	void ReciveDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* InstigatorController, AActor* DamageCauser);
+	void ReciveDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType,
+	                  AController* InstigatorController, AActor* DamageCauser);
 
 	void UpdateHUDHealth();
 
 	void Elim();
-	
-	UFUNCTION(NetMulticast,Reliable)
+
+	UFUNCTION(NetMulticast, Reliable)
 	void MulticastElim();
 
 	bool bDisableGameplay = false;
-	
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -74,7 +75,7 @@ private:
 	UPROPERTY(VisibleAnywhere, Category="Camera")
 	TObjectPtr<USpringArmComponent> CameraBoom;
 
-	UPROPERTY(EditAnywhere,BlueprintReadOnly,meta=(AllowPrivateAccess="true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess="true"))
 	TObjectPtr<UWidgetComponent> OverheadWidget;
 
 	UPROPERTY(ReplicatedUsing = OnRep_OverlappingWeapon)
@@ -83,51 +84,51 @@ private:
 	UFUNCTION()
 	void OnRep_OverlappingWeapon(AWeapon* LastWeapon);
 
-	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,meta=(AllowPrivateAccess="true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess="true"))
 	TObjectPtr<UCombatComponent> Combat;
 
-	UFUNCTION(Server,Reliable)
+	UFUNCTION(Server, Reliable)
 	void ServerEquipButtonPressed();
 
 	void HideCameraIfCharacterClose();
 
 	UPROPERTY(EditAnywhere)
-	float CameraThreshold =200.f;
+	float CameraThreshold = 200.f;
 
 	UPROPERTY()
 	TObjectPtr<ABlasterPlayerController> BlasterPlayerController;
-	
+
 	//玩家输入映射
-	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="PlayerInput",meta=(AllowPrivateAccess="true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="PlayerInput", meta=(AllowPrivateAccess="true"))
 	TObjectPtr<UInputMappingContext> PlayerInputMapping;
 
 	/**
 	 * 玩家输入Action
 	 */
-	
-	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="PlayerInput",meta=(AllowPrivateAccess="true"))
-	TObjectPtr <UInputAction> PlayerMove;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="PlayerInput",meta=(AllowPrivateAccess="true"))
-	TObjectPtr <UInputAction> PlayerLook;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="PlayerInput",meta=(AllowPrivateAccess="true"))
-	TObjectPtr <UInputAction> PlayerJump;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="PlayerInput",meta=(AllowPrivateAccess="true"))
-	TObjectPtr <UInputAction> Equip;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="PlayerInput",meta=(AllowPrivateAccess="true"))
-	TObjectPtr <UInputAction> PlayerCrouch;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="PlayerInput",meta=(AllowPrivateAccess="true"))
-	TObjectPtr <UInputAction> PlayerSprint;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="PlayerInput",meta=(AllowPrivateAccess="true"))
-	TObjectPtr <UInputAction> PlayerAim;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="PlayerInput",meta=(AllowPrivateAccess="true"))
-	TObjectPtr <UInputAction> PlayerFire;
-	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="PlayerInput",meta=(AllowPrivateAccess="true"))
-	TObjectPtr <UInputAction> Reload;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="PlayerInput", meta=(AllowPrivateAccess="true"))
+	TObjectPtr<UInputAction> PlayerMove;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="PlayerInput", meta=(AllowPrivateAccess="true"))
+	TObjectPtr<UInputAction> PlayerLook;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="PlayerInput", meta=(AllowPrivateAccess="true"))
+	TObjectPtr<UInputAction> PlayerJump;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="PlayerInput", meta=(AllowPrivateAccess="true"))
+	TObjectPtr<UInputAction> Equip;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="PlayerInput", meta=(AllowPrivateAccess="true"))
+	TObjectPtr<UInputAction> PlayerCrouch;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="PlayerInput", meta=(AllowPrivateAccess="true"))
+	TObjectPtr<UInputAction> PlayerSprint;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="PlayerInput", meta=(AllowPrivateAccess="true"))
+	TObjectPtr<UInputAction> PlayerAim;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="PlayerInput", meta=(AllowPrivateAccess="true"))
+	TObjectPtr<UInputAction> PlayerFire;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="PlayerInput", meta=(AllowPrivateAccess="true"))
+	TObjectPtr<UInputAction> Reload;
 
 	/**
 	 * 玩家输入函数
 	 */
-	
+
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);
 	void EquipButtonPressed();
@@ -140,7 +141,7 @@ private:
 	void FireButtonReleased();
 	void ReloadButtonPressed();
 	virtual void Jump() override;
-	
+
 
 	UPROPERTY(EditAnywhere)
 	float SprintSpeed;
@@ -166,28 +167,28 @@ private:
 	 * 动画蒙太奇
 	 */
 
-	UPROPERTY(EditAnywhere,Category="Combat")
+	UPROPERTY(EditAnywhere, Category="Combat")
 	TObjectPtr<UAnimMontage> FireWeaponMontage;
 
-	UPROPERTY(EditAnywhere,Category="Combat")
+	UPROPERTY(EditAnywhere, Category="Combat")
 	TObjectPtr<UAnimMontage> ReloadMontage;
-	
-	UPROPERTY(EditAnywhere,Category="Combat")
+
+	UPROPERTY(EditAnywhere, Category="Combat")
 	TObjectPtr<UAnimMontage> HitReactMontage;
-	
-	UPROPERTY(EditAnywhere,Category="Combat")
+
+	UPROPERTY(EditAnywhere, Category="Combat")
 	TObjectPtr<UAnimMontage> ElimMontage;
 
 	/**
 	 * 玩家生命值
 	 */
-	
+
 	UPROPERTY(EditAnywhere, Category = "Player Stats")
 	float MaxHealth = 100.f;
-	
+
 	UPROPERTY(ReplicatedUsing = OnRep_Health, VisibleAnywhere, Category = "Player Stats")
 	float Health = 100.f;
-	
+
 	UFUNCTION()
 	void OnRep_Health();
 
@@ -202,7 +203,7 @@ private:
 	/**
 	 * 溶解效果
 	 */
-	
+
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UTimelineComponent> DissolveTimeline;
 	FOnTimelineFloat DissolveTrack;
@@ -215,11 +216,11 @@ private:
 	void StartDissolve();
 
 	//修改运行时的动态实例
-	UPROPERTY(VisibleAnywhere,Category="Elim")
+	UPROPERTY(VisibleAnywhere, Category="Elim")
 	TObjectPtr<UMaterialInstanceDynamic> DynamicDissolveMaterialInstance;
 
 	//在蓝图中设置的材质实例，用于动态材质实例
-	UPROPERTY(EditAnywhere,Category="Elim")
+	UPROPERTY(EditAnywhere, Category="Elim")
 	TObjectPtr<UMaterialInstance> DissolveMaterialInstance;
 
 	/**
@@ -228,7 +229,7 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	USoundCue* ElimBotSound;
-	
+
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UParticleSystem> ElimBotEffect;
 
@@ -237,7 +238,7 @@ private:
 
 	UPROPERTY()
 	TObjectPtr<ABlasterPlayerState> BlasterPlayerState;
-	
+
 public:
 	void SetOverlappingWeapon(AWeapon* Weapon);
 	bool IsWeaponEquipped();

@@ -15,16 +15,16 @@ void ABlasterGameState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Ou
 
 void ABlasterGameState::UpdateTopScore(ABlasterPlayerState* ScoringPlayer)
 {
-	if(TopScoringPlayers.Num()==0)
+	if (TopScoringPlayers.Num() == 0)
 	{
 		TopScoringPlayers.Add(ScoringPlayer);
 		TopScore = ScoringPlayer->GetScore();
 	}
-	else if(ScoringPlayer->GetScore() == TopScore)
+	else if (ScoringPlayer->GetScore() == TopScore)
 	{
 		TopScoringPlayers.AddUnique(ScoringPlayer);
 	}
-	else if(ScoringPlayer->GetScore()>TopScore)
+	else if (ScoringPlayer->GetScore() > TopScore)
 	{
 		TopScoringPlayers.Empty();
 		TopScoringPlayers.AddUnique(ScoringPlayer);

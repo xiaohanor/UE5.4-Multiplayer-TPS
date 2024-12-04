@@ -17,20 +17,19 @@ AProjectile::AProjectile()
 
 	CollisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("CollisionBox"));
 	SetRootComponent(CollisionBox);
-	CollisionBox->SetCollisionObjectType(ECollisionChannel::ECC_WorldDynamic);
+	CollisionBox->SetCollisionObjectType(ECC_WorldDynamic);
 	CollisionBox->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
-	CollisionBox->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
-	CollisionBox->SetCollisionResponseToChannel(ECollisionChannel::ECC_Visibility, ECollisionResponse::ECR_Block);
-	CollisionBox->SetCollisionResponseToChannel(ECollisionChannel::ECC_WorldStatic, ECollisionResponse::ECR_Block);
-	CollisionBox->SetCollisionResponseToChannel(ECC_SkeletalMesh,ECR_Block);
-
+	CollisionBox->SetCollisionResponseToAllChannels(ECR_Ignore);
+	CollisionBox->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
+	CollisionBox->SetCollisionResponseToChannel(ECC_WorldStatic, ECR_Block);
+	CollisionBox->SetCollisionResponseToChannel(ECC_SkeletalMesh, ECR_Block);
 }
 
 void AProjectile::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if(Tracer)
+	if (Tracer)
 	{
 		TracerComponent = UGameplayStatics::SpawnEmitterAttached(
 			Tracer,
@@ -41,15 +40,14 @@ void AProjectile::BeginPlay()
 			EAttachLocation::KeepWorldPosition);
 	}
 
-	if(HasAuthority())
+	if (HasAuthority())
 	{
 		CollisionBox->OnComponentHit.AddDynamic(this, &AProjectile::OnHit);
 	}
-	
 }
 
 void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent,
-	FVector NormalImpulse, const FHitResult& Hit)
+                        FVector NormalImpulse, const FHitResult& Hit)
 {
 	Destroy();
 }
@@ -57,20 +55,18 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 void AProjectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 void AProjectile::Destroyed()
 {
 	Super::Destroyed();
-	
-	if(ImpactParticle)
+
+	if (ImpactParticle)
 	{
 		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ImpactParticle, GetActorTransform());
 	}
-	if(ImpactSound)
+	if (ImpactSound)
 	{
-		UGameplayStatics::PlaySoundAtLocation(this,ImpactSound,GetActorLocation());
+		UGameplayStatics::PlaySoundAtLocation(this, ImpactSound, GetActorLocation());
 	}
 }
-

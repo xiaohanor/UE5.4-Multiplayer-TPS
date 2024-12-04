@@ -13,7 +13,6 @@ namespace MatchState
 }
 
 
-
 class ABlasterPlayerController;
 class ABlasterCharacter;
 /**
@@ -28,7 +27,8 @@ public:
 	ABlasterGameMode();
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
-	virtual void PlayerEliminated(ABlasterCharacter* ElimmedCharacter, ABlasterPlayerController* VictimController, ABlasterPlayerController* AttackerController);
+	virtual void PlayerEliminated(ABlasterCharacter* ElimmedCharacter, ABlasterPlayerController* VictimController,
+	                              ABlasterPlayerController* AttackerController);
 	virtual void RequestRespawn(ACharacter* ElimmedCharacter, AController* ElimmedController);
 	virtual void OnMatchStateSet() override;
 
@@ -42,7 +42,7 @@ public:
 	float CooldownTime = 10.f;
 
 	float LevelStaringTime;
- 
+
 private:
 	float CountdownTime = 0.f;
 

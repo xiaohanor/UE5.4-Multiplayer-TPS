@@ -16,12 +16,15 @@ void ABlasterPlayerState::GetLifetimeReplicatedProps(TArray<class FLifetimePrope
 
 void ABlasterPlayerState::AddToScore(float ScoreAmount)
 {
-	SetScore(GetScore() + ScoreAmount); 
-	Character = Character == nullptr ? TObjectPtr<ABlasterCharacter>(Cast<ABlasterCharacter>(GetPawn())): Character;
+	SetScore(GetScore() + ScoreAmount);
+	Character = Character == nullptr ? TObjectPtr<ABlasterCharacter>(Cast<ABlasterCharacter>(GetPawn())) : Character;
 	if (Character)
 	{
-		Controller = Controller == nullptr ? TObjectPtr<ABlasterPlayerController>(Cast<ABlasterPlayerController>(Character->GetController())) : Controller;
-		if(Controller)
+		Controller = Controller == nullptr
+			             ? TObjectPtr<ABlasterPlayerController>(
+				             Cast<ABlasterPlayerController>(Character->GetController()))
+			             : Controller;
+		if (Controller)
 		{
 			Controller->SetHUDScore(GetScore());
 		}
@@ -32,11 +35,14 @@ void ABlasterPlayerState::OnRep_Score()
 {
 	Super::OnRep_Score();
 
-	Character = Character == nullptr ? TObjectPtr<ABlasterCharacter>(Cast<ABlasterCharacter>(GetPawn())): Character;
+	Character = Character == nullptr ? TObjectPtr<ABlasterCharacter>(Cast<ABlasterCharacter>(GetPawn())) : Character;
 	if (Character)
 	{
-		Controller = Controller == nullptr ? TObjectPtr<ABlasterPlayerController>(Cast<ABlasterPlayerController>(Character->GetController())) : Controller;
-		if(Controller)
+		Controller = Controller == nullptr
+			             ? TObjectPtr<ABlasterPlayerController>(
+				             Cast<ABlasterPlayerController>(Character->GetController()))
+			             : Controller;
+		if (Controller)
 		{
 			Controller->SetHUDScore(GetScore());
 		}
@@ -46,11 +52,14 @@ void ABlasterPlayerState::OnRep_Score()
 void ABlasterPlayerState::AddToDefeats(int32 DefeatsAmount)
 {
 	Defeats += DefeatsAmount;
-	Character = Character == nullptr ? TObjectPtr<ABlasterCharacter>(Cast<ABlasterCharacter>(GetPawn())): Character;
+	Character = Character == nullptr ? TObjectPtr<ABlasterCharacter>(Cast<ABlasterCharacter>(GetPawn())) : Character;
 	if (Character)
 	{
-		Controller = Controller == nullptr ? TObjectPtr<ABlasterPlayerController>(Cast<ABlasterPlayerController>(Character->GetController())) : Controller;
-		if(Controller)
+		Controller = Controller == nullptr
+			             ? TObjectPtr<ABlasterPlayerController>(
+				             Cast<ABlasterPlayerController>(Character->GetController()))
+			             : Controller;
+		if (Controller)
 		{
 			Controller->SetHUDDefeats(Defeats);
 		}
@@ -59,11 +68,14 @@ void ABlasterPlayerState::AddToDefeats(int32 DefeatsAmount)
 
 void ABlasterPlayerState::OnRep_Defeats()
 {
-	Character = Character == nullptr ? TObjectPtr<ABlasterCharacter>(Cast<ABlasterCharacter>(GetPawn())): Character;
+	Character = Character == nullptr ? TObjectPtr<ABlasterCharacter>(Cast<ABlasterCharacter>(GetPawn())) : Character;
 	if (Character)
 	{
-		Controller = Controller == nullptr ? TObjectPtr<ABlasterPlayerController>(Cast<ABlasterPlayerController>(Character->GetController())) : Controller;
-		if(Controller)
+		Controller = Controller == nullptr
+			             ? TObjectPtr<ABlasterPlayerController>(
+				             Cast<ABlasterPlayerController>(Character->GetController()))
+			             : Controller;
+		if (Controller)
 		{
 			Controller->SetHUDDefeats(Defeats);
 		}

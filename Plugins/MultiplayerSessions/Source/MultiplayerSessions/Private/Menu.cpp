@@ -43,7 +43,7 @@ void UMenu::MenuSetup(int32 NumOfPublicConnections, FString MatchOfType, FString
 		MultiplayerSessionsSubsystem->MultiplayerOnFindSessionsComplete.AddUObject(this, &ThisClass::OnFindSessions);
 		MultiplayerSessionsSubsystem->MultiplayerOnJoinSessionComplete.AddUObject(this, &ThisClass::OnJoinSession);
 		MultiplayerSessionsSubsystem->MultiplayerOnDestroySessionComplete.
-									  AddDynamic(this, &ThisClass::OnDestroySession);
+		                              AddDynamic(this, &ThisClass::OnDestroySession);
 		MultiplayerSessionsSubsystem->MultiplayerOnStartSessionComplete.AddDynamic(this, &ThisClass::OnStartSession);
 	}
 }
@@ -116,7 +116,7 @@ void UMenu::OnFindSessions(const TArray<FOnlineSessionSearchResult>& SessionResu
 			return;
 		}
 	}
-	
+
 	if (!bWasSuccessful || SessionResults.Num() == 0)
 	{
 		JoinButton->SetIsEnabled(true);
@@ -137,11 +137,11 @@ void UMenu::OnJoinSession(EOnJoinSessionCompleteResult::Type Result)
 			APlayerController* PlayerController = GetGameInstance()->GetFirstLocalPlayerController();
 			if (PlayerController)
 			{
-				PlayerController->ClientTravel(Address, ETravelType::TRAVEL_Absolute);
+				PlayerController->ClientTravel(Address, TRAVEL_Absolute);
 			}
 		}
 	}
-	if(Result!=EOnJoinSessionCompleteResult::Success)
+	if (Result != EOnJoinSessionCompleteResult::Success)
 	{
 		JoinButton->SetIsEnabled(true);
 	}

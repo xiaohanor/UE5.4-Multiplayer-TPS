@@ -26,8 +26,8 @@ UCLASS()
 class BLASTER_API AWeapon : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	AWeapon();
 	virtual void Tick(float DeltaTime) override;
@@ -44,67 +44,70 @@ public:
 	/**
 	 * 准星纹理
 	 */
-	UPROPERTY(EditAnywhere,Category="Crosshair")
+	UPROPERTY(EditAnywhere, Category="Crosshair")
 	TObjectPtr<UTexture2D> CrossHairCenter;
 
-	UPROPERTY(EditAnywhere,Category="Crosshair")
+	UPROPERTY(EditAnywhere, Category="Crosshair")
 	TObjectPtr<UTexture2D> CrossHairLeft;
 
-	UPROPERTY(EditAnywhere,Category="Crosshair")
+	UPROPERTY(EditAnywhere, Category="Crosshair")
 	TObjectPtr<UTexture2D> CrossHairRight;
 
-	UPROPERTY(EditAnywhere,Category="Crosshair")
+	UPROPERTY(EditAnywhere, Category="Crosshair")
 	TObjectPtr<UTexture2D> CrossHairTop;
 
-	UPROPERTY(EditAnywhere,Category="Crosshair")
+	UPROPERTY(EditAnywhere, Category="Crosshair")
 	TObjectPtr<UTexture2D> CrossHairBottom;
 
 	/**
 	 * 瞄准时缩放FOV
 	 */
-	UPROPERTY(EditAnywhere,Category="FOV")
+	UPROPERTY(EditAnywhere, Category="FOV")
 	float ZoomedFOV = 30.f;
-	
-	UPROPERTY(EditAnywhere,Category="FOV")
+
+	UPROPERTY(EditAnywhere, Category="FOV")
 	float ZoomInterpSpeed = 20.f;
 
 	/**
 	 * 自动开火
 	 */
-	UPROPERTY(EditAnywhere,Category="武器属性")
-	float FireDelay=.15f;
-	
-	UPROPERTY(EditAnywhere,Category="武器属性")
+	UPROPERTY(EditAnywhere, Category="武器属性")
+	float FireDelay = .15f;
+
+	UPROPERTY(EditAnywhere, Category="武器属性")
 	bool bAutomatic;
 
-	UPROPERTY(EditAnywhere,Category="Weapon Properties")
+	UPROPERTY(EditAnywhere, Category="Weapon Properties")
 	TObjectPtr<USoundCue> EquippedSound;
 
 protected:
 	virtual void BeginPlay() override;
 
 	UFUNCTION()
-	virtual void OnSphereOverlap(UPrimitiveComponent* OverlappedComponent,AActor* OtherActor,UPrimitiveComponent* OtherComp,int32 OtherBodyIndex,bool bFromSweep,const FHitResult& SweepResult);
+	virtual void OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+	                             UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep,
+	                             const FHitResult& SweepResult);
 	UFUNCTION()
-	void OnSphereEndOverlap(UPrimitiveComponent* OverlappedComponent,AActor* OtherActor,UPrimitiveComponent* OtherComp,int32 OtherBodyIndex);
-	
+	void OnSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+	                        UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+
 private:
-	UPROPERTY(VisibleAnywhere,Category="Weapon Properties")
+	UPROPERTY(VisibleAnywhere, Category="Weapon Properties")
 	TObjectPtr<USkeletalMeshComponent> WeaponMesh;
 
-	UPROPERTY(VisibleAnywhere,Category="Weapon Properties")
+	UPROPERTY(VisibleAnywhere, Category="Weapon Properties")
 	TObjectPtr<USphereComponent> AreaSphere;
 
-	UPROPERTY(ReplicatedUsing = OnRep_WeaponState,VisibleAnywhere)
+	UPROPERTY(ReplicatedUsing = OnRep_WeaponState, VisibleAnywhere)
 	EWeaponState WeaponState;
 
 	UFUNCTION()
 	void OnRep_WeaponState();
 
-	UPROPERTY(VisibleAnywhere,Category="Weapon Properties")
+	UPROPERTY(VisibleAnywhere, Category="Weapon Properties")
 	TObjectPtr<UWidgetComponent> PickUpWidget;
 
-	UPROPERTY(EditAnywhere,Category="Weapon Properties")
+	UPROPERTY(EditAnywhere, Category="Weapon Properties")
 	TObjectPtr<UAnimationAsset> FireAnimation;
 
 	UPROPERTY(EditAnywhere, Category="Weapon Properties")
@@ -118,7 +121,7 @@ private:
 
 	UPROPERTY(EditAnywhere, Category="武器属性")
 	EWeaponType WeaponType;
-	
+
 	UFUNCTION()
 	void OnRep_Ammo();
 

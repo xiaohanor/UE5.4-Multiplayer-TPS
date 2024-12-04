@@ -23,11 +23,11 @@ public:
 	 ** 复制属性通知 
 	 */
 	virtual void OnRep_Score() override;
-	
+
 	UFUNCTION()
 	virtual void OnRep_Defeats();
-	
-	
+
+
 	void AddToScore(float ScoreAmount);
 	void AddToDefeats(int32 DefeatsAmount);
 
@@ -39,5 +39,4 @@ private:
 
 	UPROPERTY(ReplicatedUsing = OnRep_Defeats)
 	int32 Defeats;
-	
 };

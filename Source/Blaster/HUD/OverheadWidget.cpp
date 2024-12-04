@@ -29,7 +29,7 @@ void UOverheadWidget::ShowPlayerNetRole(APawn* InPawn)
 		Role = FString("None");
 		break;
 	}
-	FString LocalRoleString = FString::Printf(TEXT("Role: %s"), *Role);	
+	FString LocalRoleString = FString::Printf(TEXT("Role: %s"), *Role);
 	SetText(LocalRoleString);
 }
 

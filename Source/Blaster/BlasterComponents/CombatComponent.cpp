@@ -12,7 +12,6 @@
 #include "Kismet/GameplayStatics.h"
 #include "Net/UnrealNetwork.h"
 #include "Sound/SoundCue.h"
-#define TRACE_LENGHT 8000.f
 
 UCombatComponent::UCombatComponent()
 {
@@ -89,13 +88,13 @@ void UCombatComponent::TraceUnderCrosshair(FHitResult& TraceHitResult)
 			float DistanceToCharacter = (Character->GetActorLocation() - Start).Size();
 			Start += CrossHairWorldDirection * (DistanceToCharacter + 50.f);
 		}
-		FVector End = Start + CrossHairWorldDirection * TRACE_LENGHT;
+		FVector End = Start + CrossHairWorldDirection * TRACE_LENGTH;
 
 		GetWorld()->LineTraceSingleByChannel(
 			TraceHitResult,
 			Start,
 			End,
-			ECollisionChannel::ECC_Visibility);
+			ECC_Visibility);
 
 		if (!TraceHitResult.bBlockingHit)
 		{
@@ -115,7 +114,10 @@ void UCombatComponent::TraceUnderCrosshair(FHitResult& TraceHitResult)
 
 void UCombatComponent::SetHUDCrosshairs(float DeltaTime)
 {
-	if (Character == nullptr || Character->Controller == nullptr) return;
+	if (Character == nullptr || Character->Controller == nullptr)
+	{
+		return;
+	}
 
 	Controller = Controller == nullptr
 		             ? TObjectPtr<ABlasterPlayerController>(Cast<ABlasterPlayerController>(Character->Controller))
@@ -179,7 +181,10 @@ void UCombatComponent::SetHUDCrosshairs(float DeltaTime)
 
 void UCombatComponent::InterpFOV(float DeltaTime)
 {
-	if (EquippedWeapon == nullptr) return;
+	if (EquippedWeapon == nullptr)
+	{
+		return;
+	}
 	if (bAiming)
 	{
 		//使用 EquippedWeapon->ZoomInterpSpeed 因为不同武器的瞄准速度可能不同
@@ -232,7 +237,10 @@ void UCombatComponent::Fire()
 
 void UCombatComponent::StartFireTimer()
 {
-	if (EquippedWeapon == nullptr || Character == nullptr) return;
+	if (EquippedWeapon == nullptr || Character == nullptr)
+	{
+		return;
+	}
 	Character->GetWorldTimerManager().SetTimer(
 		FireTimer,
 		this,
@@ -243,13 +251,16 @@ void UCombatComponent::StartFireTimer()
 
 void UCombatComponent::FireTImerFinished()
 {
-	if (EquippedWeapon == nullptr) return;
+	if (EquippedWeapon == nullptr)
+	{
+		return;
+	}
 	bCanFire = true;
 	if (bFireButtonPressed && EquippedWeapon->bAutomatic)
 	{
 		Fire();
 	}
-	if(EquippedWeapon->IsEmpty())
+	if (EquippedWeapon->IsEmpty())
 	{
 		Reload();
 	}
@@ -271,7 +282,10 @@ void UCombatComponent::ServerFire_Implementation(const FVector_NetQuantize& Trac
 
 void UCombatComponent::MulticastFire_Implementation(const FVector_NetQuantize& TraceHitTarget)
 {
-	if (EquippedWeapon == nullptr) return;
+	if (EquippedWeapon == nullptr)
+	{
+		return;
+	}
 	if (Character && CombatState == ECombatState::ECS_Unoccupied)
 	{
 		Character->PlayerFireMontage(bAiming);
@@ -281,7 +295,10 @@ void UCombatComponent::MulticastFire_Implementation(const FVector_NetQuantize& T
 
 void UCombatComponent::EquipWeapon(AWeapon* WeaponToEquip)
 {
-	if (Character == nullptr || WeaponToEquip == nullptr) return;
+	if (Character == nullptr || WeaponToEquip == nullptr)
+	{
+		return;
+	}
 	if (EquippedWeapon)
 	{
 		EquippedWeapon->Dropped();
@@ -310,7 +327,7 @@ void UCombatComponent::EquipWeapon(AWeapon* WeaponToEquip)
 		Controller->SetHUDCarriedAmmo(CarriedAmmo);
 	}
 
-	if(EquippedWeapon->EquippedSound)
+	if (EquippedWeapon->EquippedSound)
 	{
 		UGameplayStatics::PlaySoundAtLocation(
 			this,
@@ -319,7 +336,7 @@ void UCombatComponent::EquipWeapon(AWeapon* WeaponToEquip)
 		);
 	}
 
-	if(EquippedWeapon->IsEmpty())
+	if (EquippedWeapon->IsEmpty())
 	{
 		Reload();
 	}
@@ -342,7 +359,7 @@ void UCombatComponent::OnRep_EquippedWeapon()
 		Character->GetCharacterMovement()->bOrientRotationToMovement = false;
 		Character->bUseControllerRotationYaw = true;
 
-		if(EquippedWeapon->EquippedSound)
+		if (EquippedWeapon->EquippedSound)
 		{
 			UGameplayStatics::PlaySoundAtLocation(
 				this,
@@ -363,15 +380,21 @@ void UCombatComponent::Reload()
 
 void UCombatComponent::ServerReload_Implementation()
 {
-	if (Character == nullptr || EquippedWeapon == nullptr) return;
+	if (Character == nullptr || EquippedWeapon == nullptr)
+	{
+		return;
+	}
 	CombatState = ECombatState::ECS_Reloading;
 	HandleReload();
 }
 
 void UCombatComponent::FinishReload()
 {
-	if (Character == nullptr) return;
-	
+	if (Character == nullptr)
+	{
+		return;
+	}
+
 	if (Character->HasAuthority())
 	{
 		CombatState = ECombatState::ECS_Unoccupied;
@@ -402,7 +425,10 @@ void UCombatComponent::OnRep_ComabtState()
 
 void UCombatComponent::UpdateAmmoValues()
 {
-	if (Character == nullptr || EquippedWeapon == nullptr) return;
+	if (Character == nullptr || EquippedWeapon == nullptr)
+	{
+		return;
+	}
 
 	int32 ReloadAmount = AmountToReload();
 	if (CarriedAmmoMap.Contains(EquippedWeapon->GetWeaponType()))
@@ -411,8 +437,8 @@ void UCombatComponent::UpdateAmmoValues()
 		CarriedAmmo = CarriedAmmoMap[EquippedWeapon->GetWeaponType()];
 	}
 	Controller = Controller == nullptr
-			 ? TObjectPtr<ABlasterPlayerController>(Cast<ABlasterPlayerController>(Character->Controller))
-			 : Controller;
+		             ? TObjectPtr<ABlasterPlayerController>(Cast<ABlasterPlayerController>(Character->Controller))
+		             : Controller;
 	if (Controller)
 	{
 		Controller->SetHUDCarriedAmmo(CarriedAmmo);
@@ -427,7 +453,10 @@ void UCombatComponent::HandleReload()
 
 int32 UCombatComponent::AmountToReload()
 {
-	if (EquippedWeapon == nullptr) return 0;
+	if (EquippedWeapon == nullptr)
+	{
+		return 0;
+	}
 	int32 RoomInMag = EquippedWeapon->GetMagCapacity() - EquippedWeapon->GetAmmo();
 	if (CarriedAmmoMap.Contains(EquippedWeapon->GetWeaponType()))
 	{
@@ -440,7 +469,10 @@ int32 UCombatComponent::AmountToReload()
 
 bool UCombatComponent::CanFire()
 {
-	if (EquippedWeapon == nullptr) return false;
+	if (EquippedWeapon == nullptr)
+	{
+		return false;
+	}
 	return !EquippedWeapon->IsEmpty() && bCanFire && CombatState == ECombatState::ECS_Unoccupied;
 }
 
@@ -461,5 +493,5 @@ void UCombatComponent::initializeCarriedAmmo()
 	CarriedAmmoMap.Emplace(EWeaponType::EWT_RocketLauncher, StartingRocketAmmo);
 	CarriedAmmoMap.Emplace(EWeaponType::EWT_Pistol, StartingPistolAmmo);
 	CarriedAmmoMap.Emplace(EWeaponType::EWT_SubmachineGun, StartingSMGAmmo);
-
+	CarriedAmmoMap.Emplace(EWeaponType::EWT_ShotGun, StartingShotGunAmmo);
 }

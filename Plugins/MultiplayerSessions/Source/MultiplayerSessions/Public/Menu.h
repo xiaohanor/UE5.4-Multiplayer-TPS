@@ -17,7 +17,8 @@ class MULTIPLAYERSESSIONS_API UMenu : public UUserWidget
 
 public:
 	UFUNCTION(BlueprintCallable)
-	void MenuSetup(int32 NumOfPublicConnections=4, FString MatchOfType=FString(TEXT("XIAOHAN")), FString PathToLobby=FString(TEXT("/Game/ThirdPerson/Maps/Lobby")));
+	void MenuSetup(int32 NumOfPublicConnections = 4, FString MatchOfType = FString(TEXT("XIAOHAN")),
+	               FString PathToLobby = FString(TEXT("/Game/ThirdPerson/Maps/Lobby")));
 
 	UPROPERTY(meta=(BindWidget))
 	class UButton* HostButton;
@@ -35,8 +36,8 @@ protected:
 	void OnDestroySession(bool bWasSuccessful);
 	UFUNCTION()
 	void OnStartSession(bool bWasSuccessful);
+
 private:
-	
 	UPROPERTY(meta=(BindWidget))
 	UButton* JoinButton;
 
