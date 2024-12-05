@@ -30,6 +30,11 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void FinishReload();
 
+	UFUNCTION(BlueprintCallable)
+	void ShotgunShellReload();
+
+	void JumpToShotgunEnd();
+
 	void FireButtonPressed(bool bPressed);
 
 protected:
@@ -44,6 +49,7 @@ protected:
 	void Fire();
 
 	void Reload();
+	
 	UFUNCTION(Server, Reliable)
 	void ServerReload();
 
@@ -137,11 +143,12 @@ private:
 
 	void initializeCarriedAmmo();
 
-	UPROPERTY(ReplicatedUsing=OnRep_ComabtState)
+	UPROPERTY(ReplicatedUsing=OnRep_CombatState)
 	ECombatState CombatState = ECombatState::ECS_Unoccupied;
 
 	UFUNCTION()
-	void OnRep_ComabtState();
-
+	void OnRep_CombatState();
+	
 	void UpdateAmmoValues();
+	void UpdateShotGunAmmoValues();
 };

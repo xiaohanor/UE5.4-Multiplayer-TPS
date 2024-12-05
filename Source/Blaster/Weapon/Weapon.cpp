@@ -4,6 +4,7 @@
 #include "Weapon.h"
 
 #include "Casing.h"
+#include "Blaster/BlasterComponents/CombatComponent.h"
 #include "Blaster/Character/BlasterCharacter.h"
 #include "Blaster/PlayerController/BlasterPlayerController.h"
 #include "Components/SphereComponent.h"
@@ -112,10 +113,7 @@ void AWeapon::Dropped()
 
 void AWeapon::AddAmmo(int32 AmmoToAdd)
 {
-	UE_LOG(LogTemp, Warning, TEXT("AmmoToAdd: %d"), AmmoToAdd);
-	UE_LOG(LogTemp, Warning, TEXT("1Ammo: %d"), Ammo);
 	Ammo = FMath::Clamp(Ammo - AmmoToAdd, 0, MagCapacity);
-	UE_LOG(LogTemp, Warning, TEXT("2Ammo: %d"), Ammo);
 	SetHUDAmmo();
 }
 
@@ -216,6 +214,13 @@ void AWeapon::SpendRound()
 
 void AWeapon::OnRep_Ammo()
 {
+	BlasterOwnerCharacter = BlasterOwnerCharacter == nullptr
+							? TObjectPtr<ABlasterCharacter>(Cast<ABlasterCharacter>(GetOwner()))
+							: BlasterOwnerCharacter;
+	if (BlasterOwnerCharacter && BlasterOwnerCharacter->GetCombatComponent() && IsFull())
+	{
+		BlasterOwnerCharacter->GetCombatComponent()->JumpToShotgunEnd();
+	}
 	SetHUDAmmo();
 }
 
@@ -236,8 +241,8 @@ void AWeapon::OnRep_Owner()
 void AWeapon::SetHUDAmmo()
 {
 	BlasterOwnerCharacter = BlasterOwnerCharacter == nullptr
-		                        ? TObjectPtr<ABlasterCharacter>(Cast<ABlasterCharacter>(GetOwner()))
-		                        : BlasterOwnerCharacter;
+						? TObjectPtr<ABlasterCharacter>(Cast<ABlasterCharacter>(GetOwner()))
+						: BlasterOwnerCharacter;
 	if (BlasterOwnerCharacter)
 	{
 		BlasterOwnerController = BlasterOwnerController == nullptr

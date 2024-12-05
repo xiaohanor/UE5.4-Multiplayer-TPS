@@ -424,31 +424,7 @@ void ABlasterCharacter::PlayerFireMontage(bool bAiming)
 	{
 		AnimInstance->Montage_Play(FireWeaponMontage);
 		FName SectionName;
-
-		switch (Combat->EquippedWeapon->GetWeaponType())
-		{
-		case EWeaponType::EWT_AssaultRifle:
-			SectionName = FName("Rifle");
-			break;
-		case EWeaponType::EWT_RocketLauncher:
-			SectionName = FName("Rifle");
-			break;
-		case EWeaponType::EWT_Pistol:
-			SectionName = FName("Rifle");
-			break;
-		case EWeaponType::EWT_SubmachineGun:
-			SectionName = FName("Rifle");
-			break;
-		case EWeaponType::EWT_ShotGun:
-			SectionName = FName("Rifle");
-			break;
-		case EWeaponType::EWT_SniperRifle:
-			SectionName = FName("Rifle");
-			break;
-		case EWeaponType::EWT_GrenadeLauncher:
-			SectionName = FName("Rifle");
-			break;
-		}
+		SectionName = bAiming ? FName("RifleAim") : FName("RifleHip");
 		AnimInstance->Montage_JumpToSection(SectionName);
 	}
 }
@@ -470,9 +446,27 @@ void ABlasterCharacter::PlayerReloadMontage()
 		case EWeaponType::EWT_AssaultRifle:
 			SectionName = FName("ReloadRifle");
 			break;
+		case EWeaponType::EWT_RocketLauncher:
+			SectionName = FName("RocketLauncher");
+			break;
+		case EWeaponType::EWT_Pistol:
+			SectionName = FName("Pistol");
+			break;
+		case EWeaponType::EWT_SubmachineGun:
+			SectionName = FName("Pistol");
+			break;
+		case EWeaponType::EWT_ShotGun:
+			SectionName = FName("Shotgun");
+			break;
+		case EWeaponType::EWT_SniperRifle:
+			SectionName = FName("SniperRifle");
+			break;
+		case EWeaponType::EWT_GrenadeLauncher:
+			SectionName = FName("GrenadeLauncher");
+			break;
 		}
-
 		AnimInstance->Montage_JumpToSection(SectionName);
+		UE_LOG(LogTemp, Warning, TEXT("Play Reload Montage"));
 	}
 }
 
