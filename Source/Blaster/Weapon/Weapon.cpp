@@ -26,6 +26,10 @@ AWeapon::AWeapon()
 	WeaponMesh->SetCollisionResponseToChannel(ECC_Pawn, ECR_Ignore);
 	WeaponMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
+	WeaponMesh->SetCustomDepthStencilValue(CUSTOM_DEPTH_BLUE);
+	WeaponMesh->MarkRenderStateDirty();	// 使渲染状态无效，以便在下一帧更新
+	EnableCustomDepth(true);
+
 	AreaSphere = CreateDefaultSubobject<USphereComponent>(TEXT("AreaSphere"));
 	AreaSphere->SetupAttachment(RootComponent);
 	AreaSphere->SetCollisionResponseToAllChannels(ECR_Ignore);
@@ -33,6 +37,14 @@ AWeapon::AWeapon()
 
 	PickUpWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("PickUpWidget"));
 	PickUpWidget->SetupAttachment(RootComponent);
+}
+
+void AWeapon::EnableCustomDepth(bool bEnable)
+{
+	if (WeaponMesh)
+	{
+		WeaponMesh->SetRenderCustomDepth(bEnable);
+	}
 }
 
 void AWeapon::BeginPlay()
@@ -151,6 +163,8 @@ void AWeapon::SetWeaponState(EWeaponState State)
 		WeaponMesh->SetSimulatePhysics(false);
 		WeaponMesh->SetEnableGravity(false);
 		WeaponMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		EnableCustomDepth(false);
+
 		if (WeaponType == EWeaponType::EWT_SubmachineGun)
 		{
 			WeaponMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
@@ -169,6 +183,10 @@ void AWeapon::SetWeaponState(EWeaponState State)
 		WeaponMesh->SetCollisionResponseToAllChannels(ECR_Block);
 		WeaponMesh->SetCollisionResponseToChannel(ECC_Pawn, ECR_Ignore);
 		WeaponMesh->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
+
+		WeaponMesh->SetCustomDepthStencilValue(CUSTOM_DEPTH_BLUE);
+		WeaponMesh->MarkRenderStateDirty();	// 使渲染状态无效，以便在下一帧更新
+		EnableCustomDepth(true);
 		break;
 	}
 }
@@ -183,6 +201,8 @@ void AWeapon::OnRep_WeaponState()
 		WeaponMesh->SetSimulatePhysics(false);
 		WeaponMesh->SetEnableGravity(false);
 		WeaponMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		EnableCustomDepth(true);
+
 		if (WeaponType == EWeaponType::EWT_SubmachineGun)
 		{
 			WeaponMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
@@ -201,6 +221,10 @@ void AWeapon::OnRep_WeaponState()
 		WeaponMesh->SetCollisionResponseToAllChannels(ECR_Block);
 		WeaponMesh->SetCollisionResponseToChannel(ECC_Pawn, ECR_Ignore);
 		WeaponMesh->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
+
+		WeaponMesh->SetCustomDepthStencilValue(CUSTOM_DEPTH_BLUE);
+		WeaponMesh->MarkRenderStateDirty();	// 使渲染状态无效，以便在下一帧更新
+		EnableCustomDepth(true);
 		break;
 	}
 }
@@ -222,6 +246,7 @@ void AWeapon::OnRep_Ammo()
 		BlasterOwnerCharacter->GetCombatComponent()->JumpToShotgunEnd();
 	}
 	SetHUDAmmo();
+	
 }
 
 void AWeapon::OnRep_Owner()

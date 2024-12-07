@@ -37,10 +37,11 @@ public:
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
 	virtual void PostInitializeComponents() override;
 
-	void PlayerFireMontage(bool bAiming);
-	void PlayerReloadMontage();
-	void PlayerHitReactMontage();
-	void PlayerElimMontage();
+	void PlayFireMontage(bool bAiming);
+	void PlayReloadMontage();
+	void PlayHitReactMontage();
+	void PlayElimMontage();
+	void PlayThrowGrenadeMontage();
 
 	virtual void OnRep_ReplicatedMovement() override;
 
@@ -127,6 +128,8 @@ private:
 	TObjectPtr<UInputAction> PlayerFire;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="PlayerInput", meta=(AllowPrivateAccess="true"))
 	TObjectPtr<UInputAction> Reload;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="PlayerInput", meta=(AllowPrivateAccess="true"))
+	TObjectPtr<UInputAction> ThrowGrenade;
 
 	/**
 	 * 玩家输入函数
@@ -134,6 +137,7 @@ private:
 
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);
+	virtual void Jump() override;
 	void EquipButtonPressed();
 	void CrouchButtonPressed();
 	void SprintButtonPressed();
@@ -143,8 +147,7 @@ private:
 	void FireButtonPressed();
 	void FireButtonReleased();
 	void ReloadButtonPressed();
-	virtual void Jump() override;
-
+	void ThrowGrenadeButtonPressed();
 
 	UPROPERTY(EditAnywhere)
 	float SprintSpeed;
@@ -181,6 +184,9 @@ private:
 
 	UPROPERTY(EditAnywhere, Category="Combat")
 	TObjectPtr<UAnimMontage> ElimMontage;
+
+	UPROPERTY(EditAnywhere, Category="Combat")
+	TObjectPtr<UAnimMontage> ThrowGrenadeMontage;
 
 	/**
 	 * 玩家生命值

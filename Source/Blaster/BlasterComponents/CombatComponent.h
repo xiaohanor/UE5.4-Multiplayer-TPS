@@ -35,7 +35,12 @@ public:
 
 	void JumpToShotgunEnd();
 
+	UFUNCTION(blueprintCallable)
+	void ThrowGrenadeFinished();
+
 	void FireButtonPressed(bool bPressed);
+
+	bool bLocallyReloading = false;
 
 protected:
 	virtual void BeginPlay() override;
@@ -46,8 +51,10 @@ protected:
 
 	UFUNCTION()
 	void OnRep_EquippedWeapon();
-	void Fire();
 
+	void TraceUnderCrosshair(FHitResult& TraceHitResult);
+	void SetHUDCrosshairs(float DeltaTime);
+	
 	void Reload();
 	
 	UFUNCTION(Server, Reliable)
@@ -56,16 +63,26 @@ protected:
 	void HandleReload();
 	int32 AmountToReload();
 
+	void Fire();
+
 	UFUNCTION(Server, Reliable)
 	void ServerFire(const FVector_NetQuantize& TraceHitTarget);
-
+	
 	UFUNCTION(NetMulticast, Reliable)
 	void MulticastFire(const FVector_NetQuantize& TraceHitTarget);
 
-	void TraceUnderCrosshair(FHitResult& TraceHitResult);
+	void ThrowGrenade();
+	
+	UFUNCTION(Server,Reliable)
+	void ServerThrowGrenade();
 
-	void SetHUDCrosshairs(float DeltaTime);
-
+	void DropEquippedWeapon();
+	void AttachActorToRightHand(AActor* ActorToAttach);
+	void AttachActorToLeftHand(AActor* ActorToAttach);
+	void UpdateCarriedAmmo();
+	void PlayEquipWeaponSound();
+	void ReloadEmptyWeapon();
+	
 private:
 	UPROPERTY()
 	TObjectPtr<ABlasterCharacter> Character;
@@ -151,4 +168,5 @@ private:
 	
 	void UpdateAmmoValues();
 	void UpdateShotGunAmmoValues();
+
 };

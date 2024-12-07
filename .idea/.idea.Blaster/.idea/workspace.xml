@@ -18,16 +18,29 @@
   <component name="ChangeListManager">
     <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/Character/Animation/ABP_Blaster.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Character/Animation/ABP_Blaster.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Character/Animation/Montage_Reload.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Character/Animation/Montage_Reload.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Character/Animation/Reload.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Character/Animation/Reload.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/Character/BP_BlasterCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Character/BP_BlasterCharacter.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Weapon/BP_AssaultRifle.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Weapon/BP_AssaultRifle.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Weapon/BP_GrenadeLauncher.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Weapon/BP_GrenadeLauncher.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Weapon/BP_Pistol.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Weapon/BP_Pistol.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Weapon/BP_RocketLauncher.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Weapon/BP_RocketLauncher.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Weapon/BP_SMG.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Weapon/BP_SMG.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/Weapon/BP_ShotGun.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Weapon/BP_ShotGun.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Weapon/BP_SniperRifle.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Weapon/BP_SniperRifle.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Input/IMC_Default.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Input/IMC_Default.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/BlasterMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/BlasterMap.umap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterTypes/CombatState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterTypes/CombatState.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterAnimInstance.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterAnimInstance.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/WeaponTypes.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/WeaponTypes.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,14 +66,10 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock://F:/Games/Blaster/Blaster.uproject" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://F:/Games/Blaster/Plugins/MultiplayerSessions/Source/MultiplayerSessions/MultiplayerSessions.Build.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Character/BlasterAnimInstance.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Character/BlasterAnimInstance.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://F:/Games/Blaster/Source/Blaster/Character/BlasterCharacter.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://F:/Games/Blaster/Source/Blaster/Character/BlasterCharacter.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/GameMode/BlasterGameMode.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/GameMode/BlasterGameMode.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/GameMode/LobbyGameMode.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -131,6 +140,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -634,7 +644,10 @@
       <workItem from="1733271392772" duration="548000" />
       <workItem from="1733272323288" duration="998000" />
       <workItem from="1733273472895" duration="16651000" />
-      <workItem from="1733359844084" duration="15309000" />
+      <workItem from="1733359844084" duration="15709000" />
+      <workItem from="1733482284423" duration="16563000" />
+      <workItem from="1733560182023" duration="1501000" />
+      <workItem from="1733563597303" duration="3339000" />
     </task>
     <task id="LOCAL-00001" summary="initial">
       <option name="closed" value="true" />
@@ -884,7 +897,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733303886712</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="feat: Shotgun Reload&#10;TODO: need fix bug">
+      <option name="closed" value="true" />
+      <created>1733385800267</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1733385800267</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -905,7 +926,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="feat: spawning projectile" />
     <MESSAGE value="feat：Drawing the Crosshairs" />
     <MESSAGE value="feat: CrossHair Spread" />
     <MESSAGE value="feat: Extending the Trace Start" />
@@ -930,7 +950,8 @@
     <MESSAGE value="add: ShotGun&#10;feat: format code" />
     <MESSAGE value="add: Sniper" />
     <MESSAGE value="add: Grenade" />
-    <option name="LAST_COMMIT_MESSAGE" value="add: Grenade" />
+    <MESSAGE value="feat: Shotgun Reload&#10;TODO: need fix bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Shotgun Reload&#10;TODO: need fix bug" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

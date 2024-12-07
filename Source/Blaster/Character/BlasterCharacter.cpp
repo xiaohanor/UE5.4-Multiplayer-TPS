@@ -297,7 +297,7 @@ void ABlasterCharacter::ReciveDamage(AActor* DamagedActor, float Damage, const U
 {
 	Health = FMath::Clamp(Health - Damage, 0.f, MaxHealth);
 	UpdateHUDHealth();
-	PlayerHitReactMontage();
+	PlayHitReactMontage();
 
 	if (Health == 0.f)
 	{
@@ -348,7 +348,7 @@ void ABlasterCharacter::MulticastElim_Implementation()
 	}
 
 	bElimmed = true;
-	PlayerElimMontage();
+	PlayElimMontage();
 
 	//开始溶解效果
 	if (DissolveMaterialInstance)
@@ -412,7 +412,7 @@ void ABlasterCharacter::ElimTimerFinished()
 	}
 }
 
-void ABlasterCharacter::PlayerFireMontage(bool bAiming)
+void ABlasterCharacter::PlayFireMontage(bool bAiming)
 {
 	if (Combat == nullptr || Combat->EquippedWeapon == nullptr)
 	{
@@ -429,7 +429,7 @@ void ABlasterCharacter::PlayerFireMontage(bool bAiming)
 	}
 }
 
-void ABlasterCharacter::PlayerReloadMontage()
+void ABlasterCharacter::PlayReloadMontage()
 {
 	if (Combat == nullptr || Combat->EquippedWeapon == nullptr)
 	{
@@ -466,11 +466,11 @@ void ABlasterCharacter::PlayerReloadMontage()
 			break;
 		}
 		AnimInstance->Montage_JumpToSection(SectionName);
-		UE_LOG(LogTemp, Warning, TEXT("Play Reload Montage"));
+		UE_LOG(LogTemp, Warning, TEXT("Play Reload Montage, CharacterRole: %s"), *UEnum::GetValueAsString(GetLocalRole()));
 	}
 }
 
-void ABlasterCharacter::PlayerHitReactMontage()
+void ABlasterCharacter::PlayHitReactMontage()
 {
 	if (Combat == nullptr || Combat->EquippedWeapon == nullptr)
 	{
@@ -486,12 +486,21 @@ void ABlasterCharacter::PlayerHitReactMontage()
 	}
 }
 
-void ABlasterCharacter::PlayerElimMontage()
+void ABlasterCharacter::PlayElimMontage()
 {
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
 	if (AnimInstance && ElimMontage)
 	{
 		AnimInstance->Montage_Play(ElimMontage);
+	}
+}
+
+void ABlasterCharacter::PlayThrowGrenadeMontage()
+{
+	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+	if (AnimInstance && ThrowGrenadeMontage)
+	{
+		AnimInstance->Montage_Play(ThrowGrenadeMontage);
 	}
 }
 
@@ -505,7 +514,7 @@ float ABlasterCharacter::CalculateSpeed()
 void ABlasterCharacter::OnRep_Health()
 {
 	UpdateHUDHealth();
-	PlayerHitReactMontage();
+	PlayHitReactMontage();
 }
 
 void ABlasterCharacter::UpdateDissolveMaterial(float DissolveValue)
@@ -739,6 +748,14 @@ void ABlasterCharacter::ReloadButtonPressed()
 	}
 }
 
+void ABlasterCharacter::ThrowGrenadeButtonPressed()
+{
+	if (Combat)
+	{
+		Combat->ThrowGrenade();
+	}
+}
+
 void ABlasterCharacter::Jump()
 {
 	if (bDisableGameplay)
@@ -776,6 +793,8 @@ void ABlasterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 		PlayerInputC->BindAction(PlayerFire, ETriggerEvent::Started, this, &ABlasterCharacter::FireButtonPressed);
 		PlayerInputC->BindAction(PlayerFire, ETriggerEvent::Completed, this, &ABlasterCharacter::FireButtonReleased);
 		PlayerInputC->BindAction(Reload, ETriggerEvent::Started, this, &ABlasterCharacter::ReloadButtonPressed);
+		PlayerInputC->BindAction(ThrowGrenade, ETriggerEvent::Started, this, &ABlasterCharacter::ThrowGrenadeButtonPressed);
+
 	}
 }
 

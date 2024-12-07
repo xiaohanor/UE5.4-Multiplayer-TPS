@@ -80,6 +80,11 @@ public:
 	UPROPERTY(EditAnywhere, Category="Weapon Properties")
 	TObjectPtr<USoundCue> EquippedSound;
 
+	/**
+	 * 启用或禁用自定义深度
+	 */
+	void EnableCustomDepth(bool bEnable);
+
 protected:
 	virtual void BeginPlay() override;
 
