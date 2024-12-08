@@ -245,6 +245,13 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UParticleSystemComponent> ElimBotComponent;
 
+	/**
+	 * 手榴弹
+	 */
+
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<UStaticMeshComponent> AttachedGrenade;
+
 	UPROPERTY()
 	TObjectPtr<ABlasterPlayerState> BlasterPlayerState;
 
@@ -269,4 +276,5 @@ public:
 	FORCEINLINE UCombatComponent* GetCombatComponent() const { return Combat; }
 	FORCEINLINE bool GetDisableGameplay() const { return bDisableGameplay; }
 	FORCEINLINE UAnimMontage* GetReloadMontage() const { return ReloadMontage; }
+	FORCEINLINE UStaticMeshComponent* GetAttachedGrenade() const { return AttachedGrenade; }
 };

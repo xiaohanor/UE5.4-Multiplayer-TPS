@@ -10,6 +10,7 @@
 #include "CombatComponent.generated.h"
 
 
+class AProjectile;
 class ABlasterPlayerController;
 class AWeapon;
 
@@ -37,6 +38,9 @@ public:
 
 	UFUNCTION(blueprintCallable)
 	void ThrowGrenadeFinished();
+
+	UFUNCTION(blueprintCallable)
+	void GrenadeLaunched();
 
 	void FireButtonPressed(bool bPressed);
 
@@ -76,12 +80,19 @@ protected:
 	UFUNCTION(Server,Reliable)
 	void ServerThrowGrenade();
 
+	UFUNCTION(Server,Reliable)
+	void ServerLaunchGrenade(const FVector_NetQuantize& Target);
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AProjectile> GrenadeClass;
+
 	void DropEquippedWeapon();
 	void AttachActorToRightHand(AActor* ActorToAttach);
 	void AttachActorToLeftHand(AActor* ActorToAttach);
 	void UpdateCarriedAmmo();
 	void PlayEquipWeaponSound();
 	void ReloadEmptyWeapon();
+	void ShowAttachedGrenade(bool bShow);
 	
 private:
 	UPROPERTY()
@@ -168,5 +179,19 @@ private:
 	
 	void UpdateAmmoValues();
 	void UpdateShotGunAmmoValues();
+
+	UPROPERTY(ReplicatedUsing=OnRep_Grenades)
+	int32 Grenades = 4;
+
+	UFUNCTION()
+	void OnRep_Grenades();
+
+	UPROPERTY(EditAnywhere)
+	int32 MaxGrenades = 4;
+
+	void UpdateGrenades();
+
+public:
+	FORCEINLINE int32 GetGrenades() const { return Grenades; }
 
 };
