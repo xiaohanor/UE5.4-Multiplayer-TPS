@@ -46,6 +46,8 @@ public:
 
 	bool bLocallyReloading = false;
 
+	void PickupAmmo(EWeaponType WeaponType, int32 Amount);
+
 protected:
 	virtual void BeginPlay() override;
 	void SetAiming(bool bIsAiming);
@@ -151,6 +153,9 @@ private:
 
 	UFUNCTION()
 	void OnRep_CarriedAmmo();
+
+	UPROPERTY(EditAnywhere)
+	int32 MaxCarriedAmmo = 400;
 
 	UPROPERTY(EditAnywhere)
 	int32 StartingARAmmo = 0;

@@ -20,6 +20,19 @@ UCombatComponent::UCombatComponent()
 	AimSpeed = 400.f;
 }
 
+void UCombatComponent::PickupAmmo(EWeaponType WeaponType, int32 Amount)
+{
+	if (CarriedAmmoMap.Contains(WeaponType))
+	{
+		CarriedAmmoMap[WeaponType] = FMath::Clamp(CarriedAmmoMap[WeaponType] + Amount, 0, MaxCarriedAmmo);
+		UpdateCarriedAmmo();
+	}
+	if (EquippedWeapon && EquippedWeapon->IsEmpty() && EquippedWeapon->GetWeaponType() == WeaponType)
+	{
+		Reload();
+	}
+}
+
 void UCombatComponent::BeginPlay()
 {
 	Super::BeginPlay();
@@ -348,8 +361,8 @@ void UCombatComponent::Reload()
 {
 	if (CarriedAmmo > 0 && CombatState == ECombatState::ECS_Unoccupied && EquippedWeapon && !EquippedWeapon->IsFull() && !bLocallyReloading)
 	{
-		ServerReload();
 		HandleReload();
+		ServerReload();
 		bLocallyReloading = true;
 	}
 }
@@ -388,7 +401,8 @@ void UCombatComponent::	OnRep_CombatState()
 	{
 	case ECombatState::ECS_Reloading:
 		UE_LOG(LogTemp, Warning, TEXT("CombatState: Reloading"));
-		if (Character && !Character->IsLocallyControlled()) HandleReload();
+		UE_LOG(LogTemp, Warning, TEXT("Role: %s"), *UEnum::GetValueAsString(Character->GetLocalRole()));
+		HandleReload();
 		break;
 	case ECombatState::ECS_Unoccupied:
 		UE_LOG(LogTemp, Warning, TEXT("CombatState: Unoccupied"));
@@ -500,7 +514,10 @@ void UCombatComponent::ShotgunShellReload()
 
 void UCombatComponent::HandleReload()
 {
-	Character->PlayReloadMontage();
+	if (Character)
+	{
+		Character->PlayReloadMontage();
+	}
 }
 
 int32 UCombatComponent::AmountToReload()
