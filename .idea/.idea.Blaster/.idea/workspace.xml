@@ -17,12 +17,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="">
+      <change afterPath="$PROJECT_DIR$/Content/Blueprints/Pickups/AmmoPickups/BP_ARAmmo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprints/Pickups/AmmoPickups/BP_GrenadeAmmo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprints/Pickups/AmmoPickups/BP_PistolAmmo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprints/Pickups/AmmoPickups/BP_RocketAmmo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprints/Pickups/AmmoPickups/BP_SMGAmmo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprints/Pickups/AmmoPickups/BP_ShotGunAmmo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprints/Pickups/AmmoPickups/BP_SniperAmmo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprints/Pickups/BP_ARAmmo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprints/Pickups/BP_AmmoARPickup.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprints/Pickups/BP_GrenadeAmmo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprints/Pickups/BP_PistolAmmo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprints/Pickups/BP_RocketAmmo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprints/Pickups/BP_SMGAmmo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprints/Pickups/BP_ShotGunAmmo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprints/Pickups/BP_SniperAmmo.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprints/Pickups/BuffPickups/BP_HealthPickup.uasset" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/BuffComponent.cpp" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/BuffComponent.h" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Source/Blaster/Pickups/AmmoPickup.cpp" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Source/Blaster/Pickups/AmmoPickup.h" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Source/Blaster/Pickups/HealthPickup.cpp" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Source/Blaster/Pickups/HealthPickup.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/Blaster/Pickups/Pickup.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/Blaster/Pickups/Pickup.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/Character/Animation/ThrowGrenade.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Character/Animation/ThrowGrenade.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/Character/BP_BlasterCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Character/BP_BlasterCharacter.uasset" afterDir="false" />
@@ -647,7 +665,7 @@
       <workItem from="1733563597303" duration="4935000" />
       <workItem from="1733638878603" duration="10786000" />
       <workItem from="1733721843336" duration="9145000" />
-      <workItem from="1733827113305" duration="4389000" />
+      <workItem from="1733827113305" duration="5477000" />
     </task>
     <task id="LOCAL-00001" summary="initial">
       <option name="closed" value="true" />
@@ -921,7 +939,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733652205069</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="feat: Healing Pickup">
+      <option name="closed" value="true" />
+      <created>1733832434559</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1733832434559</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -942,7 +968,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="feat: CrossHair Spread" />
     <MESSAGE value="feat: Extending the Trace Start" />
     <MESSAGE value="feat: Smooth Rotation for Proxies" />
     <MESSAGE value="feat: Automatic Fire" />
@@ -967,7 +992,8 @@
     <MESSAGE value="feat: Shotgun Reload&#10;TODO: need fix bug" />
     <MESSAGE value="fix: 客户端换弹动画通知触发两次（非完全修复，仅hack处理），角色材质自发光&#10;feat: 手榴弹投掷动作" />
     <MESSAGE value="add: Grenade" />
-    <option name="LAST_COMMIT_MESSAGE" value="add: Grenade" />
+    <MESSAGE value="feat: Healing Pickup" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Healing Pickup" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
