@@ -7,6 +7,8 @@
 #include "Pickup.generated.h"
 
 class USphereComponent;
+class UNiagaraSystem;
+class UNiagaraComponent;
 
 UCLASS()
 class BLASTER_API APickup : public AActor
@@ -36,6 +38,12 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	float BaseTurnRate = 45.f;
+
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<UNiagaraComponent> PickupEffectComponent;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UNiagaraSystem> PickupEffect;
 
 public:	
 

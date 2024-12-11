@@ -62,7 +62,6 @@ ABlasterCharacter::ABlasterCharacter()
 	GetMesh()->SetCollisionObjectType(ECC_SkeletalMesh);
 	GetMesh()->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
 
-
 	GetCharacterMovement()->RotationRate = FRotator(0, 840.f, 0);
 	TurningInPlace = ETurningInPlace::ETIP_NotTurning;
 	NetUpdateFrequency = 66.f;
@@ -90,6 +89,7 @@ void ABlasterCharacter::PostInitializeComponents()
 	if (Buff)
 	{
 		Buff->Character = this;
+		Buff->InitializeSpeed(BaseSpeed, GetCharacterMovement()->MaxWalkSpeedCrouched);	//初始化速度，第一个参数是BaseSpeed是因为当前角色可能处在奔跑状态
 	}
 }
 
@@ -118,7 +118,11 @@ void ABlasterCharacter::BeginPlay()
 		//设置摄像机视角限制
 		BlasterPlayerController->PlayerCameraManager->ViewPitchMax = 400.f;
 		BlasterPlayerController->PlayerCameraManager->ViewPitchMin = -40.f;
+
+		//设置角色移动速度等于自定义的基础速度
+		GetCharacterMovement()->MaxWalkSpeed = BaseSpeed;
 	}
+	
 
 	UpdateHUDHealth();
 	if (HasAuthority())
@@ -691,7 +695,7 @@ void ABlasterCharacter::SprintButtonPressed()
 		return;
 	}
 
-	GetCharacterMovement()->MaxWalkSpeed = SprintSpeed;
+	GetCharacterMovement()->MaxWalkSpeed += SprintSpeed;
 }
 
 void ABlasterCharacter::SprintButtonReleased()
@@ -701,7 +705,7 @@ void ABlasterCharacter::SprintButtonReleased()
 		return;
 	}
 
-	GetCharacterMovement()->MaxWalkSpeed = BaseSpeed;
+	GetCharacterMovement()->MaxWalkSpeed -= SprintSpeed;
 }
 
 void ABlasterCharacter::AimButtonPressed()
