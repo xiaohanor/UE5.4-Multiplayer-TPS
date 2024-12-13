@@ -22,18 +22,21 @@ void UBuffComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	HealRamUp(DeltaTime);
-
-	if (Character)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Speed: %f"),Character->GetCharacterMovement()->MaxWalkSpeed);
-	}
+	ShieldRamUp(DeltaTime);
 }
 
 void UBuffComponent::Heal(float HealAmount, float HealingTime)
 {
 	bHealing = true;
-	HealingRate = HealAmount / HealingTime;	//每秒回血量
-	AmountToHeal += HealAmount;	//总共回血量
+	HealingRate = HealAmount / HealingTime; //每秒回血量
+	AmountToHeal += HealAmount; //总共回血量
+}
+
+void UBuffComponent::ShieldReplenish(float ShieldAmount, float ReplenishTime)
+{
+	bReplenishingShield = true;
+	ShieldReplenishRate = ShieldAmount / ReplenishTime;
+	ShieldReplenishAmount += ShieldAmount;
 }
 
 void UBuffComponent::HealRamUp(float DeltaTime)
@@ -42,17 +45,37 @@ void UBuffComponent::HealRamUp(float DeltaTime)
 	{
 		return;
 	}
-	
-	const float HealThisFrame = HealingRate * DeltaTime;	//这一帧回血量
+
+	const float HealThisFrame = HealingRate * DeltaTime; //这一帧回血量
 	Character->SetHealth(FMath::Clamp(Character->GetHealth() + HealThisFrame, 0.f, Character->GetMaxHealth()));
-	Character->UpdateHUDHealth();	//更新HUD
-	AmountToHeal -= HealThisFrame;	//减去已经回血的量
+	Character->UpdateHUDHealth(); //更新HUD
+	AmountToHeal -= HealThisFrame; //减去已经回血的量
 
 	//回血结束
 	if (AmountToHeal <= 0.f || Character->GetHealth() >= Character->GetMaxHealth())
 	{
 		bHealing = false;
 		AmountToHeal = 0.f;
+	}
+}
+
+void UBuffComponent::ShieldRamUp(float DeltaTime)
+{
+	if (!bReplenishingShield || Character == nullptr || Character->IsElimmed())
+	{
+		return;
+	}
+
+	const float ShieldThisFrame = ShieldReplenishRate * DeltaTime; //这一帧回护盾量
+	Character->SetShield(FMath::Clamp(Character->GetShield() + ShieldThisFrame, 0.f, Character->GetMaxShield()));
+	Character->UpdateHUDShield(); //更新HUD
+	ShieldReplenishAmount -= ShieldThisFrame; //减去已经回护盾的量
+
+	//回护盾结束
+	if (ShieldReplenishAmount <= 0.f || Character->GetShield() >= Character->GetMaxShield())
+	{
+		bReplenishingShield = false;
+		ShieldReplenishAmount = 0.f;
 	}
 }
 
@@ -65,7 +88,7 @@ void UBuffComponent::InitializeSpeed(float BaseSpeed, float CrouchSpeed)
 void UBuffComponent::BuffSpeed(float BaseSpeedBuff, float CrouchSpeedBuff, float SpeedBuffTime)
 {
 	if (Character == nullptr) return;
-	
+
 	Character->GetWorldTimerManager().SetTimer(
 		SpeedBuffTimer,
 		this,
@@ -91,4 +114,3 @@ void UBuffComponent::MulticastSpeedBuff_Implementation(float BaseSpeed, float Cr
 	Character->GetCharacterMovement()->MaxWalkSpeed = BaseSpeed;
 	Character->GetCharacterMovement()->MaxWalkSpeedCrouched = CrouchSpeed;
 }
-

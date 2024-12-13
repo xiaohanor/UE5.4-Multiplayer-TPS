@@ -19,12 +19,14 @@ public:
 	friend ABlasterCharacter;
 
 	void Heal(float HealAmount, float HealingTime);
+	void ShieldReplenish(float ShieldAmount, float ReplenishTime);
 	void BuffSpeed(float BaseSpeedBuff, float CrouchSpeedBuff, float SpeedBuffTime);
 	void InitializeSpeed(float BaseSpeed, float CrouchSpeed);
 
 protected:
 	virtual void BeginPlay() override;
 	void HealRamUp(float DeltaTime);
+	void ShieldRamUp(float DeltaTime);
 
 private:
 	TObjectPtr<ABlasterCharacter> Character;
@@ -45,6 +47,14 @@ private:
 	float InitialBaseSpeed;
 	float InitialCrouchSpeed;
 	void ResetSpeed();
+
+	/*
+	 * 护盾 Buff
+	 */
+
+	bool bReplenishingShield = false;
+	float ShieldReplenishRate = 0.f;
+	float ShieldReplenishAmount = 0.f;
 
 	UFUNCTION(NetMulticast, Reliable)
 	void MulticastSpeedBuff(float BaseSpeed, float CrouchSpeed);

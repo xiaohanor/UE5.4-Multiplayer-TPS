@@ -50,7 +50,7 @@ ABlasterCharacter::ABlasterCharacter()
 	DissolveTimeline = CreateDefaultSubobject<UTimelineComponent>(TEXT("DissolveTimeline"));
 
 	AttachedGrenade = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("AttachedGrenade"));
-	AttachedGrenade->SetupAttachment(GetMesh(),FName("GrenadeSocket"));
+	AttachedGrenade->SetupAttachment(GetMesh(), FName("GrenadeSocket"));
 	AttachedGrenade->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
 	GetCharacterMovement()->NavAgentProps.bCanCrouch = true;
@@ -77,6 +77,7 @@ void ABlasterCharacter::GetLifetimeReplicatedProps(TArray<class FLifetimePropert
 
 	DOREPLIFETIME_CONDITION(ABlasterCharacter, OverlappingWeapon, COND_OwnerOnly);
 	DOREPLIFETIME(ABlasterCharacter, Health);
+	DOREPLIFETIME(ABlasterCharacter, Shield);
 }
 
 void ABlasterCharacter::PostInitializeComponents()
@@ -89,7 +90,8 @@ void ABlasterCharacter::PostInitializeComponents()
 	if (Buff)
 	{
 		Buff->Character = this;
-		Buff->InitializeSpeed(BaseSpeed, GetCharacterMovement()->MaxWalkSpeedCrouched);	//初始化速度，第一个参数是BaseSpeed是因为当前角色可能处在奔跑状态
+		Buff->InitializeSpeed(BaseSpeed, GetCharacterMovement()->MaxWalkSpeedCrouched);
+		//初始化速度，第一个参数是BaseSpeed是因为当前角色可能处在奔跑状态
 	}
 }
 
@@ -122,9 +124,11 @@ void ABlasterCharacter::BeginPlay()
 		//设置角色移动速度等于自定义的基础速度
 		GetCharacterMovement()->MaxWalkSpeed = BaseSpeed;
 	}
-	
+
 
 	UpdateHUDHealth();
+	UpdateHUDShield();
+
 	if (HasAuthority())
 	{
 		OnTakeAnyDamage.AddDynamic(this, &ThisClass::ReciveDamage);
@@ -316,8 +320,22 @@ void ABlasterCharacter::ReciveDamage(AActor* DamagedActor, float Damage, const U
                                      AController* InstigatorController, AActor* DamageCauser)
 {
 	if (bElimmed) return;
-	Health = FMath::Clamp(Health - Damage, 0.f, MaxHealth);
+
+	float DamageToHealth = Damage;
+	if (Shield >= DamageToHealth)
+	{
+		Shield = FMath::Clamp(Shield - DamageToHealth, 0.f, MaxShield);
+		DamageToHealth = 0.f;
+	}
+	else
+	{
+		Shield = 0.f;
+		DamageToHealth = FMath::Clamp(DamageToHealth - Shield, 0.f, Damage);
+	}
+
+	Health = FMath::Clamp(Health - DamageToHealth, 0.f, MaxHealth);
 	UpdateHUDHealth();
+	UpdateHUDShield();
 	PlayHitReactMontage();
 
 	if (Health == 0.f)
@@ -343,6 +361,17 @@ void ABlasterCharacter::UpdateHUDHealth()
 	if (BlasterPlayerController)
 	{
 		BlasterPlayerController->SetHUDHealth(Health, MaxHealth);
+	}
+}
+
+void ABlasterCharacter::UpdateHUDShield()
+{
+	BlasterPlayerController = BlasterPlayerController == nullptr
+		                          ? TObjectPtr<ABlasterPlayerController>(Cast<ABlasterPlayerController>(Controller))
+		                          : BlasterPlayerController;
+	if (BlasterPlayerController)
+	{
+		BlasterPlayerController->SetHUDShield(Shield, MaxShield);
 	}
 }
 
@@ -416,7 +445,8 @@ void ABlasterCharacter::MulticastElim_Implementation()
 	//关闭狙击枪瞄准镜画面
 	if (IsLocallyControlled())
 	{
-		bool bHideSniperScope = Combat && Combat->bAiming && Combat->EquippedWeapon && Combat->EquippedWeapon->GetWeaponType() == EWeaponType::EWT_SniperRifle;
+		bool bHideSniperScope = Combat && Combat->bAiming && Combat->EquippedWeapon && Combat->EquippedWeapon->
+			GetWeaponType() == EWeaponType::EWT_SniperRifle;
 		if (bHideSniperScope)
 		{
 			ShowSniperScope(false);
@@ -487,7 +517,8 @@ void ABlasterCharacter::PlayReloadMontage()
 			break;
 		}
 		AnimInstance->Montage_JumpToSection(SectionName);
-		UE_LOG(LogTemp, Warning, TEXT("Play Reload Montage, CharacterRole: %s"), *UEnum::GetValueAsString(GetLocalRole()));
+		UE_LOG(LogTemp, Warning, TEXT("Play Reload Montage, CharacterRole: %s"),
+		       *UEnum::GetValueAsString(GetLocalRole()));
 	}
 }
 
@@ -537,6 +568,16 @@ void ABlasterCharacter::OnRep_Health(float LastHealth)
 	UpdateHUDHealth();
 	//如果生命值减少，播放受击动画
 	if (Health < LastHealth)
+	{
+		PlayHitReactMontage();
+	}
+}
+
+void ABlasterCharacter::OnRep_Shield(float LastShield)
+{
+	UpdateHUDShield();
+	//如果护盾值减少，播放受击动画
+	if (Health < LastShield)
 	{
 		PlayHitReactMontage();
 	}
@@ -818,8 +859,8 @@ void ABlasterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 		PlayerInputC->BindAction(PlayerFire, ETriggerEvent::Started, this, &ABlasterCharacter::FireButtonPressed);
 		PlayerInputC->BindAction(PlayerFire, ETriggerEvent::Completed, this, &ABlasterCharacter::FireButtonReleased);
 		PlayerInputC->BindAction(Reload, ETriggerEvent::Started, this, &ABlasterCharacter::ReloadButtonPressed);
-		PlayerInputC->BindAction(ThrowGrenade, ETriggerEvent::Started, this, &ABlasterCharacter::ThrowGrenadeButtonPressed);
-
+		PlayerInputC->BindAction(ThrowGrenade, ETriggerEvent::Started, this,
+		                         &ABlasterCharacter::ThrowGrenadeButtonPressed);
 	}
 }
 
