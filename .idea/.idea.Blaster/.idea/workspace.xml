@@ -16,13 +16,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/Source/Blaster/Pickups/PickupSpawnPoint.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/Blaster/Pickups/PickupSpawnPoint.h" afterDir="false" />
+    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="add: SpawnPickupPoint">
+      <change afterPath="$PROJECT_DIR$/Source/Blaster/Pickups/JumpPickup.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/Blaster/Pickups/JumpPickup.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Pickups/BuffPickups/BP_SpeedPickup.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Pickups/BuffPickups/BP_SpeedPickup.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/BlasterMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/BlasterMap.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Pickups/Pickup.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Pickups/Pickup.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Pickups/Pickup.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Pickups/Pickup.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/BuffComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/BuffComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/BuffComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/BuffComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Pickups/PickupSpawnPoint.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Pickups/PickupSpawnPoint.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -653,7 +659,7 @@
       <workItem from="1733897957500" duration="2069000" />
       <workItem from="1733903135351" duration="6185000" />
       <workItem from="1734079882738" duration="5552000" />
-      <workItem from="1734155634776" duration="5513000" />
+      <workItem from="1734155634776" duration="9734000" />
     </task>
     <task id="LOCAL-00001" summary="initial">
       <option name="closed" value="true" />
@@ -951,7 +957,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734089744311</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="add: SpawnPickupPoint">
+      <option name="closed" value="true" />
+      <created>1734162840905</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1734162840905</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -972,7 +986,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="feat: Automatic Fire" />
     <MESSAGE value="feat: Damage" />
     <MESSAGE value="feat: Elim Bot" />
     <MESSAGE value="fix: Character's health not update when respawned." />
@@ -997,7 +1010,8 @@
     <MESSAGE value="feat: Healing Pickup" />
     <MESSAGE value="add: Speed Buff" />
     <MESSAGE value="add: Shield Buff" />
-    <option name="LAST_COMMIT_MESSAGE" value="add: Shield Buff" />
+    <MESSAGE value="add: SpawnPickupPoint" />
+    <option name="LAST_COMMIT_MESSAGE" value="add: SpawnPickupPoint" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

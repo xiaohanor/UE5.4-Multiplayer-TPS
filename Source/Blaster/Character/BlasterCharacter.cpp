@@ -90,8 +90,8 @@ void ABlasterCharacter::PostInitializeComponents()
 	if (Buff)
 	{
 		Buff->Character = this;
-		Buff->InitializeSpeed(BaseSpeed, GetCharacterMovement()->MaxWalkSpeedCrouched);
-		//初始化速度，第一个参数是BaseSpeed是因为当前角色可能处在奔跑状态
+		Buff->InitializeSpeed(BaseSpeed, GetCharacterMovement()->MaxWalkSpeedCrouched);	//初始化速度，第一个参数是BaseSpeed是因为当前角色可能处在奔跑状态
+		Buff->SetInitialJumpVelocity(GetCharacterMovement()->JumpZVelocity);
 	}
 }
 
@@ -100,6 +100,20 @@ void ABlasterCharacter::OnRep_ReplicatedMovement()
 	Super::OnRep_ReplicatedMovement();
 	SimProxiesTurn();
 	TimeSinceLastMovementReplication = 0.f;
+}
+
+void ABlasterCharacter::SpawnDefaultWeapon()
+{
+	ABlasterGameMode* BlasterGameMode = Cast<ABlasterGameMode>(UGameplayStatics::GetGameMode(this));
+	UWorld* World = GetWorld();
+	if (BlasterGameMode && World && !bElimmed && DefaultWeaponClass)
+	{
+		AWeapon* StaringWeapon = World->SpawnActor<AWeapon>(DefaultWeaponClass);
+		if (Combat)
+		{
+			Combat->EquipWeapon(StaringWeapon);
+		}
+	}
 }
 
 void ABlasterCharacter::BeginPlay()

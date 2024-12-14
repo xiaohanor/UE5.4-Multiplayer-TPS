@@ -4,6 +4,7 @@
 #include "CombatComponent.h"
 
 #include "Blaster/Character/BlasterCharacter.h"
+#include "Blaster/GameMode/BlasterGameMode.h"
 #include "Blaster/PlayerController/BlasterPlayerController.h"
 #include "Blaster/Weapon/Projectile.h"
 #include "Blaster/Weapon/Weapon.h"

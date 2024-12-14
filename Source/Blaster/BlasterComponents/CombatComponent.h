@@ -147,7 +147,7 @@ private:
 
 	bool CanFire();
 
-	//当前携带武器的弹药
+	/*当前携带武器的弹药*/
 	UPROPERTY(ReplicatedUsing=OnRep_CarriedAmmo)
 	int32 CarriedAmmo;
 
@@ -185,6 +185,9 @@ private:
 	void UpdateAmmoValues();
 	void UpdateShotGunAmmoValues();
 
+	/*
+	 * 手雷
+	 */
 	UPROPERTY(ReplicatedUsing=OnRep_Grenades)
 	int32 Grenades = 4;
 

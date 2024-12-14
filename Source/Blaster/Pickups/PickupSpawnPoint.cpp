@@ -23,7 +23,6 @@ void APickupSpawnPoint::SpawnPickup()
 	int32 NumPickupClasses = PickupClasses.Num();
 	if (NumPickupClasses > 0)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Spawning pickup"));
 		int32 RandomIndex = FMath::RandRange(0, NumPickupClasses - 1);
 		SpawnedPickup = GetWorld()->SpawnActor<APickup>(PickupClasses[RandomIndex], GetActorTransform());
 		

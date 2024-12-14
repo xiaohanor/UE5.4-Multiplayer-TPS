@@ -63,6 +63,8 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void ShowSniperScope(bool bIsAiming);
 
+	void SpawnDefaultWeapon();
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -272,6 +274,12 @@ private:
 
 	UPROPERTY()
 	TObjectPtr<ABlasterPlayerState> BlasterPlayerState;
+
+	/**
+	* 初始武器
+	*/
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AWeapon> DefaultWeaponClass;
 
 public:
 	void SetOverlappingWeapon(AWeapon* Weapon);
