@@ -93,7 +93,7 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess="true"))
 	TObjectPtr<UCombatComponent> Combat;
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess="true"))
 	TObjectPtr<UBuffComponent> Buff;
 
 	UFUNCTION(Server, Reliable)

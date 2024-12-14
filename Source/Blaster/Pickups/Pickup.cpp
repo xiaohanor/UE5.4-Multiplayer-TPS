@@ -42,7 +42,7 @@ void APickup::BeginPlay()
 
 	if (HasAuthority())
 	{
-		OverSphere->OnComponentBeginOverlap.AddDynamic(this, &APickup::OnSphereOverlap);
+		GetWorldTimerManager().SetTimer(BindOverlapTimer, this, &APickup::BindOverlapFinished, BindOverlapTime);
 	}
 }
 
@@ -74,6 +74,11 @@ void APickup::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* 
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	
+}
+
+void APickup::BindOverlapFinished()
+{
+	OverSphere->OnComponentBeginOverlap.AddDynamic(this, &APickup::OnSphereOverlap);
 }
 
 void APickup::Tick(float DeltaTime)

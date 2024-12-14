@@ -17,18 +17,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/Source/Blaster/Pickups/ShieldPickup.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/Blaster/Pickups/ShieldPickup.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/Blaster/Pickups/PickupSpawnPoint.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/Blaster/Pickups/PickupSpawnPoint.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/HUD/WBP_CharacterOverlay.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/HUD/WBP_CharacterOverlay.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/BlasterMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/BlasterMap.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/BuffComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/BuffComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/BuffComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/BuffComponent.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/HUD/CharacterOverlay.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/HUD/CharacterOverlay.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/PlayerController/BlasterPlayerController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/PlayerController/BlasterPlayerController.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/PlayerController/BlasterPlayerController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/PlayerController/BlasterPlayerController.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Pickups/Pickup.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Pickups/Pickup.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Pickups/Pickup.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Pickups/Pickup.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,8 +54,8 @@
     <setting file="file://$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Character/BlasterAnimInstance.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Character/BlasterAnimInstance.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="mock://F:/Games/Blaster/Source/Blaster/Character/BlasterCharacter.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/GameMode/BlasterGameMode.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/GameMode/BlasterGameMode.h" root0="FORCE_HIGHLIGHTING" />
@@ -658,7 +652,8 @@
       <workItem from="1733897830198" duration="70000" />
       <workItem from="1733897957500" duration="2069000" />
       <workItem from="1733903135351" duration="6185000" />
-      <workItem from="1734079882738" duration="4784000" />
+      <workItem from="1734079882738" duration="5552000" />
+      <workItem from="1734155634776" duration="5513000" />
     </task>
     <task id="LOCAL-00001" summary="initial">
       <option name="closed" value="true" />
@@ -948,7 +943,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733908542074</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="add: Shield Buff">
+      <option name="closed" value="true" />
+      <created>1734089744311</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1734089744311</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -969,7 +972,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="feat: Smooth Rotation for Proxies" />
     <MESSAGE value="feat: Automatic Fire" />
     <MESSAGE value="feat: Damage" />
     <MESSAGE value="feat: Elim Bot" />
@@ -994,7 +996,8 @@
     <MESSAGE value="add: Grenade" />
     <MESSAGE value="feat: Healing Pickup" />
     <MESSAGE value="add: Speed Buff" />
-    <option name="LAST_COMMIT_MESSAGE" value="add: Speed Buff" />
+    <MESSAGE value="add: Shield Buff" />
+    <option name="LAST_COMMIT_MESSAGE" value="add: Shield Buff" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
