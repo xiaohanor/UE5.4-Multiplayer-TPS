@@ -109,6 +109,7 @@ void ABlasterCharacter::SpawnDefaultWeapon()
 	if (BlasterGameMode && World && !bElimmed && DefaultWeaponClass)
 	{
 		AWeapon* StaringWeapon = World->SpawnActor<AWeapon>(DefaultWeaponClass);
+		StaringWeapon->bDestroyWeapon = true;
 		if (Combat)
 		{
 			Combat->EquipWeapon(StaringWeapon);
@@ -139,7 +140,8 @@ void ABlasterCharacter::BeginPlay()
 		GetCharacterMovement()->MaxWalkSpeed = BaseSpeed;
 	}
 
-
+	SpawnDefaultWeapon();
+	UpdateHUDAmmo();
 	UpdateHUDHealth();
 	UpdateHUDShield();
 
@@ -389,11 +391,30 @@ void ABlasterCharacter::UpdateHUDShield()
 	}
 }
 
+void ABlasterCharacter::UpdateHUDAmmo()
+{
+	BlasterPlayerController = BlasterPlayerController == nullptr
+								  ? TObjectPtr<ABlasterPlayerController>(Cast<ABlasterPlayerController>(Controller))
+								  : BlasterPlayerController;
+	if (BlasterPlayerController && Combat && Combat->EquippedWeapon)
+	{
+		BlasterPlayerController->SetHUDCarriedAmmo(Combat->CarriedAmmo);
+		BlasterPlayerController->SetHUDWeaponAmmo(Combat->EquippedWeapon->GetAmmo());
+	}
+}
+
 void ABlasterCharacter::Elim()
 {
 	if (Combat && Combat->EquippedWeapon)
 	{
-		Combat->EquippedWeapon->Dropped();
+		if (Combat->EquippedWeapon->bDestroyWeapon)
+		{
+			Combat->EquippedWeapon->Destroy();
+		}
+		else
+		{
+			Combat->EquippedWeapon->Dropped();
+		}
 	}
 	MulticastElim();
 	GetWorldTimerManager().SetTimer(
@@ -464,6 +485,7 @@ void ABlasterCharacter::MulticastElim_Implementation()
 		if (bHideSniperScope)
 		{
 			ShowSniperScope(false);
+			MouseSensitivity = 1.f;
 		}
 	}
 }
@@ -701,8 +723,8 @@ void ABlasterCharacter::Look(const FInputActionValue& Value)
 	const FVector2d F2d = Value.Get<FVector2d>();
 	if (Controller)
 	{
-		AddControllerPitchInput(F2d.Y);
-		AddControllerYawInput(F2d.X);
+		AddControllerPitchInput(F2d.Y * MouseSensitivity);
+		AddControllerYawInput(F2d.X * MouseSensitivity);
 	}
 }
 

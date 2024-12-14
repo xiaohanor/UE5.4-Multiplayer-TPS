@@ -16,19 +16,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="add: SpawnPickupPoint">
-      <change afterPath="$PROJECT_DIR$/Source/Blaster/Pickups/JumpPickup.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/Blaster/Pickups/JumpPickup.h" afterDir="false" />
+    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="add: JumpBuff">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Pickups/BuffPickups/BP_SpeedPickup.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Pickups/BuffPickups/BP_SpeedPickup.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/BlasterMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/BlasterMap.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/BuffComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/BuffComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/BuffComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/BuffComponent.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Character/BP_BlasterCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Character/BP_BlasterCharacter.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Pickups/BP_BuffSpawnPoint.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Pickups/BP_BuffSpawnPoint.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Pickups/PickupSpawnPoint.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Pickups/PickupSpawnPoint.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/PlayerController/BlasterPlayerController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/PlayerController/BlasterPlayerController.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/PlayerController/BlasterPlayerController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/PlayerController/BlasterPlayerController.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/Casing.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Casing.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,15 +51,22 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock://F:/Games/Blaster/Source/Blaster/BlasterComponents/BuffComponent.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/BlasterComponents/BuffComponent.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://F:/Games/Blaster/Source/Blaster/BlasterComponents/BuffComponent.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/BlasterComponents/BuffComponent.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://F:/Games/Blaster/Source/Blaster/BlasterComponents/CombatComponent.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/Games/Blaster/Source/Blaster/BlasterComponents/CombatComponent.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Character/BlasterAnimInstance.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Character/BlasterAnimInstance.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="mock://F:/Games/Blaster/Source/Blaster/Character/BlasterCharacter.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://F:/Games/Blaster/Source/Blaster/Character/BlasterCharacter.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/Games/Blaster/Source/Blaster/Character/BlasterCharacter.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://F:/Games/Blaster/Source/Blaster/Character/BlasterCharacter.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/GameMode/BlasterGameMode.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/GameMode/BlasterGameMode.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/GameMode/LobbyGameMode.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -77,6 +81,8 @@
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Pickups/HealthPickup.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Pickups/HealthPickup.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/PlayerController/BlasterPlayerController.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://F:/Games/Blaster/Source/Blaster/PlayerController/BlasterPlayerController.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://F:/Games/Blaster/Source/Blaster/PlayerController/BlasterPlayerController.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/PlayerController/BlasterPlayerController.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/PlayerState/BlasterPlayerState.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/PlayerState/BlasterPlayerState.h" root0="FORCE_HIGHLIGHTING" />
@@ -90,6 +96,7 @@
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Weapon/ProjectileWeapon.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://F:/Games/Blaster/Source/Blaster/Weapon/Weapon.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.4/Engine/Source/Programs/AutomationTool/Gauntlet/Platform/Windows/Gauntlet.WindowsPGO.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.4/Engine/Source/Programs/Shared/EpicGames.Build/Automation/ProcessSingleton.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.4/Engine/Source/Programs/Shared/EpicGames.Build/Platform/Mac/ApplePlatformSDK.cs" root0="FORCE_HIGHLIGHTING" />
@@ -659,7 +666,7 @@
       <workItem from="1733897957500" duration="2069000" />
       <workItem from="1733903135351" duration="6185000" />
       <workItem from="1734079882738" duration="5552000" />
-      <workItem from="1734155634776" duration="9734000" />
+      <workItem from="1734155634776" duration="14003000" />
     </task>
     <task id="LOCAL-00001" summary="initial">
       <option name="closed" value="true" />
@@ -965,7 +972,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734162840905</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="add: JumpBuff">
+      <option name="closed" value="true" />
+      <created>1734167552093</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1734167552093</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -986,7 +1001,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="feat: Damage" />
     <MESSAGE value="feat: Elim Bot" />
     <MESSAGE value="fix: Character's health not update when respawned." />
     <MESSAGE value="fix: 子弹的拥有者设置错误&#10;feat: Blaster PlayerState" />
@@ -1011,7 +1025,8 @@
     <MESSAGE value="add: Speed Buff" />
     <MESSAGE value="add: Shield Buff" />
     <MESSAGE value="add: SpawnPickupPoint" />
-    <option name="LAST_COMMIT_MESSAGE" value="add: SpawnPickupPoint" />
+    <MESSAGE value="add: JumpBuff" />
+    <option name="LAST_COMMIT_MESSAGE" value="add: JumpBuff" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

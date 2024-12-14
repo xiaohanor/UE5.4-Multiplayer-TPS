@@ -52,6 +52,7 @@ public:
 
 	void UpdateHUDHealth();
 	void UpdateHUDShield();
+	void UpdateHUDAmmo();
 
 	void Elim();
 
@@ -59,6 +60,10 @@ public:
 	void MulticastElim();
 
 	bool bDisableGameplay = false;
+
+	//鼠标灵敏度
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Camera")
+	float MouseSensitivity = 1.f;
 	
 	UFUNCTION(BlueprintImplementableEvent)
 	void ShowSniperScope(bool bIsAiming);
