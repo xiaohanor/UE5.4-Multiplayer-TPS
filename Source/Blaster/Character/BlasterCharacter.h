@@ -72,6 +72,8 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+	void DropOrDestroyWeapon(AWeapon* Weapon);
+	void DropOrDestroyWeapons();
 
 	void AimOffset(float DeltaTime);
 	void TurnInPlcae(float DeltaTime);

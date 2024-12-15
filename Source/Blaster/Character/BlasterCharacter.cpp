@@ -405,17 +405,7 @@ void ABlasterCharacter::UpdateHUDAmmo()
 
 void ABlasterCharacter::Elim()
 {
-	if (Combat && Combat->EquippedWeapon)
-	{
-		if (Combat->EquippedWeapon->bDestroyWeapon)
-		{
-			Combat->EquippedWeapon->Destroy();
-		}
-		else
-		{
-			Combat->EquippedWeapon->Dropped();
-		}
-	}
+	DropOrDestroyWeapons();
 	MulticastElim();
 	GetWorldTimerManager().SetTimer(
 		ElimTimer,
@@ -423,6 +413,33 @@ void ABlasterCharacter::Elim()
 		&ThisClass::ElimTimerFinished,
 		ElimDelay
 	);
+}
+
+void ABlasterCharacter::DropOrDestroyWeapon(AWeapon* Weapon)
+{
+	if (Weapon->bDestroyWeapon)
+	{
+		Weapon->Destroy();
+	}
+	else
+	{
+		Weapon->Dropped();
+	}
+}
+
+void ABlasterCharacter::DropOrDestroyWeapons()
+{
+	if (Combat)
+	{
+		if (Combat->EquippedWeapon)
+		{
+			DropOrDestroyWeapon(Combat->EquippedWeapon);
+		}
+		if (Combat->SecondaryWeapon)
+		{
+			DropOrDestroyWeapon(Combat->SecondaryWeapon);
+		}
+	}
 }
 
 void ABlasterCharacter::MulticastElim_Implementation()
@@ -737,7 +754,14 @@ void ABlasterCharacter::ServerEquipButtonPressed_Implementation()
 {
 	if (Combat)
 	{
-		Combat->EquipWeapon(OverlappingWeapon);
+		if (OverlappingWeapon)
+		{
+			Combat->EquipWeapon(OverlappingWeapon);
+		}
+		else if (Combat->ShouldSwapWeapons())
+		{
+			Combat->SwapWeapons();
+		}
 	}
 }
 
@@ -878,7 +902,7 @@ void ABlasterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 		PlayerInputC->BindAction(PlayerMove, ETriggerEvent::Triggered, this, &ABlasterCharacter::Move);
 		PlayerInputC->BindAction(PlayerLook, ETriggerEvent::Triggered, this, &ABlasterCharacter::Look);
 		PlayerInputC->BindAction(PlayerJump, ETriggerEvent::Started, this, &ABlasterCharacter::Jump);
-		PlayerInputC->BindAction(Equip, ETriggerEvent::Triggered, this, &ABlasterCharacter::EquipButtonPressed);
+		PlayerInputC->BindAction(Equip, ETriggerEvent::Started, this, &ABlasterCharacter::EquipButtonPressed);
 		PlayerInputC->BindAction(PlayerCrouch, ETriggerEvent::Started, this, &ABlasterCharacter::CrouchButtonPressed);
 		PlayerInputC->BindAction(PlayerAim, ETriggerEvent::Started, this, &ABlasterCharacter::AimButtonPressed);
 		PlayerInputC->BindAction(PlayerAim, ETriggerEvent::Completed, this, &ABlasterCharacter::AimButtonReleased);

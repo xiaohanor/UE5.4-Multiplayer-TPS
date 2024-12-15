@@ -16,12 +16,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="">
+    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="feat: Secondary Weapon">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -663,7 +664,7 @@
       <workItem from="1733903135351" duration="6185000" />
       <workItem from="1734079882738" duration="5552000" />
       <workItem from="1734155634776" duration="15000000" />
-      <workItem from="1734242585681" duration="5133000" />
+      <workItem from="1734242585681" duration="9215000" />
     </task>
     <task id="LOCAL-00001" summary="initial">
       <option name="closed" value="true" />
@@ -985,7 +986,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734176139707</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="feat: Secondary Weapon">
+      <option name="closed" value="true" />
+      <created>1734248230065</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1734248230065</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1006,7 +1015,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="fix: Character's health not update when respawned." />
     <MESSAGE value="fix: 子弹的拥有者设置错误&#10;feat: Blaster PlayerState" />
     <MESSAGE value="feat: Defeat" />
     <MESSAGE value="feat: Ammo" />
@@ -1031,7 +1039,8 @@
     <MESSAGE value="add: SpawnPickupPoint" />
     <MESSAGE value="add: JumpBuff" />
     <MESSAGE value="add: Default Weapon&#10;feat: 降低狙击枪瞄准时的鼠标灵敏度&#10;fix: 忽略 casing 与玩家 pawn 的碰撞" />
-    <option name="LAST_COMMIT_MESSAGE" value="add: Default Weapon&#10;feat: 降低狙击枪瞄准时的鼠标灵敏度&#10;fix: 忽略 casing 与玩家 pawn 的碰撞" />
+    <MESSAGE value="feat: Secondary Weapon" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Secondary Weapon" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
