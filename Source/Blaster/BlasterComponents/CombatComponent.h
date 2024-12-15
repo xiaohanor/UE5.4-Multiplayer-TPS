@@ -58,6 +58,9 @@ protected:
 	UFUNCTION()
 	void OnRep_EquippedWeapon();
 
+	UFUNCTION()
+	void OnRep_SecondaryWeapon();
+
 	void TraceUnderCrosshair(FHitResult& TraceHitResult);
 	void SetHUDCrosshairs(float DeltaTime);
 	
@@ -92,9 +95,12 @@ protected:
 	void AttachActorToRightHand(AActor* ActorToAttach);
 	void AttachActorToLeftHand(AActor* ActorToAttach);
 	void UpdateCarriedAmmo();
-	void PlayEquipWeaponSound();
+	void PlayEquipWeaponSound(AWeapon* WeaponToEquip);
 	void ReloadEmptyWeapon();
 	void ShowAttachedGrenade(bool bShow);
+	void EquipPrimaryWeapon(AWeapon* WeaponToEquip);
+	void EquipSecondaryWeapon(AWeapon* WeaponToEquip);
+	void AttachActorToBackpack(AActor* ActorToAttach);
 	
 private:
 	UPROPERTY()
@@ -106,6 +112,9 @@ private:
 
 	UPROPERTY(ReplicatedUsing=OnRep_EquippedWeapon)
 	TObjectPtr<AWeapon> EquippedWeapon;
+
+	UPROPERTY(ReplicatedUsing=OnRep_SecondaryWeapon)
+	TObjectPtr<AWeapon> SecondaryWeapon;
 
 	UPROPERTY(Replicated)
 	bool bAiming;

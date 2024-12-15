@@ -691,14 +691,6 @@ void ABlasterCharacter::HideCameraIfCharacterClose()
 	}
 }
 
-void ABlasterCharacter::ServerEquipButtonPressed_Implementation()
-{
-	if (Combat)
-	{
-		Combat->EquipWeapon(OverlappingWeapon);
-	}
-}
-
 void ABlasterCharacter::Move(const FInputActionValue& Value)
 {
 	if (bDisableGameplay)
@@ -737,14 +729,15 @@ void ABlasterCharacter::EquipButtonPressed()
 
 	if (Combat)
 	{
-		if (HasAuthority())
-		{
-			Combat->EquipWeapon(OverlappingWeapon);
-		}
-		else
-		{
-			ServerEquipButtonPressed();
-		}
+		ServerEquipButtonPressed();
+	}
+}
+
+void ABlasterCharacter::ServerEquipButtonPressed_Implementation()
+{
+	if (Combat)
+	{
+		Combat->EquipWeapon(OverlappingWeapon);
 	}
 }
 

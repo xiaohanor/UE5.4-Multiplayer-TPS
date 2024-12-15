@@ -163,7 +163,6 @@ void AWeapon::SetWeaponState(EWeaponState State)
 		WeaponMesh->SetSimulatePhysics(false);
 		WeaponMesh->SetEnableGravity(false);
 		WeaponMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-		EnableCustomDepth(false);
 
 		if (WeaponType == EWeaponType::EWT_SubmachineGun)
 		{
@@ -201,7 +200,6 @@ void AWeapon::OnRep_WeaponState()
 		WeaponMesh->SetSimulatePhysics(false);
 		WeaponMesh->SetEnableGravity(false);
 		WeaponMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-		EnableCustomDepth(true);
 
 		if (WeaponType == EWeaponType::EWT_SubmachineGun)
 		{
@@ -259,7 +257,14 @@ void AWeapon::OnRep_Owner()
 	}
 	else
 	{
-		SetHUDAmmo();
+		// 确保当前拥有的武器是 EquippedWeapon，而不是 SecondaryWeapon
+		BlasterOwnerCharacter = BlasterOwnerCharacter == nullptr
+								? TObjectPtr<ABlasterCharacter>(Cast<ABlasterCharacter>(Owner))
+								: BlasterOwnerCharacter;
+		if (BlasterOwnerCharacter && BlasterOwnerCharacter->GetEquippedWeapon() && BlasterOwnerCharacter->GetEquippedWeapon() == this)
+		{
+			SetHUDAmmo();
+		}
 	}
 }
 
