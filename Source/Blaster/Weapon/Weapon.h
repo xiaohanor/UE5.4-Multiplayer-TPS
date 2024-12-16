@@ -23,6 +23,16 @@ enum class EWeaponState: uint8
 	EWS_MAX UMETA(DisplayName="DefaultMAX")
 };
 
+UENUM(BlueprintType)
+enum class EFireType: uint8
+{
+	EFT_Projectile UMETA(DisplayName="Projectile Weapon"),
+	EFT_HitScan UMETA(DisplayName="Hit Scan Weapon"),
+	EFT_Shotgun UMETA(DisplayName="Shotgun Weapon"),
+
+	EFT_MAX UMETA(DisplayName="DefaultMAX")
+};
+
 UCLASS()
 class BLASTER_API AWeapon : public AActor
 {
@@ -87,6 +97,11 @@ public:
 	void EnableCustomDepth(bool bEnable);
 
 	bool bDestroyWeapon = false;
+	
+	UPROPERTY(EditAnywhere, Category="Weapon Scatter")
+	bool bUseScatter = false;
+
+	virtual FVector TraceEndWithScatter(const FVector& HitTarget);
 
 protected:
 	virtual void BeginPlay() override;
@@ -102,6 +117,16 @@ protected:
 	UFUNCTION()
 	void OnSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	                        UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+
+		
+	/**
+	 * 弹道散射
+	 */
+	UPROPERTY(EditAnywhere, Category="Weapon Scatter")
+	float DistanceToSphere = 800.f;
+
+	UPROPERTY(EditAnywhere, Category="Weapon Scatter")
+	float SphereRadius = 100.f;
 
 private:
 	UPROPERTY(VisibleAnywhere, Category="Weapon Properties")
@@ -134,6 +159,9 @@ private:
 	UPROPERTY(EditAnywhere, Category="武器属性")
 	EWeaponType WeaponType;
 
+	UPROPERTY(EditAnywhere, Category="武器属性")
+	EFireType FireType;
+
 	UFUNCTION()
 	void OnRep_Ammo();
 
@@ -154,6 +182,7 @@ public:
 	bool IsEmpty() const { return Ammo <= 0; }
 	bool IsFull() const { return Ammo == MagCapacity; }
 	FORCEINLINE EWeaponType GetWeaponType() const { return WeaponType; }
+	FORCEINLINE EFireType GetFireType() const { return FireType; }
 	FORCEINLINE int32 GetAmmo() const { return Ammo; }
 	FORCEINLINE int32 GetMagCapacity() const { return MagCapacity; }
 };

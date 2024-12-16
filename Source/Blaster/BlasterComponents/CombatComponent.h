@@ -74,6 +74,10 @@ protected:
 	int32 AmountToReload();
 
 	void Fire();
+	void FireProjectileWeapon();
+	void FireHitscanWeapon();
+	void FireShotgunWeapon();
+	void LocalFire(const FVector_NetQuantize& TraceHitTarget);
 
 	UFUNCTION(Server, Reliable)
 	void ServerFire(const FVector_NetQuantize& TraceHitTarget);
