@@ -6,6 +6,7 @@
 #include "Blueprint/UserWidget.h"
 #include "CharacterOverlay.generated.h"
 
+class UImage;
 class UTextBlock;
 class UProgressBar;
 /**
@@ -43,4 +44,10 @@ public:
 
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UTextBlock> GrenadesText;
+
+	UPROPERTY(meta=(BindWidget))
+	TObjectPtr<UImage> HighPingImage;
+
+	UPROPERTY(meta = (BindWidgetAnim), Transient)
+	TObjectPtr<UWidgetAnimation> HighPingAnim;
 };
