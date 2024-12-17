@@ -98,7 +98,7 @@ public:
 
 	bool bDestroyWeapon = false;
 	
-	UPROPERTY(EditAnywhere, Category="Weapon Scatter")
+	UPROPERTY(EditAnywhere, Category="武器属性")
 	bool bUseScatter = false;
 
 	virtual FVector TraceEndWithScatter(const FVector& HitTarget);
@@ -118,14 +118,19 @@ protected:
 	void OnSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	                        UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
+
+	UPROPERTY(EditAnywhere, Category="武器属性")
+	float HitScanTraceLength = 3000.f;
 		
 	/**
 	 * 弹道散射
 	 */
-	UPROPERTY(EditAnywhere, Category="Weapon Scatter")
-	float DistanceToSphere = 800.f;
 
-	UPROPERTY(EditAnywhere, Category="Weapon Scatter")
+	
+	UPROPERTY(EditAnywhere, Category="武器属性/弹道散射")
+	float DistanceToSphere = 800.f;
+	
+	UPROPERTY(EditAnywhere, Category="武器属性/弹道散射")
 	float SphereRadius = 100.f;
 
 private:

@@ -56,11 +56,18 @@ FVector AWeapon::TraceEndWithScatter(const FVector& HitTarget)
 	FTransform SocketTransform = MuzzleFlashSocket->GetSocketTransform(WeaponMeshGetter());
 	FVector TraceStart = SocketTransform.GetLocation();
 	
+	// 归一化从起始位置到目标位置的方向向量
 	FVector ToTargetNormalized = (HitTarget - TraceStart).GetSafeNormal();
+	// 计算用于随机散射的球体中心
 	FVector SphereCenter = TraceStart + ToTargetNormalized * DistanceToSphere;
+
+	// 在球体半径内生成一个随机向量
 	FVector RandVec = UKismetMathLibrary::RandomUnitVector() * FMath::FRandRange(0.f, SphereRadius);
+	// 通过将随机向量添加到球体中心来计算终点位置
 	FVector EndLoc = SphereCenter + RandVec;
+	// 计算从起始位置到终点位置的方向向量
 	FVector ToEndLoc = EndLoc - TraceStart;
+	
 	/*DrawDebugSphere(GetWorld(), SphereCenter, SphereRadius, 12, FColor::Red, true);
 	DrawDebugSphere(GetWorld(), EndLoc, 4.f, 12, FColor::Orange, true);
 	DrawDebugLine(
@@ -69,7 +76,7 @@ FVector AWeapon::TraceEndWithScatter(const FVector& HitTarget)
 		FVector(TraceStart + ToEndLoc * TRACE_LENGTH / ToEndLoc.Size()),
 		FColor::Cyan,
 		true);*/
-	return FVector(TraceStart + ToEndLoc * TRACE_LENGTH / ToEndLoc.Size());
+	return FVector(TraceStart + ToEndLoc * HitScanTraceLength / ToEndLoc.Size());
 }
 
 void AWeapon::BeginPlay()

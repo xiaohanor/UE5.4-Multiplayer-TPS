@@ -12,11 +12,8 @@ class BLASTER_API AShotGun : public AHitScanWeapon
 	GENERATED_BODY()
 
 public:
-	void ShotgunTraceEndWithScatter(const FVector& HitTarget, TArray<FVector>& HitTargets);
-
-protected:
-	virtual void Fire(const FVector& HitTarget) override;
-
+	void ShotgunTraceEndWithScatter(const FVector& HitTarget, TArray<FVector_NetQuantize>& HitTargets);
+	virtual void ShotgunFire(const TArray<FVector_NetQuantize>& HitTargets);
 private:
 	UPROPERTY(EditAnywhere, Category="Weapon Scatter")
 	uint32 NumOfPellets = 10; // 子弹数量

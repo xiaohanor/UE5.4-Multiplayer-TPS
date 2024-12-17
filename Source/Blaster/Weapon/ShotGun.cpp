@@ -10,10 +10,9 @@
 #include "Particles/ParticleSystemComponent.h"
 #include "Sound/SoundCue.h"
 
-
-void AShotGun::Fire(const FVector& HitTarget)
+void AShotGun::ShotgunFire(const TArray<FVector_NetQuantize>& HitTargets)
 {
-	AHitScanWeapon::Fire(HitTarget);
+	AWeapon::Fire(FVector());
 
 	// 获取武器的拥有者
 	APawn* OwnerPawn = Cast<APawn>(GetOwner());
@@ -31,21 +30,23 @@ void AShotGun::Fire(const FVector& HitTarget)
 
 		// 用于记录击中的角色及其被击中的次数
 		TMap<ABlasterCharacter*, uint32> HitMap;
-		for (uint32 i = 0; i < NumOfPellets; i++)
+		for (FVector_NetQuantize HitTarget : HitTargets)
 		{
 			FHitResult FireHit;
 			// 执行武器的射线检测
 			WeaponTraceHit(Start, HitTarget, FireHit);
 			ABlasterCharacter* BlasterCharacter = Cast<ABlasterCharacter>(FireHit.GetActor());
-			if (BlasterCharacter && HasAuthority() && InstigatorController)
+			if (BlasterCharacter)
 			{
 				// 记录击中的角色及其被击中的次数
+				// 如果已经击中过该角色，则增加其被击中的次数
 				if (HitMap.Contains(BlasterCharacter))
 				{
 					HitMap[BlasterCharacter]++;
 				}
 				else
 				{
+					// 如果没有击中过该角色，则添加到击中列表中
 					HitMap.Emplace(BlasterCharacter, 1);
 				}
 			}
@@ -76,7 +77,7 @@ void AShotGun::Fire(const FVector& HitTarget)
 			{
 				UGameplayStatics::ApplyDamage(
 					HitPair.Key,
-					Damage * HitPair.Value,
+					Damage * HitPair.Value,	// 伤害值乘以击中次数
 					InstigatorController,
 					this,
 					UDamageType::StaticClass()
@@ -86,24 +87,30 @@ void AShotGun::Fire(const FVector& HitTarget)
 	}
 }
 
-void AShotGun::ShotgunTraceEndWithScatter(const FVector& HitTarget, TArray<FVector>& HitTargets)
+
+void AShotGun::ShotgunTraceEndWithScatter(const FVector& HitTarget, TArray<FVector_NetQuantize>& HitTargets)
 {
 	const USkeletalMeshSocket* MuzzleFlashSocket = WeaponMeshGetter()->GetSocketByName("MuzzleFlash");
 	if (MuzzleFlashSocket == nullptr) return;
 
 	const FTransform SocketTransform = MuzzleFlashSocket->GetSocketTransform(WeaponMeshGetter());
 	const FVector TraceStart = SocketTransform.GetLocation();
-
+	
+	// 归一化从起始位置到目标位置的方向向量
 	const FVector ToTargetNormalized = (HitTarget - TraceStart).GetSafeNormal();
+	// 计算用于随机散射的球体中心
 	const FVector SphereCenter = TraceStart + ToTargetNormalized * DistanceToSphere;
 
-	for (uint32 i=0;i<NumOfPellets;++i)
+	for (uint32 i=0; i<NumOfPellets;++i)
 	{
+		// 在球体半径内生成一个随机向量
 		const FVector RandVec = UKismetMathLibrary::RandomUnitVector() * FMath::FRandRange(0.f, SphereRadius);
+		// 通过将随机向量添加到球体中心来计算终点位置
 		const FVector EndLoc = SphereCenter + RandVec;
+		// 计算从起始位置到终点位置的方向向量
 		FVector ToEndLoc = EndLoc - TraceStart;
-		ToEndLoc = TraceStart + ToEndLoc * TRACE_LENGTH / ToEndLoc.Size();
+		ToEndLoc = TraceStart + ToEndLoc * HitScanTraceLength / ToEndLoc.Size();
 			
-		HitTargets.Add(TraceEndWithScatter(ToEndLoc));
+		HitTargets.Add(ToEndLoc);
 	}
 }
