@@ -663,7 +663,7 @@
       <workItem from="1734242585681" duration="10168000" />
       <workItem from="1734323500444" duration="4418000" />
       <workItem from="1734337827773" duration="9711000" />
-      <workItem from="1734413183209" duration="8842000" />
+      <workItem from="1734413183209" duration="9517000" />
     </task>
     <task id="LOCAL-00001" summary="initial">
       <option name="closed" value="true" />
@@ -1017,7 +1017,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734351884214</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="feat: Shotgun Fire RPCs&#10;fix: Pistol 射程过长">
+      <option name="closed" value="true" />
+      <created>1734423405425</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1734423405426</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1038,7 +1046,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="feat: Display Carried Ammo" />
     <MESSAGE value="fix: CanFire Bug&#10;fix: use AblasterCharacter* in BlasterAnimInstance.h&#10;feat: Reload Combat State" />
     <MESSAGE value="feat: Updating Ammo" />
     <MESSAGE value="feat: Reload Effect &amp; Auto Reload" />
@@ -1063,7 +1070,8 @@
     <MESSAGE value="feat: Swap Weapon &amp; Drop Secondary Weapon" />
     <MESSAGE value="feat: HighPing Warning" />
     <MESSAGE value="feat: Replicating Shotgun Scatter" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: Replicating Shotgun Scatter" />
+    <MESSAGE value="feat: Shotgun Fire RPCs&#10;fix: Pistol 射程过长" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Shotgun Fire RPCs&#10;fix: Pistol 射程过长" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

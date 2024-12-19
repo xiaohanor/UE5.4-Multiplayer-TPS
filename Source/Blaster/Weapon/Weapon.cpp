@@ -104,7 +104,6 @@ void AWeapon::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLif
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
 	DOREPLIFETIME(AWeapon, WeaponState);
-	DOREPLIFETIME(AWeapon, Ammo);
 }
 
 void AWeapon::ShowPickUpWidget(bool bShow)
@@ -112,6 +111,27 @@ void AWeapon::ShowPickUpWidget(bool bShow)
 	if (PickUpWidget)
 	{
 		PickUpWidget->SetVisibility(bShow);
+	}
+}
+
+void AWeapon::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+							  UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep,
+							  const FHitResult& SweepResult)
+{
+	ABlasterCharacter* BlasterCharacter = Cast<ABlasterCharacter>(OtherActor);
+	if (BlasterCharacter)
+	{
+		BlasterCharacter->SetOverlappingWeapon(this);
+	}
+}
+
+void AWeapon::OnSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+								 UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	ABlasterCharacter* BlasterCharacter = Cast<ABlasterCharacter>(OtherActor);
+	if (BlasterCharacter)
+	{
+		BlasterCharacter->SetOverlappingWeapon(nullptr);
 	}
 }
 
@@ -138,11 +158,7 @@ void AWeapon::Fire(const FVector& HitTarget)
 			}
 		}
 	}
-	// 服务器端扣除子弹
-	if (HasAuthority())
-	{
-		SpendRound();
-	}
+	SpendRound();
 }
 
 void AWeapon::Dropped()
@@ -157,29 +173,48 @@ void AWeapon::Dropped()
 
 void AWeapon::AddAmmo(int32 AmmoToAdd)
 {
-	Ammo = FMath::Clamp(Ammo - AmmoToAdd, 0, MagCapacity);
+	Ammo = FMath::Clamp(Ammo + AmmoToAdd, 0, MagCapacity);
+	SetHUDAmmo();
+	ClientAddAmmo(AmmoToAdd);
+}
+
+void AWeapon::ClientAddAmmo_Implementation(int32 AmmoToAdd)
+{
+	if (HasAuthority()) return;
+	
+	Ammo = FMath::Clamp(Ammo + AmmoToAdd, 0, MagCapacity);
+	BlasterOwnerCharacter = BlasterOwnerCharacter == nullptr
+							? TObjectPtr<ABlasterCharacter>(Cast<ABlasterCharacter>(GetOwner()))
+							: BlasterOwnerCharacter;
+	if (BlasterOwnerCharacter && BlasterOwnerCharacter->GetCombatComponent() && IsFull())
+	{
+		BlasterOwnerCharacter->GetCombatComponent()->JumpToShotgunEnd();
+	}
 	SetHUDAmmo();
 }
 
-void AWeapon::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-                              UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep,
-                              const FHitResult& SweepResult)
+void AWeapon::SpendRound()
 {
-	ABlasterCharacter* BlasterCharacter = Cast<ABlasterCharacter>(OtherActor);
-	if (BlasterCharacter)
+	Ammo = FMath::Clamp(Ammo - 1, 0, MagCapacity);
+	SetHUDAmmo();
+	if (HasAuthority())
 	{
-		BlasterCharacter->SetOverlappingWeapon(this);
+		ClientUpdateAmmo(Ammo);
+	}
+	else
+	{
+		++Sequence;
 	}
 }
 
-void AWeapon::OnSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-                                 UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+void AWeapon::ClientUpdateAmmo_Implementation(int32 ServerAmmo)
 {
-	ABlasterCharacter* BlasterCharacter = Cast<ABlasterCharacter>(OtherActor);
-	if (BlasterCharacter)
-	{
-		BlasterCharacter->SetOverlappingWeapon(nullptr);
-	}
+	if (HasAuthority()) return;
+
+	Ammo = ServerAmmo;
+	--Sequence;
+	Ammo-=Sequence;	// 修正客户端的弹药数量
+	SetHUDAmmo();
 }
 
 void AWeapon::SetWeaponState(EWeaponState State)
@@ -264,26 +299,6 @@ void AWeapon::OnEquippedSecondary()
 		WeaponMesh->SetCustomDepthStencilValue(CUSTOM_DEPTH_TAN);
 		WeaponMesh->MarkRenderStateDirty();	// 使渲染状态无效，以便在下一帧更新
 	}
-}
-
-void AWeapon::SpendRound()
-{
-	Ammo = FMath::Clamp(Ammo - 1, 0, MagCapacity);
-
-	SetHUDAmmo();
-}
-
-void AWeapon::OnRep_Ammo()
-{
-	BlasterOwnerCharacter = BlasterOwnerCharacter == nullptr
-							? TObjectPtr<ABlasterCharacter>(Cast<ABlasterCharacter>(GetOwner()))
-							: BlasterOwnerCharacter;
-	if (BlasterOwnerCharacter && BlasterOwnerCharacter->GetCombatComponent() && IsFull())
-	{
-		BlasterOwnerCharacter->GetCombatComponent()->JumpToShotgunEnd();
-	}
-	SetHUDAmmo();
-	
 }
 
 void AWeapon::OnRep_Owner()

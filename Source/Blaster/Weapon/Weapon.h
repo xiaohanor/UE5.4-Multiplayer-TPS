@@ -118,14 +118,12 @@ protected:
 	void OnSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	                        UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
-
 	UPROPERTY(EditAnywhere, Category="武器属性")
 	float HitScanTraceLength = 3000.f;
 		
 	/**
 	 * 弹道散射
 	 */
-
 	
 	UPROPERTY(EditAnywhere, Category="武器属性/弹道散射")
 	float DistanceToSphere = 800.f;
@@ -142,7 +140,7 @@ private:
 
 	UPROPERTY(ReplicatedUsing = OnRep_WeaponState, VisibleAnywhere)
 	EWeaponState WeaponState;
-
+	
 	UFUNCTION()
 	void OnRep_WeaponState();
 
@@ -155,8 +153,20 @@ private:
 	UPROPERTY(EditAnywhere, Category="Weapon Properties")
 	TSubclassOf<class ACasing> CasingClass;
 
-	UPROPERTY(EditAnywhere, ReplicatedUsing=OnRep_Ammo, Category="武器属性")
+	UPROPERTY(EditAnywhere, Category="武器属性")
 	int32 Ammo;
+
+	UFUNCTION(Client,Reliable)
+	void ClientUpdateAmmo(int32 ServerAmmo);
+
+	UFUNCTION(Client,Reliable)
+	void ClientAddAmmo(int32 AmmoToAdd);
+
+	void SpendRound();
+
+	// 用于解决客户端弹药数量不同步的问题
+	// 在 SpendRound() 中自增，ClientUpdateAmmo() 中自减
+	int32 Sequence = 0;
 
 	UPROPERTY(EditAnywhere, Category="武器属性")
 	int32 MagCapacity;
@@ -166,11 +176,6 @@ private:
 
 	UPROPERTY(EditAnywhere, Category="武器属性")
 	EFireType FireType;
-
-	UFUNCTION()
-	void OnRep_Ammo();
-
-	void SpendRound();
 
 	UPROPERTY()
 	TObjectPtr<ABlasterCharacter> BlasterOwnerCharacter;
