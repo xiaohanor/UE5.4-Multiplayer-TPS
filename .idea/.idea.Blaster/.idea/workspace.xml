@@ -16,10 +16,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="">
+    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="feat: Client-Side Predicting Aiming">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -659,7 +661,7 @@
       <workItem from="1734337827773" duration="9711000" />
       <workItem from="1734413183209" duration="9517000" />
       <workItem from="1734589685371" duration="3336000" />
-      <workItem from="1734843944040" duration="746000" />
+      <workItem from="1734843944040" duration="2797000" />
     </task>
     <task id="LOCAL-00001" summary="initial">
       <option name="closed" value="true" />
@@ -1029,7 +1031,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734594954391</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="feat: Client-Side Predicting Aiming">
+      <option name="closed" value="true" />
+      <created>1734844982694</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1734844982694</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1050,7 +1060,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="feat: Updating Ammo" />
     <MESSAGE value="feat: Reload Effect &amp; Auto Reload" />
     <MESSAGE value="feat: Updating Warmup Time" />
     <MESSAGE value="feat: cooldown announcement&#10;fix:客户端在BeginPlay()时无法获取PlayerController，使用Pollinit()在tick中获取" />
@@ -1075,7 +1084,8 @@
     <MESSAGE value="feat: Replicating Shotgun Scatter" />
     <MESSAGE value="feat: Shotgun Fire RPCs&#10;fix: Pistol 射程过长" />
     <MESSAGE value="feat: Client-Side Predicting Ammo" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: Client-Side Predicting Ammo" />
+    <MESSAGE value="feat: Client-Side Predicting Aiming" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Client-Side Predicting Aiming" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

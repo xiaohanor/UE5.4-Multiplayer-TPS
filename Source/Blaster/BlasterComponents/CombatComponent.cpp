@@ -507,8 +507,8 @@ void UCombatComponent::Reload()
 {
 	if (CarriedAmmo > 0 && CombatState == ECombatState::ECS_Unoccupied && EquippedWeapon && !EquippedWeapon->IsFull() && !bLocallyReloading)
 	{
-		HandleReload();
 		ServerReload();
+		HandleReload();
 		bLocallyReloading = true;
 	}
 }
@@ -862,6 +862,16 @@ bool UCombatComponent::CanFire()
 {
 	if (EquippedWeapon == nullptr)
 	{
+		return false;
+	}
+	if (bLocallyReloading)
+	{
+		// 允许霰弹枪在换弹时开火
+		if(!EquippedWeapon->IsEmpty() && bCanFire && CombatState == ECombatState::ECS_Reloading && EquippedWeapon->GetWeaponType() == EWeaponType::EWT_ShotGun)
+		{
+			bLocallyReloading = false;
+			return true;
+		}
 		return false;
 	}
 	if (!EquippedWeapon->IsEmpty() && bCanFire && CombatState == ECombatState::ECS_Reloading && EquippedWeapon->GetWeaponType() == EWeaponType::EWT_ShotGun)

@@ -72,6 +72,7 @@ protected:
 
 	void HandleReload();
 	int32 AmountToReload();
+	
 
 	void Fire();
 	void FireProjectileWeapon();
