@@ -16,7 +16,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="feat: Client-Side Predicting Reloading">
+    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="">
+      <change afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/LagCompensationComponent.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/LagCompensationComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.h" afterDir="false" />
     </list>
@@ -46,7 +49,6 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Source/Blaster/BlasterComponents/BuffComponent.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/BlasterComponents/BuffComponent.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://F:/Games/Blaster/Source/Blaster/BlasterComponents/CombatComponent.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Character/BlasterAnimInstance.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -79,8 +81,6 @@
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Weapon/ProjectileWeapon.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Weapon/ProjectileWeapon.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://F:/Games/Blaster/Source/Blaster/Weapon/Weapon.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://F:/Games/Blaster/Source/Blaster/Weapon/Weapon.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.4/Engine/Source/Programs/AutomationTool/Gauntlet/Platform/Windows/Gauntlet.WindowsPGO.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.4/Engine/Source/Programs/Shared/EpicGames.Build/Automation/ProcessSingleton.cs" root0="FORCE_HIGHLIGHTING" />
@@ -658,7 +658,8 @@
       <workItem from="1734337827773" duration="9711000" />
       <workItem from="1734413183209" duration="9517000" />
       <workItem from="1734589685371" duration="3336000" />
-      <workItem from="1734843944040" duration="3226000" />
+      <workItem from="1734843944040" duration="3387000" />
+      <workItem from="1735535403086" duration="3832000" />
     </task>
     <task id="LOCAL-00001" summary="initial">
       <option name="closed" value="true" />
@@ -1044,7 +1045,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734847406110</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="refactor">
+      <option name="closed" value="true" />
+      <created>1734847714485</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1734847714485</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1065,7 +1074,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="feat: Updating Warmup Time" />
     <MESSAGE value="feat: cooldown announcement&#10;fix:客户端在BeginPlay()时无法获取PlayerController，使用Pollinit()在tick中获取" />
     <MESSAGE value="feat: BlasterGameState" />
     <MESSAGE value="add: RocketLauncher" />
@@ -1090,7 +1098,8 @@
     <MESSAGE value="feat: Client-Side Predicting Ammo" />
     <MESSAGE value="feat: Client-Side Predicting Aiming" />
     <MESSAGE value="feat: Client-Side Predicting Reloading" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: Client-Side Predicting Reloading" />
+    <MESSAGE value="refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

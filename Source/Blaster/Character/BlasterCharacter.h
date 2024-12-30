@@ -12,6 +12,8 @@
 #include "Components/TimelineComponent.h"
 #include "BlasterCharacter.generated.h"
 
+class ULagCompensationComponent;
+class UBoxComponent;
 class ABlasterPlayerState;
 class FOnTimelineFloat;
 class UTimelineComponent;
@@ -83,6 +85,64 @@ protected:
 	void PollInit();
 	void RotateInPlace(float DeltaTime);
 
+	/*
+	 * 用于服务器端倒带的 HitBox
+	 */
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UBoxComponent> head;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UBoxComponent> pelvis;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UBoxComponent> spine_02;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UBoxComponent> spine_03;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UBoxComponent> upperarm_l;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UBoxComponent> upperarm_r;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UBoxComponent> lowerarm_l;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UBoxComponent> lowerarm_r;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UBoxComponent> hand_l;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UBoxComponent> hand_r;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UBoxComponent> backpack;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UBoxComponent> blanket;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UBoxComponent> thigh_l;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UBoxComponent> thigh_r;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UBoxComponent> calf_l;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UBoxComponent> calf_r;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UBoxComponent> foot_l;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UBoxComponent> foot_r;
+
 private:
 	UPROPERTY(VisibleAnywhere, Category="Camera")
 	TObjectPtr<UCameraComponent> FollowCamera;
@@ -99,11 +159,19 @@ private:
 	UFUNCTION()
 	void OnRep_OverlappingWeapon(AWeapon* LastWeapon);
 
+	/*
+	 * 组件
+	 */
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess="true"))
 	TObjectPtr<UCombatComponent> Combat;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess="true"))
 	TObjectPtr<UBuffComponent> Buff;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess="true"))
+	TObjectPtr<ULagCompensationComponent> LagCompensation;
+	
 
 	UFUNCTION(Server, Reliable)
 	void ServerEquipButtonPressed();
