@@ -45,9 +45,11 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
 						   FActorComponentTickFunction* ThisTickFunction) override;
 	friend class ABlasterCharacter;
+	void ShowFramePackage(const FFramePackage& FramePackage, const FColor Color);
 
 protected:
 	virtual void BeginPlay() override;
+	void SaveFramePackage(FFramePackage& FramePackage);
 
 private:
 	TObjectPtr<ABlasterCharacter> Character;

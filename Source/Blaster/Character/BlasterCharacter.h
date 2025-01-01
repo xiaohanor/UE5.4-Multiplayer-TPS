@@ -72,6 +72,9 @@ public:
 
 	void SpawnDefaultWeapon();
 
+	UPROPERTY()
+	TMap<FName,UBoxComponent*> HitCollisionBoxes;
+
 protected:
 	virtual void BeginPlay() override;
 	void DropOrDestroyWeapon(AWeapon* Weapon);

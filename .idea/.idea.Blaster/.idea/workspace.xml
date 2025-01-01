@@ -17,9 +17,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/LagCompensationComponent.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/LagCompensationComponent.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/LagCompensationComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/LagCompensationComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/LagCompensationComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/LagCompensationComponent.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.h" afterDir="false" />
     </list>
@@ -659,15 +659,8 @@
       <workItem from="1734413183209" duration="9517000" />
       <workItem from="1734589685371" duration="3336000" />
       <workItem from="1734843944040" duration="3387000" />
-      <workItem from="1735535403086" duration="3832000" />
-    </task>
-    <task id="LOCAL-00001" summary="initial">
-      <option name="closed" value="true" />
-      <created>1731845357872</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1731845357872</updated>
+      <workItem from="1735535403086" duration="6882000" />
+      <workItem from="1735729586281" duration="2745000" />
     </task>
     <task id="LOCAL-00002" summary="Variable Replication">
       <option name="closed" value="true" />
@@ -1053,7 +1046,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734847714485</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="feat: Frame Package">
+      <option name="closed" value="true" />
+      <created>1735567098900</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1735567098900</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1074,7 +1075,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="feat: cooldown announcement&#10;fix:客户端在BeginPlay()时无法获取PlayerController，使用Pollinit()在tick中获取" />
     <MESSAGE value="feat: BlasterGameState" />
     <MESSAGE value="add: RocketLauncher" />
     <MESSAGE value="add: Pistol" />
@@ -1099,7 +1099,8 @@
     <MESSAGE value="feat: Client-Side Predicting Aiming" />
     <MESSAGE value="feat: Client-Side Predicting Reloading" />
     <MESSAGE value="refactor" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor" />
+    <MESSAGE value="feat: Frame Package" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Frame Package" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
