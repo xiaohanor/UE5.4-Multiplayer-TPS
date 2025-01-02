@@ -25,7 +25,28 @@ void ULagCompensationComponent::TickComponent(float DeltaTime, ELevelTick TickTy
 											  FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+	
+	if (FrameHistory.Num() <= 1)
+	{
+		FFramePackage ThisFrame;
+		SaveFramePackage(ThisFrame);
+		FrameHistory.AddHead(ThisFrame);
+	}
+	else
+	{
+		// 移除过期的帧
+		float HistoryLength = FrameHistory.GetHead()->GetValue().Time - FrameHistory.GetTail()->GetValue().Time;
+		while (HistoryLength > MaxRecordTime)
+		{
+			FrameHistory.RemoveNode(FrameHistory.GetTail());
+			HistoryLength = FrameHistory.GetHead()->GetValue().Time - FrameHistory.GetTail()->GetValue().Time;
+		}
+		FFramePackage ThisFrame;
+		SaveFramePackage(ThisFrame);
+		FrameHistory.AddHead(ThisFrame);
+		ShowFramePackage(ThisFrame, FColor::Red);
 
+	}
 }
 
 void ULagCompensationComponent::SaveFramePackage(FFramePackage& FramePackage)
@@ -55,7 +76,8 @@ void ULagCompensationComponent::ShowFramePackage(const FFramePackage& FramePacka
 			BoxInfo.Value.BoxExtent,
 			FQuat(BoxInfo.Value.Rotation),
 			Color,
-			true
+			false,
+			4.f
 		);
 	}
 }
