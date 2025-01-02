@@ -42,7 +42,7 @@ void ABlasterPlayerController::CheckPing(float DeltaSeconds)
 	if (HighPingRunningTime > CheckHighPingFrequency)
 	{
 		PlayerState == nullptr
-			? PlayerState = Cast<ABlasterPlayerState>(GetPlayerState<ABlasterGameState>())
+			? PlayerState = Cast<ABlasterPlayerState>(GetPlayerState<ABlasterPlayerState>())
 			: PlayerState;
 		if (PlayerState)
 		{

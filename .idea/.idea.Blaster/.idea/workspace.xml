@@ -16,10 +16,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="">
+    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="feat: Frame History">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/LagCompensationComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/LagCompensationComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/LagCompensationComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/LagCompensationComponent.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -659,15 +657,7 @@
       <workItem from="1734843944040" duration="3387000" />
       <workItem from="1735535403086" duration="6882000" />
       <workItem from="1735729586281" duration="3312000" />
-      <workItem from="1735801615743" duration="3434000" />
-    </task>
-    <task id="LOCAL-00003" summary="feat:Aiming">
-      <option name="closed" value="true" />
-      <created>1732015320548</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1732015320548</updated>
+      <workItem from="1735801615743" duration="4338000" />
     </task>
     <task id="LOCAL-00004" summary="feat:AimOffset">
       <option name="closed" value="true" />
@@ -1053,7 +1043,15 @@
       <option name="project" value="LOCAL" />
       <updated>1735736241701</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="feat: Frame History">
+      <option name="closed" value="true" />
+      <created>1735823516478</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1735823516479</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1074,7 +1072,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="add: RocketLauncher" />
     <MESSAGE value="add: Pistol" />
     <MESSAGE value="add: SubMachine Gun" />
     <MESSAGE value="add: ShotGun&#10;feat: format code" />
@@ -1099,7 +1096,8 @@
     <MESSAGE value="refactor" />
     <MESSAGE value="feat: Frame Package" />
     <MESSAGE value="Saving a Frame Package" />
-    <option name="LAST_COMMIT_MESSAGE" value="Saving a Frame Package" />
+    <MESSAGE value="feat: Frame History" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Frame History" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
