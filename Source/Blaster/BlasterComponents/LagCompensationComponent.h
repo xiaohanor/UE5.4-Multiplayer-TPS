@@ -46,6 +46,7 @@ public:
 						   FActorComponentTickFunction* ThisTickFunction) override;
 	friend class ABlasterCharacter;
 	void ShowFramePackage(const FFramePackage& FramePackage, const FColor Color);
+	void ServerSideRewind(ABlasterCharacter* HitCharacter, const FVector_NetQuantize& TraceStart, const FVector_NetQuantize& HitLocation, float HitTime);
 
 protected:
 	virtual void BeginPlay() override;

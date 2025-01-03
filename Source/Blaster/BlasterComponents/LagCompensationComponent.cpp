@@ -82,3 +82,58 @@ void ULagCompensationComponent::ShowFramePackage(const FFramePackage& FramePacka
 	}
 }
 
+void ULagCompensationComponent::ServerSideRewind(ABlasterCharacter* HitCharacter, const FVector_NetQuantize& TraceStart,
+	const FVector_NetQuantize& HitLocation, float HitTime)
+{
+	bool bReturn = HitCharacter == nullptr ||
+		HitCharacter->GetLagCompensation() == nullptr ||
+			HitCharacter->GetLagCompensation()->FrameHistory.GetHead() == nullptr ||
+				HitCharacter->GetLagCompensation()->FrameHistory.GetTail() == nullptr;
+
+	//用于检查命中的帧
+	FFramePackage FrameToCheck;
+	bool bShouldInterpolate = true;
+	//被击中角色的帧历史
+	const TDoubleLinkedList<FFramePackage>& History = HitCharacter->GetLagCompensation()->FrameHistory;
+	const float OldestHistoryTime = History.GetTail()->GetValue().Time;
+	const float NewestHistoryTime = History.GetHead()->GetValue().Time;
+	if (HitTime < OldestHistoryTime)
+	{
+		//如果击中时间早于最早的历史记录，则不需要倒带
+		return;
+	}
+	if (OldestHistoryTime == HitTime)
+	{
+		FrameToCheck = History.GetTail()->GetValue();
+		bShouldInterpolate = false;
+	}
+	if (NewestHistoryTime <= HitTime)
+	{
+		FrameToCheck = History.GetHead()->GetValue();
+		bShouldInterpolate = false;
+	}
+
+	TDoubleLinkedList<FFramePackage>::TDoubleLinkedListNode* Younger = History.GetHead();
+	TDoubleLinkedList<FFramePackage>::TDoubleLinkedListNode* Older = Younger;
+	while (Older->GetValue().Time >HitTime)
+	{
+		//回退到 OlderTime < HitTime < YoungerTime
+		if (Older->GetNextNode() == nullptr) break;
+		Older = Older->GetNextNode();
+		if (Older->GetValue().Time >HitTime)
+		{
+			Younger = Older;
+		}
+	}
+	if (Older->GetValue().Time == HitTime)	//如果正好是这一帧
+	{
+		FrameToCheck = Older->GetValue();
+		bShouldInterpolate = false;
+	}
+	if (bShouldInterpolate)
+	{
+		//TODO:插值
+	}
+	if (bReturn) return;
+}
+
