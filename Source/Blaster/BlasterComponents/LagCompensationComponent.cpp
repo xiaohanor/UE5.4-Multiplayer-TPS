@@ -66,6 +66,33 @@ void ULagCompensationComponent::SaveFramePackage(FFramePackage& FramePackage)
 	}
 }
 
+FFramePackage ULagCompensationComponent::InterpBetweenFrames(const FFramePackage& OlderFrame,
+	const FFramePackage& YoungerFrame, float HitTime)
+{
+	const float Distance = YoungerFrame.Time - OlderFrame.Time;
+	const float InterpFraction = FMath::Clamp((HitTime - OlderFrame.Time) / Distance, 0.f, 1.f);
+
+	FFramePackage InterpFramePackage;
+	InterpFramePackage.Time = HitTime;
+
+	for (auto& YoungerPair : YoungerFrame.HitBoxInfo)
+	{
+		const FName& BoxInfoName = YoungerPair.Key;
+		
+		const FBoxInformation& OlderBox = OlderFrame.HitBoxInfo[BoxInfoName];
+		const FBoxInformation& YoungerBox = YoungerFrame.HitBoxInfo[BoxInfoName];
+
+		FBoxInformation InterpBox;
+		InterpBox.Location = FMath::VInterpTo(OlderBox.Location,YoungerBox.Location,1.f,InterpFraction);
+		InterpBox.Rotation = FMath::RInterpTo(OlderBox.Rotation,YoungerBox.Rotation,1.f,InterpFraction);
+		InterpBox.BoxExtent = YoungerBox.BoxExtent;
+
+		InterpFramePackage.HitBoxInfo.Add(BoxInfoName, InterpBox);
+	}
+	
+	return InterpFramePackage;
+}
+
 void ULagCompensationComponent::ShowFramePackage(const FFramePackage& FramePackage, const FColor Color)
 {
 	for (auto& BoxInfo : FramePackage.HitBoxInfo)
@@ -133,6 +160,7 @@ void ULagCompensationComponent::ServerSideRewind(ABlasterCharacter* HitCharacter
 	if (bShouldInterpolate)
 	{
 		//TODO:插值
+
 	}
 	if (bReturn) return;
 }
