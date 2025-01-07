@@ -663,14 +663,8 @@
       <workItem from="1735801615743" duration="9853000" />
       <workItem from="1736082478815" duration="1900000" />
       <workItem from="1736084449876" duration="1178000" />
-    </task>
-    <task id="LOCAL-00006" summary="feat:Rotate Root Bone">
-      <option name="closed" value="true" />
-      <created>1732152501094</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1732152501094</updated>
+      <workItem from="1736086428164" duration="4617000" />
+      <workItem from="1736247737583" duration="191000" />
     </task>
     <task id="LOCAL-00007" summary="feat: spawning projectile">
       <option name="closed" value="true" />
@@ -1056,7 +1050,15 @@
       <option name="project" value="LOCAL" />
       <updated>1735914686005</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="feat: Interp Between Frames">
+      <option name="closed" value="true" />
+      <created>1736087190210</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1736087190211</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1077,7 +1079,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="add: ShotGun&#10;feat: format code" />
     <MESSAGE value="add: Sniper" />
     <MESSAGE value="feat: Shotgun Reload&#10;TODO: need fix bug" />
     <MESSAGE value="fix: 客户端换弹动画通知触发两次（非完全修复，仅hack处理），角色材质自发光&#10;feat: 手榴弹投掷动作" />
@@ -1102,7 +1103,8 @@
     <MESSAGE value="feat: Frame History" />
     <MESSAGE value="fix: BlasterPlayerController.cpp 中的类型转换错误" />
     <MESSAGE value="feat: Rewinding Time" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: Rewinding Time" />
+    <MESSAGE value="feat: Interp Between Frames" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Interp Between Frames" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
