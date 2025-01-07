@@ -99,7 +99,7 @@ FServerSideRewindResult ULagCompensationComponent::ConfirmHit(const FFramePackag
 	if (HitCharacter == nullptr) return FServerSideRewindResult();
 
 	FFramePackage CurrentFrame;
-	CacheBoxPosistion(HitCharacter, CurrentFrame);
+	CacheBoxPosition(HitCharacter, CurrentFrame);
 	MoveBoxes(HitCharacter, Package);
 	EnableCharacterCollision(HitCharacter, ECollisionEnabled::NoCollision);
 
@@ -146,7 +146,7 @@ FServerSideRewindResult ULagCompensationComponent::ConfirmHit(const FFramePackag
 	return FServerSideRewindResult{false, false};
 }
 
-void ULagCompensationComponent::CacheBoxPosistion(ABlasterCharacter* HitCharacter, FFramePackage& OutFramePackage)
+void ULagCompensationComponent::CacheBoxPosition(ABlasterCharacter* HitCharacter, FFramePackage& OutFramePackage)
 {
 	if (HitCharacter == nullptr) return;
 	for (auto& HitBoxPair : HitCharacter->HitCollisionBoxes)
