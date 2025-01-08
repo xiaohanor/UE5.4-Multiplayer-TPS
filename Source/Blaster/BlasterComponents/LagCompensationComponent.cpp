@@ -4,7 +4,9 @@
 #include "LagCompensationComponent.h"
 
 #include "Blaster/Character/BlasterCharacter.h"
+#include "Blaster/Weapon/Weapon.h"
 #include "Components/BoxComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 
 ULagCompensationComponent::ULagCompensationComponent()
@@ -25,28 +27,8 @@ void ULagCompensationComponent::TickComponent(float DeltaTime, ELevelTick TickTy
 											  FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-	
-	if (FrameHistory.Num() <= 1)
-	{
-		FFramePackage ThisFrame;
-		SaveFramePackage(ThisFrame);
-		FrameHistory.AddHead(ThisFrame);
-	}
-	else
-	{
-		// 移除过期的帧
-		float HistoryLength = FrameHistory.GetHead()->GetValue().Time - FrameHistory.GetTail()->GetValue().Time;
-		while (HistoryLength > MaxRecordTime)
-		{
-			FrameHistory.RemoveNode(FrameHistory.GetTail());
-			HistoryLength = FrameHistory.GetHead()->GetValue().Time - FrameHistory.GetTail()->GetValue().Time;
-		}
-		FFramePackage ThisFrame;
-		SaveFramePackage(ThisFrame);
-		FrameHistory.AddHead(ThisFrame);
-		ShowFramePackage(ThisFrame, FColor::Red);
 
-	}
+	SaveFramePackage();
 }
 
 void ULagCompensationComponent::SaveFramePackage(FFramePackage& FramePackage)
@@ -199,6 +181,31 @@ void ULagCompensationComponent::EnableCharacterCollision(ABlasterCharacter* HitC
 	HitCharacter->GetMesh()->SetCollisionEnabled(CollisionType);
 }
 
+void ULagCompensationComponent::SaveFramePackage()
+{
+	if (Character == nullptr || !Character->HasAuthority()) return;
+	if (FrameHistory.Num() <= 1)
+	{
+		FFramePackage ThisFrame;
+		SaveFramePackage(ThisFrame);
+		FrameHistory.AddHead(ThisFrame);
+	}
+	else
+	{
+		// 移除过期的帧
+		float HistoryLength = FrameHistory.GetHead()->GetValue().Time - FrameHistory.GetTail()->GetValue().Time;
+		while (HistoryLength > MaxRecordTime)
+		{
+			FrameHistory.RemoveNode(FrameHistory.GetTail());
+			HistoryLength = FrameHistory.GetHead()->GetValue().Time - FrameHistory.GetTail()->GetValue().Time;
+		}
+		FFramePackage ThisFrame;
+		SaveFramePackage(ThisFrame);
+		FrameHistory.AddHead(ThisFrame);
+		ShowFramePackage(ThisFrame, FColor::Red);
+	}
+}
+
 void ULagCompensationComponent::ShowFramePackage(const FFramePackage& FramePackage, const FColor Color)
 {
 	for (auto& BoxInfo : FramePackage.HitBoxInfo)
@@ -272,5 +279,20 @@ FServerSideRewindResult ULagCompensationComponent::ServerSideRewind(ABlasterChar
 		FrameToCheck = InterpBetweenFrames(Older->GetValue(), Younger->GetValue(), HitTime);
 	}
 	return ConfirmHit(FrameToCheck, HitCharacter, TraceStart, HitLocation);
+}
+
+void ULagCompensationComponent::ServerScoreRequest_Implementation(ABlasterCharacter* HitCharacter,
+	const FVector_NetQuantize& TraceStart, const FVector_NetQuantize& HitLocation, float HitTime, AWeapon* DamageCauser)
+{
+	FServerSideRewindResult Result = ServerSideRewind(HitCharacter, TraceStart, HitLocation, HitTime);
+	if (Character && HitCharacter && DamageCauser && Result.bHitConfirmed)
+	{
+		UGameplayStatics::ApplyDamage(
+			HitCharacter,
+			DamageCauser->GetDamage(),
+			Character->Controller,
+			DamageCauser,
+			UDamageType::StaticClass());
+	}
 }
 

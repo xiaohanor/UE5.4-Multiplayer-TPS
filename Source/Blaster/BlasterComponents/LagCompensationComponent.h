@@ -6,6 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "LagCompensationComponent.generated.h"
 
+class AWeapon;
 class ABlasterPlayerController;
 
 USTRUCT(BlueprintType)
@@ -61,6 +62,9 @@ public:
 	void ShowFramePackage(const FFramePackage& FramePackage, const FColor Color);
 	FServerSideRewindResult ServerSideRewind(ABlasterCharacter* HitCharacter, const FVector_NetQuantize& TraceStart,
 	                                         const FVector_NetQuantize& HitLocation, float HitTime);
+	UFUNCTION(Server,Reliable)
+	void ServerScoreRequest(ABlasterCharacter* HitCharacter, const FVector_NetQuantize& TraceStart,
+		const FVector_NetQuantize& HitLocation, float HitTime, AWeapon* DamageCauser);
 
 protected:
 	virtual void BeginPlay() override;
@@ -71,6 +75,7 @@ protected:
 	void MoveBoxes(ABlasterCharacter* HitCharacter, const FFramePackage& Package);
 	void ResetBoxes(ABlasterCharacter* HitCharacter, const FFramePackage& Package);
 	void EnableCharacterCollision(ABlasterCharacter* HitCharacter, ECollisionEnabled::Type CollisionType);
+	void SaveFramePackage();
 	
 private:
 	TObjectPtr<ABlasterCharacter> Character;

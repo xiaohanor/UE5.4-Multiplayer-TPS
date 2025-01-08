@@ -117,9 +117,18 @@ protected:
 	UFUNCTION()
 	void OnSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	                        UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+	
+	UPROPERTY()
+	TObjectPtr<ABlasterCharacter> BlasterOwnerCharacter;
+
+	UPROPERTY()
+	TObjectPtr<ABlasterPlayerController> BlasterOwnerController;
 
 	UPROPERTY(EditAnywhere, Category="武器属性")
 	float HitScanTraceLength = 3000.f;
+
+	UPROPERTY(EditAnywhere)
+	float Damage = 20.f;
 		
 	/**
 	 * 弹道散射
@@ -131,6 +140,9 @@ protected:
 	UPROPERTY(EditAnywhere, Category="武器属性/弹道散射")
 	float SphereRadius = 100.f;
 
+	UPROPERTY(EditAnywhere, Category="武器属性")
+	bool bUseServerSideRewind = false;
+	
 private:
 	UPROPERTY(VisibleAnywhere, Category="Weapon Properties")
 	TObjectPtr<USkeletalMeshComponent> WeaponMesh;
@@ -177,12 +189,6 @@ private:
 	UPROPERTY(EditAnywhere, Category="武器属性")
 	EFireType FireType;
 
-	UPROPERTY()
-	TObjectPtr<ABlasterCharacter> BlasterOwnerCharacter;
-
-	UPROPERTY()
-	TObjectPtr<ABlasterPlayerController> BlasterOwnerController;
-
 public:
 	void SetWeaponState(EWeaponState State);
 	FORCEINLINE TObjectPtr<USphereComponent> AreaSphereGetter() const { return AreaSphere; }
@@ -195,4 +201,5 @@ public:
 	FORCEINLINE EFireType GetFireType() const { return FireType; }
 	FORCEINLINE int32 GetAmmo() const { return Ammo; }
 	FORCEINLINE int32 GetMagCapacity() const { return MagCapacity; }
+	FORCEINLINE float GetDamage() const { return Damage; }
 };
