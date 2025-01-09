@@ -11,6 +11,8 @@ class ABlasterPlayerController;
 class ABlasterCharacter;
 class UWidgetComponent;
 class USphereComponent;
+class USoundCue;
+
 
 UENUM(BlueprintType)
 enum class EWeaponState: uint8

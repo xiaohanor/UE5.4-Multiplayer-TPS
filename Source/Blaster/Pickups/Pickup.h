@@ -9,6 +9,8 @@
 class USphereComponent;
 class UNiagaraSystem;
 class UNiagaraComponent;
+class USoundCue;
+
 
 UCLASS()
 class BLASTER_API APickup : public AActor
