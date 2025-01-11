@@ -16,12 +16,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="feat: Score Request">
+    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="fix: 服务器端的服务器倒带武器无法造成伤害&#10;fix: 头文件缺失soundcue前向声明导致的打包失败">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/GameModes/BP_BlasterGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/GameModes/BP_BlasterGameMode.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/BlasterMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/BlasterMap.umap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/LagCompensationComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/LagCompensationComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/LagCompensationComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/LagCompensationComponent.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/HitScanWeapon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/HitScanWeapon.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/ShotGun.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/ShotGun.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,6 +69,7 @@
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Pickups/AmmoPickup.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Pickups/HealthPickup.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Pickups/HealthPickup.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://F:/Games/Blaster/Source/Blaster/Pickups/Pickup.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/PlayerController/BlasterPlayerController.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/PlayerController/BlasterPlayerController.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/PlayerState/BlasterPlayerState.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -84,6 +85,7 @@
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Weapon/ProjectileWeapon.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://F:/Games/Blaster/Source/Blaster/Weapon/Weapon.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.4/Engine/Source/Programs/AutomationTool/Gauntlet/Platform/Windows/Gauntlet.WindowsPGO.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.4/Engine/Source/Programs/Shared/EpicGames.Build/Automation/ProcessSingleton.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.4/Engine/Source/Programs/Shared/EpicGames.Build/Platform/Mac/ApplePlatformSDK.cs" root0="FORCE_HIGHLIGHTING" />
@@ -670,15 +672,8 @@
       <workItem from="1736086428164" duration="4617000" />
       <workItem from="1736247737583" duration="191000" />
       <workItem from="1736319512766" duration="2129000" />
-      <workItem from="1736346788269" duration="9737000" />
-    </task>
-    <task id="LOCAL-00008" summary="feat：Drawing the Crosshairs">
-      <option name="closed" value="true" />
-      <created>1732516960959</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1732516960959</updated>
+      <workItem from="1736346788269" duration="10605000" />
+      <workItem from="1736579278891" duration="12752000" />
     </task>
     <task id="LOCAL-00009" summary="feat: CrossHair Spread">
       <option name="closed" value="true" />
@@ -1064,7 +1059,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736350216554</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="fix: 服务器端的服务器倒带武器无法造成伤害&#10;fix: 头文件缺失soundcue前向声明导致的打包失败">
+      <option name="closed" value="true" />
+      <created>1736436858056</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1736436858056</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1085,7 +1088,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="feat: Shotgun Reload&#10;TODO: need fix bug" />
     <MESSAGE value="fix: 客户端换弹动画通知触发两次（非完全修复，仅hack处理），角色材质自发光&#10;feat: 手榴弹投掷动作" />
     <MESSAGE value="add: Grenade" />
     <MESSAGE value="feat: Healing Pickup" />
@@ -1110,7 +1112,8 @@
     <MESSAGE value="feat: Rewinding Time" />
     <MESSAGE value="feat: Interp Between Frames" />
     <MESSAGE value="feat: Score Request" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: Score Request" />
+    <MESSAGE value="fix: 服务器端的服务器倒带武器无法造成伤害&#10;fix: 头文件缺失soundcue前向声明导致的打包失败" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: 服务器端的服务器倒带武器无法造成伤害&#10;fix: 头文件缺失soundcue前向声明导致的打包失败" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

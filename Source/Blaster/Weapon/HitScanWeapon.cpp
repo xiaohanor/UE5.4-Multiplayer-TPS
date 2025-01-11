@@ -49,7 +49,7 @@ void AHitScanWeapon::Fire(const FVector& HitTarget)
 			}
 			if (!HasAuthority() && bUseServerSideRewind)
 			{
-				BlasterOwnerCharacter = BlasterCharacter == nullptr ? TObjectPtr<ABlasterCharacter>(Cast<ABlasterCharacter>(OwnerPawn)) : BlasterOwnerCharacter;
+				BlasterOwnerCharacter = BlasterOwnerCharacter == nullptr ? TObjectPtr<ABlasterCharacter>(Cast<ABlasterCharacter>(OwnerPawn)) : BlasterOwnerCharacter;
 				BlasterOwnerController = BlasterOwnerController == nullptr ? TObjectPtr<ABlasterPlayerController>(Cast<ABlasterPlayerController>(InstigatorController)) : BlasterOwnerController;
 				if (BlasterOwnerCharacter && BlasterOwnerController && BlasterOwnerCharacter->GetLagCompensation())
 				{
