@@ -23,10 +23,7 @@ public:
 
 	void StartDestroyTimer();
 	virtual void Destroyed() override;
-
-	UPROPERTY(EditAnywhere)
-	float Damage = 20.f;
-
+	
 	/*
 	 * 用于服务器倒带
 	 */
@@ -37,7 +34,9 @@ public:
 	
 	UPROPERTY(EditAnywhere)
 	float InitialSpeed = 15000;
-
+	
+	float Damage = 20.f;
+	
 protected:
 	virtual void BeginPlay() override;
 	void DestroyTimerFinished();
