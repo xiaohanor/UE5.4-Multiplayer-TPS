@@ -14,6 +14,11 @@ class BLASTER_API AProjectileGrenade : public AProjectile
 public:
 	AProjectileGrenade();
 
+#if WITH_EDITOR
+	// 当编辑器中的属性发生改变时调用
+	virtual void PostEditChangeProperty(struct FPropertyChangedEvent& PropertyChangedEvent) override;
+#endif
+
 protected:
 	virtual void BeginPlay() override;
 

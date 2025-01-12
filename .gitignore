@@ -2,7 +2,7 @@
 .vs/
 
 # IDE files
-.idea/
+.idea/*
 
 # Compiled Object files
 *.slo
