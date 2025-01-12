@@ -4,4 +4,5 @@
 
 #include "CoreMinimal.h"
 
-#define ECC_SkeletalMesh ECollisionChannel::ECC_GameTraceChannel1
+#define ECC_SkeletalMesh ECollisionChannel::ECC_GameTraceChannel2
+#define ECC_Hitbox ECollisionChannel::ECC_GameTraceChannel1
