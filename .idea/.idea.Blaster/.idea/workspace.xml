@@ -16,15 +16,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="feat: Spawn projectile locally">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Character/BP_BlasterCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Character/BP_BlasterCharacter.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Weapon/BP_AssaultRifle.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Weapon/BP_AssaultRifle.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/BlasterMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/BlasterMap.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Blaster.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Blaster.h" afterDir="false" />
+    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="feat: projectile server side rewind">
       <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/LagCompensationComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/LagCompensationComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/LagCompensationComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/LagCompensationComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/HitScanWeapon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/HitScanWeapon.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/ProjectileBullet.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/ProjectileBullet.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/ProjectileWeapon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/ProjectileWeapon.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/ShotGun.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/ShotGun.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -675,23 +672,7 @@
       <workItem from="1736319512766" duration="2129000" />
       <workItem from="1736346788269" duration="10605000" />
       <workItem from="1736579278891" duration="13175000" />
-      <workItem from="1736659161677" duration="9593000" />
-    </task>
-    <task id="LOCAL-00012" summary="feat: Automatic Fire">
-      <option name="closed" value="true" />
-      <created>1732609225422</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1732609225422</updated>
-    </task>
-    <task id="LOCAL-00013" summary="feat: Damage">
-      <option name="closed" value="true" />
-      <created>1732630304883</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1732630304883</updated>
+      <workItem from="1736659161677" duration="18567000" />
     </task>
     <task id="LOCAL-00014" summary="feat: Elim Bot">
       <option name="closed" value="true" />
@@ -1069,7 +1050,23 @@
       <option name="project" value="LOCAL" />
       <updated>1736665909025</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="feat: Hitbox Collision Box&#10;fix: 缺失碰撞通道-SkeletonMesh">
+      <option name="closed" value="true" />
+      <created>1736669113267</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1736669113267</updated>
+    </task>
+    <task id="LOCAL-00062" summary="feat: projectile server side rewind">
+      <option name="closed" value="true" />
+      <created>1736782366414</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1736782366414</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1090,8 +1087,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="add: Speed Buff" />
-    <MESSAGE value="add: Shield Buff" />
     <MESSAGE value="add: SpawnPickupPoint" />
     <MESSAGE value="add: JumpBuff" />
     <MESSAGE value="add: Default Weapon&#10;feat: 降低狙击枪瞄准时的鼠标灵敏度&#10;fix: 忽略 casing 与玩家 pawn 的碰撞" />
@@ -1115,7 +1110,9 @@
     <MESSAGE value="feat: Shotgun ServerSideRewind" />
     <MESSAGE value="feat: predict projectile path&#10;feat: post edit property in editor" />
     <MESSAGE value="feat: Spawn projectile locally" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: Spawn projectile locally" />
+    <MESSAGE value="feat: Hitbox Collision Box&#10;fix: 缺失碰撞通道-SkeletonMesh" />
+    <MESSAGE value="feat: projectile server side rewind" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: projectile server side rewind" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
