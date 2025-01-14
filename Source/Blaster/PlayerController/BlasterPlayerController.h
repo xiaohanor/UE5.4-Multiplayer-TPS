@@ -10,6 +10,8 @@ class ABlasterGameMode;
 class UCharacterOverlay;
 class ABlasterHUD;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FHighPingDelegate, bool, bHighPing);
+
 /**
  * 
  */
@@ -40,6 +42,8 @@ public:
 	void HandleCooldown();
 	float SingleTripTime = 0.f; //单程时间
 
+	FHighPingDelegate HighPingDelegate;
+
 protected:
 	virtual void BeginPlay() override;
 	void SetHUDTime();
@@ -69,8 +73,7 @@ protected:
 
 	UFUNCTION(Client, Reliable)
 	void ClientJoinMidGame(FName StateOfMatch, float Warmup, float Match, float StartingTime, float Cooldown);
-
-
+	
 	void HighPingWarning();
 	void StopHighPingWarning();
 	void CheckPing(float DeltaSeconds);
@@ -122,6 +125,9 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	float CheckHighPingFrequency = 20.f;
+
+	UFUNCTION(Server, Reliable)
+	void ServerReportPingStatus(bool bHighPing);
 
 	UPROPERTY(EditAnywhere)
 	float HighPingThreshold = 100.f;

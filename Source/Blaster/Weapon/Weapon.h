@@ -13,7 +13,6 @@ class UWidgetComponent;
 class USphereComponent;
 class USoundCue;
 
-
 UENUM(BlueprintType)
 enum class EWeaponState: uint8
 {
@@ -142,8 +141,11 @@ protected:
 	UPROPERTY(EditAnywhere, Category="武器属性/弹道散射")
 	float SphereRadius = 100.f;
 
-	UPROPERTY(EditAnywhere, Category="武器属性")
+	UPROPERTY(Replicated,EditAnywhere, Category="武器属性")
 	bool bUseServerSideRewind = false;
+
+	UFUNCTION()
+	void OnPingTooHigh(bool bHighPing);
 	
 private:
 	UPROPERTY(VisibleAnywhere, Category="Weapon Properties")

@@ -104,6 +104,7 @@ void AWeapon::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLif
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
 	DOREPLIFETIME(AWeapon, WeaponState);
+	DOREPLIFETIME_CONDITION(AWeapon, bUseServerSideRewind, COND_OwnerOnly);
 }
 
 void AWeapon::ShowPickUpWidget(bool bShow)
@@ -239,6 +240,11 @@ void AWeapon::OnWeaponStateSet()
 	}
 }
 
+void AWeapon::OnPingTooHigh(bool bHighPing)
+{
+	bUseServerSideRewind = !bHighPing;
+}
+
 void AWeapon::OnRep_WeaponState()
 {
 	OnWeaponStateSet();
@@ -259,6 +265,22 @@ void AWeapon::OnEquipped()
 		WeaponMesh->SetCollisionResponseToAllChannels(ECR_Ignore);
 	}
 	EnableCustomDepth(false);
+
+	// 绑定委托：当Ping过高时，切换是否使用服务器端回滚
+	BlasterOwnerCharacter = BlasterOwnerCharacter == nullptr
+						? TObjectPtr<ABlasterCharacter>(Cast<ABlasterCharacter>(GetOwner()))
+						: BlasterOwnerCharacter;
+	if (BlasterOwnerCharacter && bUseServerSideRewind)
+	{
+		BlasterOwnerController = BlasterOwnerController == nullptr
+									 ? TObjectPtr<ABlasterPlayerController>(
+										 Cast<ABlasterPlayerController>(BlasterOwnerCharacter->GetController()))
+									 : BlasterOwnerController;
+		if (BlasterOwnerController && HasAuthority() && !BlasterOwnerController->HighPingDelegate.IsBound())
+		{
+			BlasterOwnerController->HighPingDelegate.AddDynamic(this, &AWeapon::OnPingTooHigh);
+		}
+	}
 }
 
 void AWeapon::OnDropped()
@@ -277,6 +299,22 @@ void AWeapon::OnDropped()
 	WeaponMesh->SetCustomDepthStencilValue(CUSTOM_DEPTH_BLUE);
 	WeaponMesh->MarkRenderStateDirty();	// 使渲染状态无效，以便在下一帧更新
 	EnableCustomDepth(true);
+	
+	// 绑定委托：当Ping过高时，切换是否使用服务器端回滚
+	BlasterOwnerCharacter = BlasterOwnerCharacter == nullptr
+						? TObjectPtr<ABlasterCharacter>(Cast<ABlasterCharacter>(GetOwner()))
+						: BlasterOwnerCharacter;
+	if (BlasterOwnerCharacter && bUseServerSideRewind)
+	{
+		BlasterOwnerController = BlasterOwnerController == nullptr
+									 ? TObjectPtr<ABlasterPlayerController>(
+										 Cast<ABlasterPlayerController>(BlasterOwnerCharacter->GetController()))
+									 : BlasterOwnerController;
+		if (BlasterOwnerController && HasAuthority() && BlasterOwnerController->HighPingDelegate.IsBound())
+		{
+			BlasterOwnerController->HighPingDelegate.RemoveDynamic(this, &AWeapon::OnPingTooHigh);
+		}
+	}
 }
 
 void AWeapon::OnEquippedSecondary()
@@ -298,6 +336,22 @@ void AWeapon::OnEquippedSecondary()
 	{
 		WeaponMesh->SetCustomDepthStencilValue(CUSTOM_DEPTH_TAN);
 		WeaponMesh->MarkRenderStateDirty();	// 使渲染状态无效，以便在下一帧更新
+	}
+
+	// 绑定委托：当Ping过高时，切换是否使用服务器端回滚
+	BlasterOwnerCharacter = BlasterOwnerCharacter == nullptr
+						? TObjectPtr<ABlasterCharacter>(Cast<ABlasterCharacter>(GetOwner()))
+						: BlasterOwnerCharacter;
+	if (BlasterOwnerCharacter && bUseServerSideRewind)
+	{
+		BlasterOwnerController = BlasterOwnerController == nullptr
+									 ? TObjectPtr<ABlasterPlayerController>(
+										 Cast<ABlasterPlayerController>(BlasterOwnerCharacter->GetController()))
+									 : BlasterOwnerController;
+		if (BlasterOwnerController && HasAuthority() && !BlasterOwnerController->HighPingDelegate.IsBound())
+		{
+			BlasterOwnerController->HighPingDelegate.AddDynamic(this, &AWeapon::OnPingTooHigh);
+		}
 	}
 }
 
