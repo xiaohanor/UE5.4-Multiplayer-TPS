@@ -16,10 +16,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="feat: swap anim">
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.cpp" afterDir="false" />
+    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="feat: validation with cheating">
+      <change afterPath="$PROJECT_DIR$/Source/Blaster/HUD/ReturnToMainMenu.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/Blaster/HUD/ReturnToMainMenu.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Blaster.Build.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Blaster.Build.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,6 +106,7 @@
     <setting file="file://$PROJECT_DIR$/../../UE_5.4/Engine/Source/Runtime/Engine/Private/Components/NavMovementComponent.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.4/Engine/Source/Runtime/Engine/Private/Controller.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.4/Engine/Source/Runtime/Engine/Private/GameMode.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../UE_5.4/Engine/Source/Runtime/Engine/Private/GameModeBase.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.4/Engine/Source/Runtime/Engine/Private/Pawn.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.4/Engine/Source/Runtime/Engine/Private/World.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.4/Engine/Source/Runtime/UMG/Public/Blueprint/UserWidget.h" root0="FORCE_HIGHLIGHTING" />
@@ -670,15 +671,7 @@
       <workItem from="1736319512766" duration="2129000" />
       <workItem from="1736346788269" duration="10605000" />
       <workItem from="1736579278891" duration="13175000" />
-      <workItem from="1736659161677" duration="39249000" />
-    </task>
-    <task id="LOCAL-00017" summary="feat: Defeat">
-      <option name="closed" value="true" />
-      <created>1732881739275</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1732881739275</updated>
+      <workItem from="1736659161677" duration="43305000" />
     </task>
     <task id="LOCAL-00018" summary="feat: Ammo">
       <option name="closed" value="true" />
@@ -1064,7 +1057,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737005308884</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="feat: validation with cheating">
+      <option name="closed" value="true" />
+      <created>1737007674391</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1737007674391</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1085,7 +1086,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="feat: Secondary Weapon" />
     <MESSAGE value="feat: Swap Weapon &amp; Drop Secondary Weapon" />
     <MESSAGE value="feat: HighPing Warning" />
     <MESSAGE value="feat: Replicating Shotgun Scatter" />
@@ -1110,7 +1110,8 @@
     <MESSAGE value="feat: projectile score request" />
     <MESSAGE value="feat: limiting server-side rewind" />
     <MESSAGE value="feat: swap anim" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: swap anim" />
+    <MESSAGE value="feat: validation with cheating" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: validation with cheating" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
