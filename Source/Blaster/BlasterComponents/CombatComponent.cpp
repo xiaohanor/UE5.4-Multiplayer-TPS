@@ -256,6 +256,17 @@ void UCombatComponent::OnRep_Aiming()
 	}
 }
 
+/////////////////// 开火逻辑 //////////////////////
+
+void UCombatComponent::FireButtonPressed(bool bPressed)
+{
+	bFireButtonPressed = bPressed;
+	if (bFireButtonPressed)
+	{
+		Fire();
+	}
+}
+
 void UCombatComponent::Fire()
 {
 	if (CanFire())
@@ -279,38 +290,6 @@ void UCombatComponent::Fire()
 			CrossHairShootingFactor = .75f;
 		}
 		StartFireTimer();
-	}
-}
-
-void UCombatComponent::FireProjectileWeapon()
-{
-	if (EquippedWeapon && Character)
-	{
-		HitTarget = EquippedWeapon->bUseScatter ? EquippedWeapon->TraceEndWithScatter(HitTarget) : HitTarget;
-		if (!Character->HasAuthority()) LocalFire(HitTarget);
-		ServerFire(HitTarget);
-	}
-}
-
-void UCombatComponent::FireHitscanWeapon()
-{
-	if (EquippedWeapon && Character)
-	{
-		HitTarget = EquippedWeapon->bUseScatter ? EquippedWeapon->TraceEndWithScatter(HitTarget) : HitTarget;
-		if (!Character->HasAuthority()) LocalFire(HitTarget);
-		ServerFire(HitTarget);
-	}
-}
-
-void UCombatComponent::FireShotgunWeapon()
-{
-	AShotGun* ShotGun = Cast<AShotGun>(EquippedWeapon);
-	if (ShotGun && Character)
-	{
-		TArray<FVector_NetQuantize> Targets;
-		ShotGun->ShotgunTraceEndWithScatter(HitTarget, Targets);
-		if (!Character->HasAuthority()) ShotgunLocalFire(Targets);
-		ServerShotgunFire(Targets);
 	}
 }
 
@@ -342,18 +321,51 @@ void UCombatComponent::FireTImerFinished()
 	ReloadEmptyWeapon();
 }
 
-void UCombatComponent::FireButtonPressed(bool bPressed)
+void UCombatComponent::FireProjectileWeapon()
 {
-	bFireButtonPressed = bPressed;
-	if (bFireButtonPressed)
+	if (EquippedWeapon && Character)
 	{
-		Fire();
+		HitTarget = EquippedWeapon->bUseScatter ? EquippedWeapon->TraceEndWithScatter(HitTarget) : HitTarget;
+		if (!Character->HasAuthority()) LocalFire(HitTarget);
+		ServerFire(HitTarget, EquippedWeapon->FireDelay);
 	}
 }
 
-void UCombatComponent::ServerFire_Implementation(const FVector_NetQuantize& TraceHitTarget)
+void UCombatComponent::FireHitscanWeapon()
+{
+	if (EquippedWeapon && Character)
+	{
+		HitTarget = EquippedWeapon->bUseScatter ? EquippedWeapon->TraceEndWithScatter(HitTarget) : HitTarget;
+		if (!Character->HasAuthority()) LocalFire(HitTarget);
+		ServerFire(HitTarget, EquippedWeapon->FireDelay);
+	}
+}
+
+void UCombatComponent::FireShotgunWeapon()
+{
+	AShotGun* ShotGun = Cast<AShotGun>(EquippedWeapon);
+	if (ShotGun && Character)
+	{
+		TArray<FVector_NetQuantize> Targets;
+		ShotGun->ShotgunTraceEndWithScatter(HitTarget, Targets);
+		if (!Character->HasAuthority()) ShotgunLocalFire(Targets);
+		ServerShotgunFire(Targets, EquippedWeapon->FireDelay);
+	}
+}
+
+void UCombatComponent::ServerFire_Implementation(const FVector_NetQuantize& TraceHitTarget, float FireDelay)
 {
 	MulticastFire(TraceHitTarget);
+}
+
+bool UCombatComponent::ServerFire_Validate(const FVector_NetQuantize& TraceHitTarget, float FireDelay)
+{
+	if (EquippedWeapon)
+	{
+		bool bNearlyEqual = FMath::IsNearlyEqual(FireDelay, EquippedWeapon->FireDelay, 0.001f);
+		return bNearlyEqual;
+	}
+	return true;
 }
 
 void UCombatComponent::MulticastFire_Implementation(const FVector_NetQuantize& TraceHitTarget)
@@ -363,9 +375,20 @@ void UCombatComponent::MulticastFire_Implementation(const FVector_NetQuantize& T
 	LocalFire(TraceHitTarget);
 }
 
-void UCombatComponent::ServerShotgunFire_Implementation(const TArray<FVector_NetQuantize>& TraceHitTargets)
+void UCombatComponent::ServerShotgunFire_Implementation(const TArray<FVector_NetQuantize>& TraceHitTargets,
+	float FireDelay)
 {
 	MulticastShotgunFire(TraceHitTargets);
+}
+
+bool UCombatComponent::ServerShotgunFire_Validate(const TArray<FVector_NetQuantize>& TraceHitTargets, float FireDelay)
+{
+	if (EquippedWeapon)
+	{
+		bool bNearlyEqual = FMath::IsNearlyEqual(FireDelay, EquippedWeapon->FireDelay, 0.001f);
+		return bNearlyEqual;
+	}
+	return true;
 }
 
 void UCombatComponent::MulticastShotgunFire_Implementation(const TArray<FVector_NetQuantize>& TraceHitTargets)
@@ -404,6 +427,8 @@ void UCombatComponent::LocalFire(const FVector_NetQuantize& TraceHitTarget)
 		EquippedWeapon->Fire(TraceHitTarget);
 	}
 }
+
+///////////////////////////////////////////////
 
 void UCombatComponent::EquipWeapon(AWeapon* WeaponToEquip)
 {
