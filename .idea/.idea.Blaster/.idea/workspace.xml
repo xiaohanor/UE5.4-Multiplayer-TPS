@@ -16,13 +16,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="feat: projectile server side rewind">
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/LagCompensationComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/LagCompensationComponent.cpp" afterDir="false" />
+    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="feat: limiting server-side rewind">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Character/Animation/ABP_Blaster.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Character/Animation/ABP_Blaster.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Character/BP_BlasterCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Character/BP_BlasterCharacter.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/LagCompensationComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/LagCompensationComponent.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/HitScanWeapon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/HitScanWeapon.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/ProjectileBullet.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/ProjectileBullet.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/ProjectileWeapon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/ProjectileWeapon.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/ShotGun.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/ShotGun.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterTypes/CombatState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterTypes/CombatState.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterAnimInstance.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterAnimInstance.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,6 +55,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Source/Blaster/BlasterComponents/BuffComponent.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/BlasterComponents/BuffComponent.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://F:/Games/Blaster/Source/Blaster/BlasterComponents/CombatComponent.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Character/BlasterAnimInstance.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -672,23 +678,7 @@
       <workItem from="1736319512766" duration="2129000" />
       <workItem from="1736346788269" duration="10605000" />
       <workItem from="1736579278891" duration="13175000" />
-      <workItem from="1736659161677" duration="18567000" />
-    </task>
-    <task id="LOCAL-00014" summary="feat: Elim Bot">
-      <option name="closed" value="true" />
-      <created>1732798013330</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1732798013330</updated>
-    </task>
-    <task id="LOCAL-00015" summary="fix: Character's health not update when respawned.">
-      <option name="closed" value="true" />
-      <created>1732798664392</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1732798664392</updated>
+      <workItem from="1736659161677" duration="37384000" />
     </task>
     <task id="LOCAL-00016" summary="fix: 子弹的拥有者设置错误&#10;feat: Blaster PlayerState">
       <option name="closed" value="true" />
@@ -1066,7 +1056,23 @@
       <option name="project" value="LOCAL" />
       <updated>1736782366414</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="feat: projectile score request">
+      <option name="closed" value="true" />
+      <created>1736836482758</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1736836482758</updated>
+    </task>
+    <task id="LOCAL-00064" summary="feat: limiting server-side rewind">
+      <option name="closed" value="true" />
+      <created>1736839586124</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1736839586124</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1087,8 +1093,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="add: SpawnPickupPoint" />
-    <MESSAGE value="add: JumpBuff" />
     <MESSAGE value="add: Default Weapon&#10;feat: 降低狙击枪瞄准时的鼠标灵敏度&#10;fix: 忽略 casing 与玩家 pawn 的碰撞" />
     <MESSAGE value="feat: Secondary Weapon" />
     <MESSAGE value="feat: Swap Weapon &amp; Drop Secondary Weapon" />
@@ -1112,7 +1116,9 @@
     <MESSAGE value="feat: Spawn projectile locally" />
     <MESSAGE value="feat: Hitbox Collision Box&#10;fix: 缺失碰撞通道-SkeletonMesh" />
     <MESSAGE value="feat: projectile server side rewind" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: projectile server side rewind" />
+    <MESSAGE value="feat: projectile score request" />
+    <MESSAGE value="feat: limiting server-side rewind" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: limiting server-side rewind" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

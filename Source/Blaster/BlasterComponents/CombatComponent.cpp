@@ -431,7 +431,13 @@ void UCombatComponent::EquipWeapon(AWeapon* WeaponToEquip)
 
 void UCombatComponent::SwapWeapons()
 {
-	if (CombatState != ECombatState::ECS_Unoccupied) return;
+	if (CombatState != ECombatState::ECS_Unoccupied || Character == nullptr || !Character->HasAuthority()) return;
+
+	Character->PlaySwapWeaponMontage();
+	CombatState = ECombatState::ECS_SwappingWeapons;
+	Character->bFinishedSwapping = false;
+	if (SecondaryWeapon) SecondaryWeapon->EnableCustomDepth(false);
+
 	AWeapon* TempWeapon = EquippedWeapon;
 	EquippedWeapon = SecondaryWeapon;
 	SecondaryWeapon = TempWeapon;
@@ -565,6 +571,14 @@ void UCombatComponent::	OnRep_CombatState()
 			AttachActorToLeftHand(EquippedWeapon);
 			ShowAttachedGrenade(true);
 		}
+		break;
+	case ECombatState::ECS_SwappingWeapons:
+		UE_LOG(LogTemp, Warning, TEXT("CombatState: Swapping Weapons"));
+		if (Character && !Character->IsLocallyControlled())
+		{
+			Character->PlaySwapWeaponMontage();
+		}
+		break;
 	}
 }
 
@@ -656,6 +670,16 @@ void UCombatComponent::ShotgunShellReload()
 	{
 		UE_LOG(LogTemp, Warning, TEXT("not server"));
 	}
+}
+
+void UCombatComponent::FinishSwap()
+{
+	if (Character && Character->HasAuthority())
+	{
+		CombatState = ECombatState::ECS_Unoccupied;
+	}
+	if (Character) Character->bFinishedSwapping = true;
+	if (SecondaryWeapon) SecondaryWeapon->EnableCustomDepth(true);
 }
 
 void UCombatComponent::HandleReload()

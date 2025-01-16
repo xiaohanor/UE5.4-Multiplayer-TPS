@@ -57,7 +57,10 @@ struct FShotgunServerSideRewindResult
 {
 	GENERATED_BODY()
 
+	UPROPERTY()
 	TMap<ABlasterCharacter*, uint32> HeadShots;
+
+	UPROPERTY()
 	TMap<ABlasterCharacter*, uint32> BodyShots;
 };
 
@@ -136,7 +139,10 @@ protected:
 	                                                 const TArray<FVector_NetQuantize>& HitLocations);
 
 private:
+	UPROPERTY()
 	TObjectPtr<ABlasterCharacter> Character;
+
+	UPROPERTY()
 	TObjectPtr<ABlasterPlayerController> Controller;
 
 	// 帧历史

@@ -39,12 +39,15 @@ public:
 
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
 	virtual void PostInitializeComponents() override;
-
+/*
+ * 播放动画蒙太奇
+ */
 	void PlayFireMontage(bool bAiming);
 	void PlayReloadMontage();
 	void PlayHitReactMontage();
 	void PlayElimMontage();
 	void PlayThrowGrenadeMontage();
+	void PlaySwapWeaponMontage();
 
 	virtual void OnRep_ReplicatedMovement() override;
 
@@ -71,6 +74,8 @@ public:
 	void ShowSniperScope(bool bIsAiming);
 
 	void SpawnDefaultWeapon();
+
+	bool bFinishedSwapping = false;
 
 	UPROPERTY()
 	TMap<FName,UBoxComponent*> HitCollisionBoxes;
@@ -273,6 +278,9 @@ private:
 	UPROPERTY(EditAnywhere, Category="Combat")
 	TObjectPtr<UAnimMontage> ThrowGrenadeMontage;
 
+	UPROPERTY(EditAnywhere, Category="Combat")
+	TObjectPtr<UAnimMontage> SwapWeaponMontage;
+
 	/**
 	 * 玩家生命值
 	 */
@@ -387,4 +395,5 @@ public:
 	FORCEINLINE UStaticMeshComponent* GetAttachedGrenade() const { return AttachedGrenade; }
 	FORCEINLINE UBuffComponent* GetBuffComponent() const { return Buff; }
 	FORCEINLINE ULagCompensationComponent* GetLagCompensation() const { return LagCompensation; }
+	bool IsLocallyReloading() const;
 };
