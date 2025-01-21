@@ -3,6 +3,7 @@
 
 #include "BlasterPlayerController.h"
 
+#include "EnhancedInputComponent.h"
 #include "Blaster/BlasterComponents/CombatComponent.h"
 #include "Blaster/Character/BlasterCharacter.h"
 #include "Blaster/GameMode/BlasterGameMode.h"
@@ -10,6 +11,7 @@
 #include "Blaster/HUD/Announcement.h"
 #include "Blaster/HUD/BlasterHUD.h"
 #include "Blaster/HUD/CharacterOverlay.h"
+#include "Blaster/HUD/ReturnToMainMenu.h"
 #include "Blaster/PlayerState/BlasterPlayerState.h"
 #include "Components/Image.h"
 #include "Components/ProgressBar.h"
@@ -72,10 +74,47 @@ void ABlasterPlayerController::CheckPing(float DeltaSeconds)
 	}
 }
 
+void ABlasterPlayerController::ShowReturnToMainMenu()
+{
+	if (ReturnToMainMenuWidget == nullptr) return;
+	if (ReturnToMainMenu == nullptr)
+	{
+		ReturnToMainMenu = CreateWidget<UReturnToMainMenu>(this, ReturnToMainMenuWidget);
+	}
+	if (ReturnToMainMenu)
+	{
+		bReturnToMainMenu = !bReturnToMainMenu;
+		if (bReturnToMainMenu)
+		{
+			ReturnToMainMenu->MenuSetup();
+		}
+		else
+		{
+			ReturnToMainMenu->MenuTearDown();
+		}
+	}
+}
+
 void ABlasterPlayerController::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	DOREPLIFETIME(ABlasterPlayerController, MatchState);
+}
+
+void ABlasterPlayerController::SetupInputComponent()
+{
+	Super::SetupInputComponent();
+
+	if (InputComponent == nullptr)
+	{
+		return;
+	}
+	UEnhancedInputComponent* PlayerInputC = Cast<UEnhancedInputComponent>(InputComponent);
+	if (PlayerInputC)
+	{
+		PlayerInputC->BindAction(Quit, ETriggerEvent::Started, this, &ABlasterPlayerController::ShowReturnToMainMenu);
+	}
+
 }
 
 // Ping是否过高

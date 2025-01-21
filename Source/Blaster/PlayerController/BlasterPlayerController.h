@@ -6,6 +6,8 @@
 #include "GameFramework/PlayerController.h"
 #include "BlasterPlayerController.generated.h"
 
+class UReturnToMainMenu;
+class UInputAction;
 class ABlasterGameMode;
 class UCharacterOverlay;
 class ABlasterHUD;
@@ -34,6 +36,7 @@ public:
 	virtual void OnPossess(APawn* InPawn) override;
 	virtual void Tick(float DeltaSeconds) override;
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
+	virtual void SetupInputComponent() override;
 
 	virtual float GetServerTime(); //与服务器世界时钟同步
 	virtual void ReceivedPlayer() override; //当接收玩家时更快与服务器世界时钟同步
@@ -78,10 +81,28 @@ protected:
 	void StopHighPingWarning();
 	void CheckPing(float DeltaSeconds);
 
+	void ShowReturnToMainMenu();
+
 private:
 	UPROPERTY()
 	TObjectPtr<ABlasterHUD> BlasterHUD;
 
+	/**
+	 * 返回主菜单
+	 */
+
+	UPROPERTY(EditAnywhere, Category="HUD")
+	TSubclassOf<UUserWidget> ReturnToMainMenuWidget;
+
+	UPROPERTY()
+	TObjectPtr<UReturnToMainMenu> ReturnToMainMenu;
+
+	bool bReturnToMainMenu = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="PlayerInput", meta=(AllowPrivateAccess="true"))
+	TObjectPtr<UInputAction> Quit;
+
+	
 	UPROPERTY()
 	ABlasterGameMode* BlasterGameMode;
 
