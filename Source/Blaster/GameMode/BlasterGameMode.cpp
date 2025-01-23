@@ -111,11 +111,38 @@ void ABlasterGameMode::PlayerEliminated(ABlasterCharacter* ElimmedCharacter, ABl
 
 	if (AttackerPlayerState && AttackerPlayerState != VictimPlayerState && BlasterGameState)
 	{
-		BlasterGameState->UpdateTopScore(AttackerPlayerState);
-	}
-	{
+		TArray<ABlasterPlayerState*> PlayersCurrentLeading;
+		for (auto LeadPlayer : BlasterGameState->TopScoringPlayers)
+		{
+			PlayersCurrentLeading.Add(LeadPlayer);
+		}
+		
 		AttackerPlayerState->AddToScore(1.f);
+		BlasterGameState->UpdateTopScore(AttackerPlayerState);
+		
+		//如果玩家在最高得分玩家列表中，获得王冠
+		if (BlasterGameState->TopScoringPlayers.Contains(AttackerPlayerState))
+		{
+			ABlasterCharacter* Leader = Cast<ABlasterCharacter>(AttackerPlayerState->GetPawn());
+			if (Leader)
+			{
+				Leader->MulticastGainedCrown();
+			}
+		}
+		//如果玩家不在最高得分玩家列表中，丢失王冠
+		for (int32 i = 0; i < PlayersCurrentLeading.Num(); i++)
+		{
+			if (!BlasterGameState->TopScoringPlayers.Contains(PlayersCurrentLeading[i]))
+			{
+				ABlasterCharacter* Loser = Cast<ABlasterCharacter>(PlayersCurrentLeading[i]->GetPawn());
+				if (Loser)
+				{
+					Loser->MulticastLostCrown();
+				}
+			}
+		}
 	}
+
 	if (VictimPlayerState)
 	{
 		VictimPlayerState->AddToDefeats(1);

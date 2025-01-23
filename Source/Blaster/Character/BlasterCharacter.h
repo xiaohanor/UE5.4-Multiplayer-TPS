@@ -12,6 +12,8 @@
 #include "Components/TimelineComponent.h"
 #include "BlasterCharacter.generated.h"
 
+class UNiagaraComponent;
+class UNiagaraSystem;
 class ULagCompensationComponent;
 class UBoxComponent;
 class ABlasterPlayerState;
@@ -54,7 +56,7 @@ public:
 	virtual void OnRep_ReplicatedMovement() override;
 
 	UFUNCTION()
-	void ReciveDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType,
+	void ReceiveDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType,
 	                  AController* InstigatorController, AActor* DamageCauser);
 
 	void UpdateHUDHealth();
@@ -86,6 +88,12 @@ public:
 	void ServerLeaveGame();
 
 	FOnLeftGame OnLeftGame;
+
+	UFUNCTION(NetMulticast, Reliable)
+	void MulticastGainedCrown();
+
+	UFUNCTION(NetMulticast, Reliable)
+	void MulticastLostCrown();
 
 protected:
 	virtual void BeginPlay() override;
@@ -348,7 +356,7 @@ private:
 	TObjectPtr<UMaterialInstance> DissolveMaterialInstance;
 
 	/**
-	 * Eilm Bot
+	 * Eilm Effect
 	 */
 
 	UPROPERTY(EditAnywhere)
@@ -359,6 +367,12 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UParticleSystemComponent> ElimBotComponent;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UNiagaraSystem> CrownSystem;
+
+	UPROPERTY()
+	TObjectPtr<UNiagaraComponent> CrownComponent;
 
 	/**
 	 * 手榴弹

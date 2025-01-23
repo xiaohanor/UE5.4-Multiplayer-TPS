@@ -17,14 +17,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="">
+    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="feat: player bookkepping">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Character/BP_BlasterCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Character/BP_BlasterCharacter.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/GameMode/BlasterGameMode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/GameMode/BlasterGameMode.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/GameMode/BlasterGameMode.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/GameMode/BlasterGameMode.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/HUD/ReturnToMainMenu.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/HUD/ReturnToMainMenu.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/HUD/ReturnToMainMenu.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/HUD/ReturnToMainMenu.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -665,15 +664,7 @@
       <workItem from="1736579278891" duration="13175000" />
       <workItem from="1736659161677" duration="43598000" />
       <workItem from="1737442700574" duration="6292000" />
-      <workItem from="1737618171909" duration="7115000" />
-    </task>
-    <task id="LOCAL-00020" summary="fix: CanFire Bug&#10;fix: use AblasterCharacter* in BlasterAnimInstance.h&#10;feat: Reload Combat State">
-      <option name="closed" value="true" />
-      <created>1732953185816</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1732953185816</updated>
+      <workItem from="1737618171909" duration="11370000" />
     </task>
     <task id="LOCAL-00021" summary="feat: Updating Ammo">
       <option name="closed" value="true" />
@@ -1059,7 +1050,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737446297134</updated>
     </task>
-    <option name="localTasksCounter" value="69" />
+    <task id="LOCAL-00069" summary="feat: player bookkepping">
+      <option name="closed" value="true" />
+      <created>1737628249515</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1737628249516</updated>
+    </task>
+    <option name="localTasksCounter" value="70" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1080,7 +1079,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="feat: Replicating Shotgun Scatter" />
     <MESSAGE value="feat: Shotgun Fire RPCs&#10;fix: Pistol 射程过长" />
     <MESSAGE value="feat: Client-Side Predicting Ammo" />
     <MESSAGE value="feat: Client-Side Predicting Aiming" />
@@ -1105,7 +1103,8 @@
     <MESSAGE value="feat: validation with cheating" />
     <MESSAGE value="feat: return to main menu" />
     <MESSAGE value="feat: leaving the game" />
-    <option name="LAST_COMMIT_MESSAGE" value="" />
+    <MESSAGE value="feat: player bookkepping" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: player bookkepping" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
