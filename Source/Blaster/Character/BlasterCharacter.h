@@ -25,6 +25,8 @@ class UCameraComponent;
 class USpringArmComponent;
 class USoundCue;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnLeftGame);
+
 UCLASS()
 class BLASTER_API ABlasterCharacter : public ACharacter, public IInteractWithCrossHairInterface
 {
@@ -59,10 +61,10 @@ public:
 	void UpdateHUDShield();
 	void UpdateHUDAmmo();
 
-	void Elim();
+	void Elim(bool bPlayerLeft);
 
 	UFUNCTION(NetMulticast, Reliable)
-	void MulticastElim();
+	void MulticastElim(bool bPlayerLeft);
 
 	bool bDisableGameplay = false;
 
@@ -79,6 +81,11 @@ public:
 
 	UPROPERTY()
 	TMap<FName,UBoxComponent*> HitCollisionBoxes;
+
+	UFUNCTION(Server,Reliable)
+	void ServerLeaveGame();
+
+	FOnLeftGame OnLeftGame;
 
 protected:
 	virtual void BeginPlay() override;
@@ -315,6 +322,8 @@ private:
 
 	void ElimTimerFinished();
 
+	bool bLeftGame = false;
+	
 	/**
 	 * 溶解效果
 	 */
