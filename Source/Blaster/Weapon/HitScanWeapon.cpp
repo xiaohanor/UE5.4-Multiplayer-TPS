@@ -40,9 +40,12 @@ void AHitScanWeapon::Fire(const FVector& HitTarget)
 			bool bCauseAuthDamage = !bUseServerSideRewind || OwnerPawn->IsLocallyControlled();
 			if (HasAuthority() && bCauseAuthDamage)
 			{
+				// 如果击中的是头部，则造成头部伤害，否则造成普通伤害
+				const float DamageToCause = FireHit.BoneName == FName("head") ? GetHeadShotDamage() : GetDamage();
+				
 				UGameplayStatics::ApplyDamage(
 				BlasterCharacter,
-				Damage,
+				DamageToCause,
 				InstigatorController,
 				this,
 				UDamageType::StaticClass()

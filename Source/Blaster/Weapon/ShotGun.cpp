@@ -32,6 +32,7 @@ void AShotGun::ShotgunFire(const TArray<FVector_NetQuantize>& HitTargets)
 
 		// 用于记录击中的角色及其被击中的次数
 		TMap<ABlasterCharacter*, uint32> HitMap;
+		TMap<ABlasterCharacter*, uint32> HeadShotHitMap;
 		// 对每个击中目标执行射线检测
 		for (FVector_NetQuantize HitTarget : HitTargets)
 		{
@@ -41,18 +42,22 @@ void AShotGun::ShotgunFire(const TArray<FVector_NetQuantize>& HitTargets)
 			ABlasterCharacter* BlasterCharacter = Cast<ABlasterCharacter>(FireHit.GetActor());
 			if (BlasterCharacter)
 			{
-				// 记录击中的角色及其被击中的次数
-				// 如果已经击中过该角色，则增加其被击中的次数
-				if (HitMap.Contains(BlasterCharacter))
+				// 如果击中的是头部，则造成头部伤害，否则造成普通伤害
+				const bool bIsHeadShot = FireHit.BoneName == FName("head");
+				if (bIsHeadShot)
 				{
-					HitMap[BlasterCharacter]++;
+					if (HeadShotHitMap.Contains(BlasterCharacter)) HeadShotHitMap[BlasterCharacter]++;
+					else HeadShotHitMap.Emplace(BlasterCharacter, 1);	// 如果没有击中过该角色，则添加到击中列表中
 				}
 				else
 				{
-					// 如果没有击中过该角色，则添加到击中列表中
-					HitMap.Emplace(BlasterCharacter, 1);
+					// 记录击中的角色及其被击中的次数
+					// 如果已经击中过该角色，则增加其被击中的次数
+					if (HitMap.Contains(BlasterCharacter)) HitMap[BlasterCharacter]++;
+					else HitMap.Emplace(BlasterCharacter, 1);	// 如果没有击中过该角色，则添加到击中列表中
 				}
 			}
+			
 			if (ImpactParticle)
 			{
 				UGameplayStatics::SpawnEmitterAtLocation(
@@ -75,27 +80,48 @@ void AShotGun::ShotgunFire(const TArray<FVector_NetQuantize>& HitTargets)
 		}
 
 		TArray<ABlasterCharacter*> HitCharacters;
+		// 用于记录每个被击中的角色及其受到的伤害
+		TMap<ABlasterCharacter*, float> DamageMap;
 
-		// 对每个被击中的角色应用伤害
+		// 遍历击中列表，对每个被击中的角色造成身体伤害
 		for (auto HitPair : HitMap)
 		{
 			if (HitPair.Key && InstigatorController)
 			{
-				bool bCauseAuthDamage = !bUseServerSideRewind || OwnerPawn->IsLocallyControlled();
-				if (HasAuthority() && bCauseAuthDamage)
-				{
-					UGameplayStatics::ApplyDamage(
-					HitPair.Key,
-					Damage * HitPair.Value,	// 伤害值乘以击中次数
-					InstigatorController,
-					this,
-					UDamageType::StaticClass()
-					);
-				}
-				HitCharacters.Add(HitPair.Key);
+				DamageMap.Emplace(HitPair.Key, HitPair.Value * Damage);
+				
+				HitCharacters.AddUnique(HitPair.Key);
 			}
 		}
 
+		// 遍历击中列表，对每个被击中的角色造成头部伤害
+		for (auto HeadShotHitPair : HeadShotHitMap)
+		{
+			if (HeadShotHitPair.Key && InstigatorController)
+			{
+				if (HitMap.Contains(HeadShotHitPair.Key)) DamageMap[HeadShotHitPair.Key] += HeadShotHitPair.Value * HeadShotDamage;
+				else HitMap.Emplace(HeadShotHitPair.Key, HeadShotHitPair.Value * HeadShotDamage);
+				
+				HitCharacters.AddUnique(HeadShotHitPair.Key);
+			}
+		}
+
+		// 遍历伤害列表，对每个被击中的角色造成伤害
+		for (auto DamagePair : DamageMap)
+		{
+			bool bCauseAuthDamage = !bUseServerSideRewind || OwnerPawn->IsLocallyControlled();
+			if (HasAuthority() && bCauseAuthDamage)
+			{
+				UGameplayStatics::ApplyDamage(
+				DamagePair.Key,
+				DamagePair.Value,	// 造成的伤害
+				InstigatorController,
+				this,
+				UDamageType::StaticClass()
+				);
+			}
+		}
+		
 		if (!HasAuthority() && bUseServerSideRewind)
 		{
 			BlasterOwnerCharacter = BlasterOwnerCharacter == nullptr ? TObjectPtr<ABlasterCharacter>(Cast<ABlasterCharacter>(OwnerPawn)) : BlasterOwnerCharacter;

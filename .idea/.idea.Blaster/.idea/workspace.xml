@@ -17,18 +17,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="feat: spawn crown">
-      <change afterPath="$PROJECT_DIR$/Source/Blaster/HUD/ElimAnnouncement.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/Blaster/HUD/ElimAnnouncement.h" afterDir="false" />
+    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="feat: dynamic elim announcements">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/GameModes/BP_BlasterGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/GameModes/BP_BlasterGameMode.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/HUD/BP_BlasterHUD.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/HUD/BP_BlasterHUD.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Weapon/BP_RocketLauncher.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Weapon/BP_RocketLauncher.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/GameMode/BlasterGameMode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/GameMode/BlasterGameMode.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/HUD/BlasterHUD.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/HUD/BlasterHUD.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/HUD/BlasterHUD.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/HUD/BlasterHUD.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/PlayerController/BlasterPlayerController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/PlayerController/BlasterPlayerController.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/PlayerController/BlasterPlayerController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/PlayerController/BlasterPlayerController.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Weapon/BP_Pistol.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Weapon/BP_Pistol.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/HitScanWeapon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/HitScanWeapon.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/ShotGun.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/ShotGun.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,6 +57,7 @@
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/GameMode/BlasterGameMode.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://G:/Games/Blaster/Source/Blaster/GameMode/BlasterGameMode.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/GameMode/BlasterGameMode.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/GameMode/LobbyGameMode.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Blaster/GameMode/LobbyGameMode.h" root0="FORCE_HIGHLIGHTING" />
@@ -670,15 +665,7 @@
       <workItem from="1736579278891" duration="13175000" />
       <workItem from="1736659161677" duration="43598000" />
       <workItem from="1737442700574" duration="6292000" />
-      <workItem from="1737618171909" duration="24306000" />
-    </task>
-    <task id="LOCAL-00022" summary="feat: Reload Effect &amp; Auto Reload">
-      <option name="closed" value="true" />
-      <created>1732963666846</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1732963666846</updated>
+      <workItem from="1737618171909" duration="29400000" />
     </task>
     <task id="LOCAL-00023" summary="feat: Updating Warmup Time">
       <option name="closed" value="true" />
@@ -1064,7 +1051,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737643331093</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL-00071" summary="feat: dynamic elim announcements">
+      <option name="closed" value="true" />
+      <created>1737710422268</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1737710422268</updated>
+    </task>
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1085,7 +1080,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="feat: Client-Side Predicting Ammo" />
     <MESSAGE value="feat: Client-Side Predicting Aiming" />
     <MESSAGE value="feat: Client-Side Predicting Reloading" />
     <MESSAGE value="refactor" />
@@ -1110,7 +1104,8 @@
     <MESSAGE value="feat: leaving the game" />
     <MESSAGE value="feat: player bookkepping" />
     <MESSAGE value="feat: spawn crown" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: spawn crown" />
+    <MESSAGE value="feat: dynamic elim announcements" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: dynamic elim announcements" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
