@@ -6,6 +6,10 @@
 #include "Announcement.h"
 #include "CharacterOverlay.h"
 #include "Blueprint/UserWidget.h"
+#include "ElimAnnouncement.h"
+#include "Blueprint/WidgetLayoutLibrary.h"
+#include "Components/CanvasPanelSlot.h"
+#include "Components/HorizontalBox.h"
 
 
 void ABlasterHUD::DrawHUD()
@@ -51,6 +55,7 @@ void ABlasterHUD::DrawHUD()
 void ABlasterHUD::BeginPlay()
 {
 	Super::BeginPlay();
+
 }
 
 void ABlasterHUD::AddCharacterOverlay()
@@ -70,6 +75,62 @@ void ABlasterHUD::AddAnnouncement()
 	{
 		Announcement = CreateWidget<UAnnouncement>(PlayerController, AnnouncementClass);
 		Announcement->AddToViewport();
+	}
+}
+
+void ABlasterHUD::AddElimAnnouncement(const FString& AttackerName, const FString& VictimName)
+{
+	OwningPlayerController = OwningPlayerController == nullptr
+		                       ? TObjectPtr<APlayerController>(GetOwningPlayerController())
+		                       : OwningPlayerController;
+	if (OwningPlayerController && ElimAnnouncementClass)
+	{
+		TObjectPtr<UElimAnnouncement> ElimAnnouncementWidget = CreateWidget<UElimAnnouncement>(OwningPlayerController,
+			ElimAnnouncementClass);
+		if (ElimAnnouncementWidget)
+		{
+			ElimAnnouncementWidget->SetElimAnnouncementText(AttackerName, VictimName);
+			ElimAnnouncementWidget->AddToViewport();
+
+			// 将已有的淘汰消息向上移动
+			for (UElimAnnouncement* Msg : ElimMessaages)
+			{
+				if (Msg && Msg->AnnouncementBox)
+				{
+					UCanvasPanelSlot* Slot = UWidgetLayoutLibrary::SlotAsCanvasSlot(Msg->AnnouncementBox);
+					if (Slot)
+					{
+						FVector2d Position = Slot->GetPosition();
+						// 向上移动一个消息的高度
+						FVector2d NewPosition(
+							Slot->GetPosition().X,
+							Position.Y - Slot->GetSize().Y
+							);
+						Slot->SetPosition(NewPosition);
+					}
+				}
+			}
+
+			ElimMessaages.Add(ElimAnnouncementWidget);
+			
+			FTimerHandle ElimMsgTimer;
+			FTimerDelegate ElimMsgTimerDelegate;
+			ElimMsgTimerDelegate.BindUFunction(this, FName("ElimAnnouncementTimerFinished"), ElimAnnouncementWidget);
+			GetWorldTimerManager().SetTimer(
+				ElimMsgTimer,
+				ElimMsgTimerDelegate,
+				ElimAnnouncementTime,
+				false
+			);
+		}
+	}
+}
+
+void ABlasterHUD::ElimAnnouncementTimerFinished(UElimAnnouncement* MsgToRemove)
+{
+	if (MsgToRemove)
+	{
+		MsgToRemove->RemoveFromParent();
 	}
 }
 
@@ -96,3 +157,4 @@ void ABlasterHUD::DrawCrosshair(UTexture2D* Texture, FVector2d ViewportCenter, F
 		CrossHairColor
 	);
 }
+

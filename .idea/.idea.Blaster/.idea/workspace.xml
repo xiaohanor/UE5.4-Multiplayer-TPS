@@ -17,13 +17,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="feat: player bookkepping">
+    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="feat: spawn crown">
+      <change afterPath="$PROJECT_DIR$/Source/Blaster/HUD/ElimAnnouncement.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/Blaster/HUD/ElimAnnouncement.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Character/BP_BlasterCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Character/BP_BlasterCharacter.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/GameModes/BP_BlasterGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/GameModes/BP_BlasterGameMode.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/HUD/BP_BlasterHUD.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/HUD/BP_BlasterHUD.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Weapon/BP_RocketLauncher.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Weapon/BP_RocketLauncher.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/GameMode/BlasterGameMode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/GameMode/BlasterGameMode.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/HUD/ReturnToMainMenu.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/HUD/ReturnToMainMenu.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/HUD/BlasterHUD.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/HUD/BlasterHUD.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/HUD/BlasterHUD.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/HUD/BlasterHUD.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/PlayerController/BlasterPlayerController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/PlayerController/BlasterPlayerController.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/PlayerController/BlasterPlayerController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/PlayerController/BlasterPlayerController.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,6 +91,7 @@
     <setting file="file://$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.4.4/UE_5.4/Engine/Source/Runtime/Core/Public/Delegates/Delegate.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.4.4/UE_5.4/Engine/Source/Runtime/Core/Public/Delegates/DelegateSignatureImpl.inl" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../UE_5.4.4/UE_5.4/Engine/Source/Runtime/Core/Public/Internationalization/Text.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.4.4/UE_5.4/Engine/Source/Runtime/Engine/Private/GameModeBase.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.4.4/UE_5.4/Engine/Source/Runtime/Engine/Private/GameSession.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.4.4/UE_5.4/Engine/Source/Runtime/UMG/Public/Components/Button.h" root0="FORCE_HIGHLIGHTING" />
@@ -664,15 +670,7 @@
       <workItem from="1736579278891" duration="13175000" />
       <workItem from="1736659161677" duration="43598000" />
       <workItem from="1737442700574" duration="6292000" />
-      <workItem from="1737618171909" duration="11370000" />
-    </task>
-    <task id="LOCAL-00021" summary="feat: Updating Ammo">
-      <option name="closed" value="true" />
-      <created>1732957989656</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1732957989656</updated>
+      <workItem from="1737618171909" duration="24306000" />
     </task>
     <task id="LOCAL-00022" summary="feat: Reload Effect &amp; Auto Reload">
       <option name="closed" value="true" />
@@ -1058,7 +1056,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737628249516</updated>
     </task>
-    <option name="localTasksCounter" value="70" />
+    <task id="LOCAL-00070" summary="feat: spawn crown">
+      <option name="closed" value="true" />
+      <created>1737643331093</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1737643331093</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1079,7 +1085,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="feat: Shotgun Fire RPCs&#10;fix: Pistol 射程过长" />
     <MESSAGE value="feat: Client-Side Predicting Ammo" />
     <MESSAGE value="feat: Client-Side Predicting Aiming" />
     <MESSAGE value="feat: Client-Side Predicting Reloading" />
@@ -1104,7 +1109,8 @@
     <MESSAGE value="feat: return to main menu" />
     <MESSAGE value="feat: leaving the game" />
     <MESSAGE value="feat: player bookkepping" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: player bookkepping" />
+    <MESSAGE value="feat: spawn crown" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: spawn crown" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -108,7 +108,7 @@ void ABlasterGameMode::PlayerEliminated(ABlasterCharacter* ElimmedCharacter, ABl
 		                                         : nullptr;
 
 	ABlasterGameState* BlasterGameState = GetGameState<ABlasterGameState>();
-
+	
 	if (AttackerPlayerState && AttackerPlayerState != VictimPlayerState && BlasterGameState)
 	{
 		TArray<ABlasterPlayerState*> PlayersCurrentLeading;
@@ -142,7 +142,7 @@ void ABlasterGameMode::PlayerEliminated(ABlasterCharacter* ElimmedCharacter, ABl
 			}
 		}
 	}
-
+		
 	if (VictimPlayerState)
 	{
 		VictimPlayerState->AddToDefeats(1);
@@ -152,6 +152,17 @@ void ABlasterGameMode::PlayerEliminated(ABlasterCharacter* ElimmedCharacter, ABl
 	{
 		ElimmedCharacter->Elim(false);
 	}
+
+	//通知所有玩家控制器淘汰信息
+	for (FConstPlayerControllerIterator It = GetWorld()->GetPlayerControllerIterator(); It; ++It)
+	{
+		ABlasterPlayerController* BlasterPlayer = Cast<ABlasterPlayerController>(*It);
+		if (BlasterPlayer && AttackerPlayerState && VictimPlayerState)
+		{
+			BlasterPlayer->BroadcastElim(AttackerPlayerState, VictimPlayerState);
+		}
+	}
+
 }
 
 void ABlasterGameMode::RequestRespawn(ACharacter* ElimmedCharacter, AController* ElimmedController)
