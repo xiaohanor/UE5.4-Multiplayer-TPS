@@ -128,9 +128,11 @@ protected:
 	UPROPERTY(EditAnywhere, Category="武器属性")
 	float HitScanTraceLength = 3000.f;
 
+	// 只适用于手榴弹和火箭弹
 	UPROPERTY(EditAnywhere)
 	float Damage = 20.f;
 
+	// 不适用于手榴弹和火箭弹
 	UPROPERTY(EditAnywhere)
 	float HeadShotDamage = 20.f;
 		

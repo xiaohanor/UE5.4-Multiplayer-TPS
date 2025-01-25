@@ -35,12 +35,7 @@ public:
 	UPROPERTY(EditAnywhere)
 	float InitialSpeed = 15000;
 
-	// 只适用于手榴弹和火箭弹
-	UPROPERTY(EditAnywhere)
 	float Damage = 20.f;
-
-	// 不适用于手榴弹和火箭弹
-	UPROPERTY(EditAnywhere)
 	float HeadShotDamage = 40.f;
 	
 protected:
