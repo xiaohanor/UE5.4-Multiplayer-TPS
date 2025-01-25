@@ -33,6 +33,7 @@ void AProjectileWeapon::Fire(const FVector& HitTarget)
 					SpawnedProjectile = World->SpawnActor<AProjectile>(ProjectileClass,SocketTransform.GetLocation(),TargetRotation, SpawnParams);
 					SpawnedProjectile->bUseServerSideRewind = false;
 					SpawnedProjectile->Damage = Damage;
+					SpawnedProjectile->HeadShotDamage = HeadShotDamage;
 				}
 				else // server, 非本地控制 - 生成无复制的子弹，使用服务器倒带
 				{
@@ -48,7 +49,6 @@ void AProjectileWeapon::Fire(const FVector& HitTarget)
 					SpawnedProjectile->bUseServerSideRewind = true;
 					SpawnedProjectile->TraceStart = SocketTransform.GetLocation();
 					SpawnedProjectile->InitialVelocity = ToTarget.GetSafeNormal() * SpawnedProjectile->InitialSpeed;
-					SpawnedProjectile->Damage = Damage;
 				}
 				else // client, 非本地控制 - 生成无复制的子弹，无服务器倒带
 				{
@@ -64,6 +64,7 @@ void AProjectileWeapon::Fire(const FVector& HitTarget)
 				SpawnedProjectile = World->SpawnActor<AProjectile>(ProjectileClass,SocketTransform.GetLocation(),TargetRotation, SpawnParams);
 				SpawnedProjectile->bUseServerSideRewind = false;
 				SpawnedProjectile->Damage = Damage;
+				SpawnedProjectile->HeadShotDamage = HeadShotDamage;
 			}
 		}
 	}

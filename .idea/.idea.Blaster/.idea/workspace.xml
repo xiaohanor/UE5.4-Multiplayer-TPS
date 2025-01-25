@@ -17,12 +17,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="feat: dynamic elim announcements">
+    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="feat: head shot">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Weapon/BP_Pistol.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Weapon/BP_Pistol.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/HitScanWeapon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/HitScanWeapon.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/ShotGun.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/ShotGun.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Weapon/BP_AssaultRifle.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Weapon/BP_AssaultRifle.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Weapon/Projectiles/BP_ProjectileBullet.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Weapon/Projectiles/BP_ProjectileBullet.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/Projectile.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Projectile.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/ProjectileBullet.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/ProjectileBullet.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/ProjectileWeapon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/ProjectileWeapon.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,25 +111,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET 启动设置配置文件.EpicGames.AspNet.executor": "Run",
-    "C++ 项目.Blaster.executor": "Run",
-    "C/C++ 项目.Blaster.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "com.codeium.enabled": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "RiderNuGetOptionsPageId",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET 启动设置配置文件.EpicGames.AspNet.executor&quot;: &quot;Run&quot;,
+    &quot;C++ 项目.Blaster.executor&quot;: &quot;Run&quot;,
+    &quot;C/C++ 项目.Blaster.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.codeium.enabled&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;RiderNuGetOptionsPageId&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="C/C++ 项目.Blaster">
     <configuration name="Blaster" type="CppProject" factoryName="C++ Project">
       <configuration_1 setup="1">
@@ -665,15 +666,8 @@
       <workItem from="1736579278891" duration="13175000" />
       <workItem from="1736659161677" duration="43598000" />
       <workItem from="1737442700574" duration="6292000" />
-      <workItem from="1737618171909" duration="29400000" />
-    </task>
-    <task id="LOCAL-00023" summary="feat: Updating Warmup Time">
-      <option name="closed" value="true" />
-      <created>1733039852365</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1733039852365</updated>
+      <workItem from="1737618171909" duration="30009000" />
+      <workItem from="1737815304111" duration="2619000" />
     </task>
     <task id="LOCAL-00024" summary="feat: cooldown announcement&#10;fix:客户端在BeginPlay()时无法获取PlayerController，使用Pollinit()在tick中获取">
       <option name="closed" value="true" />
@@ -1059,7 +1053,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737710422268</updated>
     </task>
-    <option name="localTasksCounter" value="72" />
+    <task id="LOCAL-00072" summary="feat: head shot">
+      <option name="closed" value="true" />
+      <created>1737731211092</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1737731211092</updated>
+    </task>
+    <option name="localTasksCounter" value="73" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1080,7 +1082,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="feat: Client-Side Predicting Aiming" />
     <MESSAGE value="feat: Client-Side Predicting Reloading" />
     <MESSAGE value="refactor" />
     <MESSAGE value="feat: Frame Package" />
@@ -1105,7 +1106,8 @@
     <MESSAGE value="feat: player bookkepping" />
     <MESSAGE value="feat: spawn crown" />
     <MESSAGE value="feat: dynamic elim announcements" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: dynamic elim announcements" />
+    <MESSAGE value="feat: head shot" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: head shot" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
