@@ -35,7 +35,8 @@ public:
 	UPROPERTY(EditAnywhere)
 	float InitialSpeed = 15000;
 
-	float Damage = 20.f;
+	// 伤害仅作用在手榴弹，因为其他武器的伤害被 Weapon 类中的 Damage 属性控制
+	float Damage = 100.f;
 	float HeadShotDamage = 40.f;
 	
 protected:

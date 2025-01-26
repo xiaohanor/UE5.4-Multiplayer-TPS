@@ -276,6 +276,7 @@ void ABlasterCharacter::BeginPlay()
 	UpdateHUDAmmo();
 	UpdateHUDHealth();
 	UpdateHUDShield();
+	UpdateHUDGrenades();
 
 	if (HasAuthority())
 	{
@@ -538,6 +539,17 @@ void ABlasterCharacter::UpdateHUDAmmo()
 	{
 		BlasterPlayerController->SetHUDCarriedAmmo(Combat->CarriedAmmo);
 		BlasterPlayerController->SetHUDWeaponAmmo(Combat->EquippedWeapon->GetAmmo());
+	}
+}
+
+void ABlasterCharacter::UpdateHUDGrenades()
+{
+	BlasterPlayerController = BlasterPlayerController == nullptr
+								  ? TObjectPtr<ABlasterPlayerController>(Cast<ABlasterPlayerController>(Controller))
+								  : BlasterPlayerController;
+	if (BlasterPlayerController && Combat)
+	{
+		BlasterPlayerController->SetHUDGrenades(Combat->Grenades);
 	}
 }
 
@@ -866,6 +878,10 @@ void ABlasterCharacter::HideCameraIfCharacterClose()
 		{
 			Combat->EquippedWeapon->WeaponMeshGetter()->bOwnerNoSee = true;
 		}
+		if (Combat && Combat->SecondaryWeapon && Combat->SecondaryWeapon->WeaponMeshGetter())
+		{
+			Combat->SecondaryWeapon->WeaponMeshGetter()->bOwnerNoSee = true;
+		}
 	}
 	else
 	{
@@ -873,6 +889,10 @@ void ABlasterCharacter::HideCameraIfCharacterClose()
 		if (Combat && Combat->EquippedWeapon && Combat->EquippedWeapon->WeaponMeshGetter())
 		{
 			Combat->EquippedWeapon->WeaponMeshGetter()->bOwnerNoSee = false;
+		}
+		if (Combat && Combat->SecondaryWeapon && Combat->SecondaryWeapon->WeaponMeshGetter())
+		{
+			Combat->SecondaryWeapon->WeaponMeshGetter()->bOwnerNoSee = false;
 		}
 	}
 }

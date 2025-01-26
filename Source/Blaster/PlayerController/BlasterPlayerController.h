@@ -133,7 +133,7 @@ private:
 	bool bInitializeScore = false;
 	int32 HUDDefeats;
 	bool bInitializeDefeats = false;
-	int32 HUDGreandes;
+	int32 HUDGrenades;
 	bool bInitializeGrenades = false;
 	float HUDShield;
 	bool bInitializeShield = false;

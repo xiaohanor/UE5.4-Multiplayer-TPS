@@ -62,6 +62,7 @@ public:
 	void UpdateHUDHealth();
 	void UpdateHUDShield();
 	void UpdateHUDAmmo();
+	void UpdateHUDGrenades();
 
 	void Elim(bool bPlayerLeft);
 

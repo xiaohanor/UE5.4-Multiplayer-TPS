@@ -50,7 +50,7 @@ void ABlasterPlayerController::ClientElimAnnouncement_Implementation(APlayerStat
 			}
 			if (Attacker == Victim && Attacker != Self)
 			{
-				BlasterHUD->AddElimAnnouncement(Attacker->GetPlayerName(), "自己");
+				BlasterHUD->AddElimAnnouncement(Attacker->GetPlayerName(), TEXT("自己"));
 				return;
 			}
 			BlasterHUD->AddElimAnnouncement(Attacker->GetPlayerName(), Victim->GetPlayerName());
@@ -397,7 +397,7 @@ void ABlasterPlayerController::SetHUDGrenades(int32 Grenades)
 	else
 	{
 		bInitializeGrenades = true;
-		HUDGreandes = Grenades;
+		HUDGrenades = Grenades;
 	}
 }
 
