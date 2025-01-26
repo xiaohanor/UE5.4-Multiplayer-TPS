@@ -13,6 +13,7 @@
 #include "Components/TimelineComponent.h"
 #include "BlasterCharacter.generated.h"
 
+class ABlasterGameMode;
 class UNiagaraComponent;
 class UNiagaraSystem;
 class ULagCompensationComponent;
@@ -408,6 +409,9 @@ private:
 
 	UPROPERTY()
 	TObjectPtr<ABlasterPlayerState> BlasterPlayerState;
+
+	UPROPERTY()
+	TObjectPtr<ABlasterGameMode> BlasterGameMode;
 
 	/**
 	* 初始武器

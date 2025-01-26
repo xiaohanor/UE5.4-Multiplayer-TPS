@@ -33,6 +33,7 @@ public:
 	                              ABlasterPlayerController* AttackerController);
 	virtual void RequestRespawn(ACharacter* ElimmedCharacter, AController* ElimmedController);
 	virtual void OnMatchStateSet() override;
+	virtual float CalculateDamage(AController* Attacker, AController* Victim, float BaseDamage);
 	void PlayerLeftGame(ABlasterPlayerState* PlayerLeaving);
 
 	UPROPERTY(EditDefaultsOnly)
