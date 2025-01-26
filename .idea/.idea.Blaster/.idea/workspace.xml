@@ -17,13 +17,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="feat: team game mode">
+    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="fix: grenadesHUD 初始化显示失败&#10;add: 摄像机靠近角色时隐藏副武器&#10;fix: grenade damage 未设置正确">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Character/BP_BlasterCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Character/BP_BlasterCharacter.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/GameModes/BP_TeamGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/GameModes/BP_TeamGameMode.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Weapon/Projectiles/BP_ThrowGrenade.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Weapon/Projectiles/BP_ThrowGrenade.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/PlayerController/BlasterPlayerController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/PlayerController/BlasterPlayerController.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/PlayerController/BlasterPlayerController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/PlayerController/BlasterPlayerController.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/Projectile.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Projectile.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/GameMode/TeamGameMode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/GameMode/TeamGameMode.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/PlayerState/BlasterPlayerState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/PlayerState/BlasterPlayerState.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/PlayerState/BlasterPlayerState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/PlayerState/BlasterPlayerState.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,6 +91,7 @@
     <setting file="file://$PROJECT_DIR$/../../UE_5.4.4/UE_5.4/Engine/Source/Runtime/Core/Public/Delegates/Delegate.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.4.4/UE_5.4/Engine/Source/Runtime/Core/Public/Delegates/DelegateSignatureImpl.inl" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.4.4/UE_5.4/Engine/Source/Runtime/Core/Public/Internationalization/Text.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../UE_5.4.4/UE_5.4/Engine/Source/Runtime/Engine/Classes/Materials/MaterialInstance.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.4.4/UE_5.4/Engine/Source/Runtime/Engine/Private/GameModeBase.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.4.4/UE_5.4/Engine/Source/Runtime/Engine/Private/GameSession.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.4.4/UE_5.4/Engine/Source/Runtime/UMG/Public/Components/Button.h" root0="FORCE_HIGHLIGHTING" />
@@ -668,15 +672,7 @@
       <workItem from="1737442700574" duration="6292000" />
       <workItem from="1737618171909" duration="30009000" />
       <workItem from="1737815304111" duration="5253000" />
-      <workItem from="1737888572068" duration="7328000" />
-    </task>
-    <task id="LOCAL-00027" summary="add: Pistol">
-      <option name="closed" value="true" />
-      <created>1733210201674</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1733210201674</updated>
+      <workItem from="1737888572068" duration="11869000" />
     </task>
     <task id="LOCAL-00028" summary="add: SubMachine Gun">
       <option name="closed" value="true" />
@@ -1062,7 +1058,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737895317284</updated>
     </task>
-    <option name="localTasksCounter" value="76" />
+    <task id="LOCAL-00076" summary="fix: grenadesHUD 初始化显示失败&#10;add: 摄像机靠近角色时隐藏副武器&#10;fix: grenade damage 未设置正确">
+      <option name="closed" value="true" />
+      <created>1737898312103</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1737898312103</updated>
+    </task>
+    <option name="localTasksCounter" value="77" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1083,7 +1087,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Saving a Frame Package" />
     <MESSAGE value="feat: Frame History" />
     <MESSAGE value="fix: BlasterPlayerController.cpp 中的类型转换错误" />
     <MESSAGE value="feat: Rewinding Time" />
@@ -1108,7 +1111,8 @@
     <MESSAGE value="feat: projectile headshot" />
     <MESSAGE value="feat: headshot for ssr&#10;clean: clean debug" />
     <MESSAGE value="feat: team game mode" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: team game mode" />
+    <MESSAGE value="fix: grenadesHUD 初始化显示失败&#10;add: 摄像机靠近角色时隐藏副武器&#10;fix: grenade damage 未设置正确" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: grenadesHUD 初始化显示失败&#10;add: 摄像机靠近角色时隐藏副武器&#10;fix: grenade damage 未设置正确" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Blaster/BlasterComponents/BuffComponent.h"
 #include "Blaster/BlasterTypes/CombatState.h"
+#include "Blaster/BlasterTypes/Team.h"
 #include "GameFramework/Character.h"
 #include "EnhancedInput/Public/InputMappingContext.h"
 #include  "Blaster/BlasterTypes/TurningInPlace.h"
@@ -95,6 +96,8 @@ public:
 
 	UFUNCTION(NetMulticast, Reliable)
 	void MulticastLostCrown();
+
+	void SetTeamColor(ETeam Team);
 
 protected:
 	virtual void BeginPlay() override;
@@ -337,16 +340,37 @@ private:
 	 * 溶解效果
 	 */
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(VisibleAnywhere, Category="Elim")
 	TObjectPtr<UTimelineComponent> DissolveTimeline;
 	FOnTimelineFloat DissolveTrack;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(VisibleAnywhere, Category="Elim")
 	TObjectPtr<UCurveFloat> DissolveCurve;
 
 	UFUNCTION()
 	void UpdateDissolveMaterial(float DissolveValue);
+	
 	void StartDissolve();
+
+	/**
+	 * 队伍颜色
+	 */
+
+	UPROPERTY(EditAnywhere, Category="Elim")
+	TObjectPtr<UMaterialInstance> RedDissolveMatIns;
+
+	UPROPERTY(EditAnywhere, Category="Elim")
+	TObjectPtr<UMaterialInstance> RedMaterial;
+
+	UPROPERTY(EditAnywhere, Category="Elim")
+	TObjectPtr<UMaterialInstance> BlueDissolveMatIns;
+
+	UPROPERTY(EditAnywhere, Category="Elim")
+	TObjectPtr<UMaterialInstance> BlueMaterial;
+	
+	UPROPERTY(EditAnywhere, Category="Elim")
+	TObjectPtr<UMaterialInstance> OriginalMaterial;
+
 
 	//修改运行时的动态实例
 	UPROPERTY(VisibleAnywhere, Category="Elim")

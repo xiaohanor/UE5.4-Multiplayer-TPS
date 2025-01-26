@@ -16,7 +16,7 @@ void ATeamGameMode::PostLogin(APlayerController* NewPlayer)
 		ABlasterPlayerState* BlasterPlayerState = Cast<ABlasterPlayerState>(NewPlayer->PlayerState);
 		if (BlasterPlayerState && BlasterPlayerState->GetTeam() == ETeam::ET_NoTeam)
 		{
-			if (BlasterGameState->BlueTeamScore <= BlasterGameState->RedTeamScore)
+			if (BlasterGameState->BlueTeamPlayers.Num() <= BlasterGameState->RedTeamPlayers.Num())
 			{
 				BlasterPlayerState->SetTeam(ETeam::ET_TeamBlue);
 				BlasterGameState->BlueTeamPlayers.AddUnique(BlasterPlayerState);
@@ -61,7 +61,7 @@ void ATeamGameMode::HandleMatchHasStarted()
 			ABlasterPlayerState* BlasterPlayerState = Cast<ABlasterPlayerState>(PState.Get());
 			if (BlasterPlayerState && BlasterPlayerState->GetTeam() == ETeam::ET_NoTeam)
 			{
-				if (BlasterGameState->BlueTeamScore <= BlasterGameState->RedTeamScore)
+				if (BlasterGameState->BlueTeamPlayers.Num() <= BlasterGameState->RedTeamPlayers.Num())
 				{
 					BlasterPlayerState->SetTeam(ETeam::ET_TeamBlue);
 					BlasterGameState->BlueTeamPlayers.AddUnique(BlasterPlayerState);
