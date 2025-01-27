@@ -33,6 +33,11 @@ public:
 	void SetHUDAnnouncementCountdown(float CountdownTime);
 	void SetHUDGrenades(int32 Grenades);
 
+	void HideTeamScores();
+	void InitTeamScores();
+	void SetHUDRedTeamScore(int32 Score);
+	void SetHUDBlueTeamScore(int32 Score);
+
 	virtual void OnPossess(APawn* InPawn) override;
 	virtual void Tick(float DeltaSeconds) override;
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
@@ -40,8 +45,8 @@ public:
 
 	virtual float GetServerTime(); //与服务器世界时钟同步
 	virtual void ReceivedPlayer() override; //当接收玩家时更快与服务器世界时钟同步
-	void OnMatchStateSet(FName State);
-	void HandleMatchHasStarted();
+	void OnMatchStateSet(FName State, bool bTeamsMatch = false);
+	void HandleMatchHasStarted(bool bTeamsMatch = false);
 	void HandleCooldown();
 	float SingleTripTime = 0.f; //单程时间
 
@@ -88,6 +93,12 @@ protected:
 	UFUNCTION(Client, Reliable)
 	void ClientElimAnnouncement(APlayerState* Attacker, APlayerState* Victim);
 
+	UPROPERTY(ReplicatedUsing = OnRep_ShowTeamScores)
+	bool bShowTeamScores = false;
+
+	UFUNCTION()
+	void OnRep_ShowTeamScores();
+
 private:
 	UPROPERTY()
 	TObjectPtr<ABlasterHUD> BlasterHUD;
@@ -106,7 +117,6 @@ private:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="PlayerInput", meta=(AllowPrivateAccess="true"))
 	TObjectPtr<UInputAction> Quit;
-
 	
 	UPROPERTY()
 	ABlasterGameMode* BlasterGameMode;

@@ -47,6 +47,8 @@ public:
 
 	float LevelStaringTime;
 
+	bool bTeamsMatch = false;
+
 private:
 	float CountdownTime = 0.f;
 

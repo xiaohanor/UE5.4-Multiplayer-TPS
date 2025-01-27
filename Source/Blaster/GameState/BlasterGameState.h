@@ -25,10 +25,14 @@ public:
 	/**
 	 * 队伍
 	 */
+	
 	UPROPERTY()
 	TArray<ABlasterPlayerState*> RedTeamPlayers;
 	UPROPERTY()
 	TArray<ABlasterPlayerState*> BlueTeamPlayers;
+
+	void RedTeamScores();
+	void BlueTeamScores();
 
 	UPROPERTY(ReplicatedUsing = OnRep_RedTeamScore)
 	float RedTeamScore = 0.0f;
@@ -41,6 +45,7 @@ public:
 
 	UFUNCTION()
 	void OnRep_BlueTeamScore();
+
 
 private:
 	float TopScore = 0.0f;

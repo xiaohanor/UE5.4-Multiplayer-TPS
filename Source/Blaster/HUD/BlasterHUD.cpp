@@ -93,7 +93,7 @@ void ABlasterHUD::AddElimAnnouncement(const FString& AttackerName, const FString
 			ElimAnnouncementWidget->AddToViewport();
 
 			// 将已有的淘汰消息向上移动
-			for (UElimAnnouncement* Msg : ElimMessaages)
+			for (UElimAnnouncement* Msg : ElimMessages)
 			{
 				if (Msg && Msg->AnnouncementBox)
 				{
@@ -111,7 +111,7 @@ void ABlasterHUD::AddElimAnnouncement(const FString& AttackerName, const FString
 				}
 			}
 
-			ElimMessaages.Add(ElimAnnouncementWidget);
+			ElimMessages.Add(ElimAnnouncementWidget);
 			
 			FTimerHandle ElimMsgTimer;
 			FTimerDelegate ElimMsgTimerDelegate;
