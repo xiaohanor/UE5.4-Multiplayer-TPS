@@ -17,19 +17,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="feat: preventing friendly fire">
+    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="feat: updating team scores">
+      <change afterPath="$PROJECT_DIR$/Source/Blaster/BlasterTypes/Announcement.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Character/BP_BlasterCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Character/BP_BlasterCharacter.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/HUD/WBP_CharacterOverlay.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/HUD/WBP_CharacterOverlay.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/GameMode/BlasterGameMode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/GameMode/BlasterGameMode.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/GameMode/BlasterGameMode.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/GameMode/BlasterGameMode.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/GameMode/TeamGameMode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/GameMode/TeamGameMode.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/GameMode/TeamGameMode.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/GameMode/TeamGameMode.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/GameState/BlasterGameState.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/GameState/BlasterGameState.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/GameState/BlasterGameState.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/GameState/BlasterGameState.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/HUD/BlasterHUD.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/HUD/BlasterHUD.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/HUD/BlasterHUD.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/HUD/BlasterHUD.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/HUD/CharacterOverlay.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/HUD/CharacterOverlay.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/GameModes/BP_TeamGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/GameModes/BP_TeamGameMode.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/PlayerController/BlasterPlayerController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/PlayerController/BlasterPlayerController.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/PlayerController/BlasterPlayerController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/PlayerController/BlasterPlayerController.h" afterDir="false" />
     </list>
@@ -680,15 +671,7 @@
       <workItem from="1737442700574" duration="6292000" />
       <workItem from="1737618171909" duration="30009000" />
       <workItem from="1737815304111" duration="5253000" />
-      <workItem from="1737888572068" duration="27781000" />
-    </task>
-    <task id="LOCAL-00030" summary="add: Sniper">
-      <option name="closed" value="true" />
-      <created>1733299868563</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1733299868563</updated>
+      <workItem from="1737888572068" duration="31290000" />
     </task>
     <task id="LOCAL-00031" summary="add: Grenade">
       <option name="closed" value="true" />
@@ -1074,7 +1057,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737904801919</updated>
     </task>
-    <option name="localTasksCounter" value="79" />
+    <task id="LOCAL-00079" summary="feat: updating team scores">
+      <option name="closed" value="true" />
+      <created>1737997507879</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1737997507879</updated>
+    </task>
+    <option name="localTasksCounter" value="80" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1095,7 +1086,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="feat: Rewinding Time" />
     <MESSAGE value="feat: Interp Between Frames" />
     <MESSAGE value="feat: Score Request" />
     <MESSAGE value="fix: 服务器端的服务器倒带武器无法造成伤害&#10;fix: 头文件缺失soundcue前向声明导致的打包失败" />
@@ -1120,7 +1110,8 @@
     <MESSAGE value="fix: grenadesHUD 初始化显示失败&#10;add: 摄像机靠近角色时隐藏副武器&#10;fix: grenade damage 未设置正确" />
     <MESSAGE value="feat: setting team colors" />
     <MESSAGE value="feat: preventing friendly fire" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: preventing friendly fire" />
+    <MESSAGE value="feat: updating team scores" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: updating team scores" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

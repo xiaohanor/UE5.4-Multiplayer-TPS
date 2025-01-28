@@ -19,6 +19,7 @@
 #include "GameFramework/GameMode.h"
 #include "Kismet/GameplayStatics.h"
 #include "Net/UnrealNetwork.h"
+#include "Blaster/BlasterTypes/Announcement.h"
 
 void ABlasterPlayerController::BroadcastElim(APlayerState* Attacker, APlayerState* Victim)
 {
@@ -647,7 +648,7 @@ void ABlasterPlayerController::HandleCooldown()
 		if (bHUDValid)
 		{
 			BlasterHUD->Announcement->SetVisibility(ESlateVisibility::Visible);
-			FText AnnouncementText = FText::FromString(TEXT("新比赛倒计时："));
+			FText AnnouncementText = FText::FromString(Announcement::NewMatchCountdown);
 			BlasterHUD->Announcement->AnnouncementText->SetText(AnnouncementText);
 
 			ABlasterGameState* BlasterGameState = Cast<ABlasterGameState>(UGameplayStatics::GetGameState(this));
@@ -655,33 +656,10 @@ void ABlasterPlayerController::HandleCooldown()
 
 			if (BlasterGameState && BlasterPlayerState)
 			{
-				FText InfoText;
 				TArray<ABlasterPlayerState*> TopPlayers = BlasterGameState->TopScoringPlayers;
+				FString InfoText = GetInfoText(TopPlayers);
 
-				if (TopPlayers.Num() == 0)
-				{
-					InfoText = FText::FromString(TEXT("无人获胜"));
-				}
-				else if (TopPlayers.Num() == 1 && TopPlayers[0] == BlasterPlayerState)
-				{
-					InfoText = FText::FromString(TEXT("你是赢家！"));
-				}
-				else if (TopPlayers.Num() == 1)
-				{
-					InfoText = FText::Format(
-						NSLOCTEXT("Game", "WinnerIs", "获胜者是：\n{0}"), FText::FromString(TopPlayers[0]->GetPlayerName()));
-				}
-				else if (TopPlayers.Num() > 1)
-				{
-					FString WinnersString = TEXT("获胜者们是：\n");
-					for (const auto& TiedPlayer : TopPlayers)
-					{
-						WinnersString.Append(FString::Printf(TEXT("%s\n"), *TiedPlayer->GetPlayerName()));
-					}
-					InfoText = FText::FromString(WinnersString);
-				}
-
-				BlasterHUD->Announcement->InfoText->SetText(InfoText);
+				BlasterHUD->Announcement->InfoText->SetText(FText::FromString(InfoText));
 			}
 		}
 	}
@@ -691,4 +669,61 @@ void ABlasterPlayerController::HandleCooldown()
 		BlasterCharacter->bDisableGameplay = true;
 		BlasterCharacter->GetCombatComponent()->FireButtonPressed(false);
 	}
+}
+
+FString ABlasterPlayerController::GetInfoText(const TArray<ABlasterPlayerState*>& Players)
+{
+	FString InfoTextString;
+	ABlasterPlayerState* BlasterPlayerState = GetPlayerState<ABlasterPlayerState>();
+	if (BlasterPlayerState == nullptr) return FString();
+	if (Players.Num() == 0)
+	{
+		InfoTextString = Announcement::NoWinner;
+	}
+	else if (Players.Num() == 1 && Players[0] == BlasterPlayerState)
+	{
+		InfoTextString = Announcement::YouAreWinner;
+	}
+	else if (Players.Num() == 1)
+	{
+		InfoTextString = FString::Printf(TEXT("获胜者是：\n%s"), *Players[0]->GetPlayerName());
+	}
+	else if (Players.Num() > 1)
+	{
+		FString WinnersString = Announcement::WinnersAre;
+		for (const auto& TiedPlayer : Players)
+		{
+			WinnersString.Append(FString::Printf(TEXT("%s\n"), *TiedPlayer->GetPlayerName()));
+		}
+		InfoTextString = WinnersString;
+	}
+	return InfoTextString;
+}
+
+FString ABlasterPlayerController::GetTeamsInfoText(const ABlasterGameState* BlasterGameState)
+{
+	if (BlasterGameState == nullptr) return FString();
+	FString InfoTextString;
+
+	int32 RedTeamScore = BlasterGameState->RedTeamScore;
+	int32 BlueTeamScore = BlasterGameState->BlueTeamScore;
+
+	if (RedTeamScore == 0 && BlueTeamScore == 0)
+	{
+		InfoTextString = Announcement::NoWinner;
+	}
+	else if (RedTeamScore == BlueTeamScore)
+	{
+		InfoTextString = Announcement::TeamsTiedForTheWin;
+	}
+	else if (RedTeamScore > BlueTeamScore)
+	{
+		InfoTextString = Announcement::RedTeamWins;
+	}
+	else if (BlueTeamScore > RedTeamScore)
+	{
+		InfoTextString = Announcement::BlueTeamWins;
+	}
+	
+	return InfoTextString;
 }
