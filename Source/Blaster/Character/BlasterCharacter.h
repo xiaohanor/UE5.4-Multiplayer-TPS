@@ -448,4 +448,5 @@ public:
 	FORCEINLINE UBuffComponent* GetBuffComponent() const { return Buff; }
 	FORCEINLINE ULagCompensationComponent* GetLagCompensation() const { return LagCompensation; }
 	bool IsLocallyReloading() const;
+	bool IsHoldingTheFlag() const;
 };

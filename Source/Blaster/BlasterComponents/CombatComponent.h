@@ -232,6 +232,8 @@ private:
 
 	void UpdateGrenades();
 
+	bool bHoldingTheFlag = false;
+
 public:
 	FORCEINLINE int32 GetGrenades() const { return Grenades; }
 	FORCEINLINE bool ShouldSwapWeapons() const {return (EquippedWeapon != nullptr && SecondaryWeapon != nullptr);};

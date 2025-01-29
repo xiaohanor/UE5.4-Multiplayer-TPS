@@ -17,12 +17,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="feat: updating team scores">
-      <change afterPath="$PROJECT_DIR$/Source/Blaster/BlasterTypes/Announcement.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/GameModes/BP_TeamGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/GameModes/BP_TeamGameMode.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/PlayerController/BlasterPlayerController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/PlayerController/BlasterPlayerController.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/PlayerController/BlasterPlayerController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/PlayerController/BlasterPlayerController.h" afterDir="false" />
+    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="feat: teams cooldown announcement">
+      <change afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Flag.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Flag.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Character/Animation/ABP_Blaster.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Character/Animation/ABP_Blaster.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterAnimInstance.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterAnimInstance.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterAnimInstance.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterAnimInstance.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/WeaponTypes.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/WeaponTypes.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -671,23 +676,7 @@
       <workItem from="1737442700574" duration="6292000" />
       <workItem from="1737618171909" duration="30009000" />
       <workItem from="1737815304111" duration="5253000" />
-      <workItem from="1737888572068" duration="31290000" />
-    </task>
-    <task id="LOCAL-00031" summary="add: Grenade">
-      <option name="closed" value="true" />
-      <created>1733303886712</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1733303886712</updated>
-    </task>
-    <task id="LOCAL-00032" summary="feat: Shotgun Reload&#10;TODO: need fix bug">
-      <option name="closed" value="true" />
-      <created>1733385800267</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1733385800267</updated>
+      <workItem from="1737888572068" duration="35780000" />
     </task>
     <task id="LOCAL-00033" summary="fix: 客户端换弹动画通知触发两次（非完全修复，仅hack处理），角色材质自发光&#10;feat: 手榴弹投掷动作">
       <option name="closed" value="true" />
@@ -1065,7 +1054,23 @@
       <option name="project" value="LOCAL" />
       <updated>1737997507879</updated>
     </task>
-    <option name="localTasksCounter" value="80" />
+    <task id="LOCAL-00080" summary="happy new year">
+      <option name="closed" value="true" />
+      <created>1738079583072</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1738079583072</updated>
+    </task>
+    <task id="LOCAL-00081" summary="feat: teams cooldown announcement">
+      <option name="closed" value="true" />
+      <created>1738157912499</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1738157912499</updated>
+    </task>
+    <option name="localTasksCounter" value="82" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1086,8 +1091,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="feat: Interp Between Frames" />
-    <MESSAGE value="feat: Score Request" />
     <MESSAGE value="fix: 服务器端的服务器倒带武器无法造成伤害&#10;fix: 头文件缺失soundcue前向声明导致的打包失败" />
     <MESSAGE value="feat: Shotgun ServerSideRewind" />
     <MESSAGE value="feat: predict projectile path&#10;feat: post edit property in editor" />
@@ -1111,7 +1114,9 @@
     <MESSAGE value="feat: setting team colors" />
     <MESSAGE value="feat: preventing friendly fire" />
     <MESSAGE value="feat: updating team scores" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: updating team scores" />
+    <MESSAGE value="happy new year" />
+    <MESSAGE value="feat: teams cooldown announcement" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: teams cooldown announcement" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
