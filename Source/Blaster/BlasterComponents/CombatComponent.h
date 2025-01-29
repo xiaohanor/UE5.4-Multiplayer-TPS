@@ -10,6 +10,7 @@
 #include "CombatComponent.generated.h"
 
 
+class AFlag;
 class AProjectile;
 class ABlasterPlayerController;
 class AWeapon;
@@ -113,6 +114,7 @@ protected:
 	void DropEquippedWeapon();
 	void AttachActorToRightHand(AActor* ActorToAttach);
 	void AttachActorToLeftHand(AActor* ActorToAttach);
+	void AttachFlagToLeftHand(AWeapon* FlagToAttach);
 	void UpdateCarriedAmmo();
 	void PlayEquipWeaponSound(AWeapon* WeaponToEquip);
 	void ReloadEmptyWeapon();
@@ -232,7 +234,11 @@ private:
 
 	void UpdateGrenades();
 
+	UPROPERTY(ReplicatedUsing = OnRep_HoldingTheFlag)
 	bool bHoldingTheFlag = false;
+
+	UFUNCTION()
+	void OnRep_HoldingTheFlag();
 
 public:
 	FORCEINLINE int32 GetGrenades() const { return Grenades; }

@@ -12,6 +12,8 @@ AFlag::AFlag()
 	SetRootComponent(FlagMesh);
 	AreaSphereGetter()->SetupAttachment(FlagMesh);
 	GetPickUpWidget()->SetupAttachment(FlagMesh);
+	FlagMesh->SetCollisionResponseToAllChannels(ECR_Ignore);
+	FlagMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
 
