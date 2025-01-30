@@ -22,6 +22,7 @@
 #include "Blaster/GameState/BlasterGameState.h"
 #include "Blaster/PlayerController/BlasterPlayerController.h"
 #include "Blaster/PlayerState/BlasterPlayerState.h"
+#include "Blaster/Weapon/Flag.h"
 #include "Kismet/GameplayStatics.h"
 #include "Sound/SoundCue.h"
 #include "Blaster/Weapon/WeaponTypes.h"
@@ -613,6 +614,10 @@ void ABlasterCharacter::DropOrDestroyWeapons()
 		{
 			DropOrDestroyWeapon(Combat->SecondaryWeapon);
 		}
+		if (Combat->TheFlag)
+		{
+			DropOrDestroyWeapon(Combat->TheFlag);
+		}
 	}
 }
 
@@ -962,6 +967,7 @@ void ABlasterCharacter::EquipButtonPressed()
 	{
 		return;
 	}
+	if (Combat && Combat->bHoldingTheFlag) return;
 
 	if (Combat)
 	{
@@ -997,6 +1003,8 @@ void ABlasterCharacter::CrouchButtonPressed()
 	{
 		return;
 	}
+	if (Combat && Combat->bHoldingTheFlag) return;
+
 
 	if (bIsCrouched)
 	{
@@ -1014,6 +1022,8 @@ void ABlasterCharacter::SprintButtonPressed()
 	{
 		return;
 	}
+	if (Combat && Combat->bHoldingTheFlag) return;
+
 
 	GetCharacterMovement()->MaxWalkSpeed += SprintSpeed;
 }
@@ -1024,6 +1034,8 @@ void ABlasterCharacter::SprintButtonReleased()
 	{
 		return;
 	}
+	if (Combat && Combat->bHoldingTheFlag) return;
+
 
 	GetCharacterMovement()->MaxWalkSpeed -= SprintSpeed;
 }
@@ -1034,6 +1046,8 @@ void ABlasterCharacter::AimButtonPressed()
 	{
 		return;
 	}
+	if (Combat && Combat->bHoldingTheFlag) return;
+
 
 	if (Combat)
 	{
@@ -1047,6 +1061,8 @@ void ABlasterCharacter::AimButtonReleased()
 	{
 		return;
 	}
+	if (Combat && Combat->bHoldingTheFlag) return;
+
 
 	if (Combat)
 	{
@@ -1060,6 +1076,8 @@ void ABlasterCharacter::FireButtonPressed()
 	{
 		return;
 	}
+	if (Combat && Combat->bHoldingTheFlag) return;
+
 
 	if (Combat)
 	{
@@ -1073,6 +1091,8 @@ void ABlasterCharacter::FireButtonReleased()
 	{
 		return;
 	}
+	if (Combat && Combat->bHoldingTheFlag) return;
+
 
 	if (Combat)
 	{
@@ -1086,6 +1106,8 @@ void ABlasterCharacter::ReloadButtonPressed()
 	{
 		return;
 	}
+	if (Combat && Combat->bHoldingTheFlag) return;
+
 
 	if (Combat)
 	{
@@ -1095,6 +1117,8 @@ void ABlasterCharacter::ReloadButtonPressed()
 
 void ABlasterCharacter::ThrowGrenadeButtonPressed()
 {
+	if (Combat && Combat->bHoldingTheFlag) return;
+
 	if (Combat)
 	{
 		Combat->ThrowGrenade();
@@ -1107,6 +1131,8 @@ void ABlasterCharacter::Jump()
 	{
 		return;
 	}
+	if (Combat && Combat->bHoldingTheFlag) return;
+
 
 	if (bIsCrouched)
 	{

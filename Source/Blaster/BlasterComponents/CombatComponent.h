@@ -240,6 +240,12 @@ private:
 	UFUNCTION()
 	void OnRep_HoldingTheFlag();
 
+	UPROPERTY(ReplicatedUsing = OnRep_TheFlag)
+	AWeapon* TheFlag;
+
+	UFUNCTION()
+	void OnRep_TheFlag();
+
 public:
 	FORCEINLINE int32 GetGrenades() const { return Grenades; }
 	FORCEINLINE bool ShouldSwapWeapons() const {return (EquippedWeapon != nullptr && SecondaryWeapon != nullptr);};

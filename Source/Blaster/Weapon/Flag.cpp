@@ -16,4 +16,43 @@ AFlag::AFlag()
 	FlagMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
+void AFlag::Dropped()
+{
+	SetWeaponState(EWeaponState::EWS_Dropped);
+	FDetachmentTransformRules DetachmentTransformRules(EDetachmentRule::KeepWorld, true);
+	FlagMesh->DetachFromComponent(DetachmentTransformRules);
+	SetOwner(nullptr);
+	BlasterOwnerCharacter = nullptr;
+	BlasterOwnerController = nullptr;	
+}
+
+void AFlag::OnEquipped()
+{
+	ShowPickUpWidget(false);
+	AreaSphereGetter()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	FlagMesh->SetSimulatePhysics(false);
+	FlagMesh->SetEnableGravity(false);
+	FlagMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	
+	EnableCustomDepth(false);
+}
+
+void AFlag::OnDropped()
+{
+	if (HasAuthority())
+	{
+		AreaSphereGetter()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	}
+	FlagMesh->SetSimulatePhysics(true);
+	FlagMesh->SetEnableGravity(true);
+	FlagMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	FlagMesh->SetCollisionResponseToAllChannels(ECR_Block);
+	FlagMesh->SetCollisionResponseToChannel(ECC_Pawn, ECR_Ignore);
+	FlagMesh->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
+
+	FlagMesh->SetCustomDepthStencilValue(CUSTOM_DEPTH_BLUE);
+	FlagMesh->MarkRenderStateDirty();	// 使渲染状态无效，以便在下一帧更新
+	EnableCustomDepth(true);
+	}
+
 
