@@ -106,12 +106,15 @@ protected:
 	void DropOrDestroyWeapons();
 
 	void AimOffset(float DeltaTime);
-	void TurnInPlcae(float DeltaTime);
+	void TurnInPlace(float DeltaTime);
 	void SimProxiesTurn();
 
 	//轮询任何相关类并初始化我们的 HUD
 	void PollInit();
 	void RotateInPlace(float DeltaTime);
+
+	void SetSpawnPoint();
+	void OnPlayerStateInitialized();
 
 	/*
 	 * 用于服务器端倒带的 HitBox
