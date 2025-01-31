@@ -7,6 +7,7 @@
 #include "WeaponTypes.h"
 #include "Weapon.generated.h"
 
+enum class ETeam : uint8;
 class ABlasterPlayerController;
 class ABlasterCharacter;
 class UWidgetComponent;
@@ -197,6 +198,9 @@ private:
 
 	UPROPERTY(EditAnywhere, Category="武器属性")
 	EFireType FireType;
+
+	UPROPERTY(EditAnywhere)
+	ETeam Team;
 
 public:
 	void SetWeaponState(EWeaponState State);
