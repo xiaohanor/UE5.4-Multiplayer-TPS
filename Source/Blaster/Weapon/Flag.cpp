@@ -2,6 +2,8 @@
 
 #include "Flag.h"
 
+#include "Blaster/BlasterComponents/CombatComponent.h"
+#include "Blaster/Character/BlasterCharacter.h"
 #include "Components/SphereComponent.h"
 #include "Components/WidgetComponent.h"
 
@@ -26,14 +28,40 @@ void AFlag::Dropped()
 	BlasterOwnerController = nullptr;	
 }
 
+void AFlag::ResetFlag()
+{
+	ABlasterCharacter* FlagBearer = Cast<ABlasterCharacter>(GetOwner());
+	if (FlagBearer)
+	{
+		FlagBearer->SetHoldingTheFlag(false);
+		FlagBearer->SetOverlappingWeapon(nullptr);
+		FlagBearer->UnCrouch();
+		FlagBearer->SetTheFlag(false);
+	}
+	
+	if (!HasAuthority()) return;
+	
+	FDetachmentTransformRules DetachmentTransformRules(EDetachmentRule::KeepWorld, true);
+	FlagMesh->DetachFromComponent(DetachmentTransformRules);
+	SetWeaponState(EWeaponState::EWS_Initial);
+	AreaSphereGetter()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	AreaSphereGetter()->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
+
+	SetOwner(nullptr);
+	BlasterOwnerCharacter = nullptr;
+	BlasterOwnerController = nullptr;
+
+	SetActorTransform(InitializeTransform);
+}
+
 void AFlag::OnEquipped()
 {
 	ShowPickUpWidget(false);
 	AreaSphereGetter()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	FlagMesh->SetSimulatePhysics(false);
 	FlagMesh->SetEnableGravity(false);
-	FlagMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-	
+	FlagMesh->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	FlagMesh->SetCollisionResponseToChannel(ECC_WorldDynamic, ECR_Overlap);
 	EnableCustomDepth(false);
 }
 
@@ -54,5 +82,12 @@ void AFlag::OnDropped()
 	FlagMesh->MarkRenderStateDirty();	// 使渲染状态无效，以便在下一帧更新
 	EnableCustomDepth(true);
 	}
+
+void AFlag::BeginPlay()
+{
+	Super::BeginPlay();
+
+	InitializeTransform = GetActorTransform();
+}
 
 

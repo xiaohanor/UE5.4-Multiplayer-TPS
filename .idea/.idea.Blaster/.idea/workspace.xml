@@ -18,13 +18,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="feat: picking up the flag">
+      <change afterPath="$PROJECT_DIR$/Source/Blaster/CaptureTheFlag/FlagZone.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/Blaster/CaptureTheFlag/FlagZone.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/Blaster/GameMode/CaptureTheFlagGameMode.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/Blaster/GameMode/CaptureTheFlagGameMode.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Weapon/BP_Flag.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Weapon/BP_Flag.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/BlasterComponents/CombatComponent.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Maps/BlasterMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/BlasterMap.umap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Character/BlasterCharacter.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/Flag.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Flag.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/Flag.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Flag.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Weapon/Weapon.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -678,6 +682,8 @@
       <workItem from="1737618171909" duration="30009000" />
       <workItem from="1737815304111" duration="5253000" />
       <workItem from="1737888572068" duration="49417000" />
+      <workItem from="1738409818039" duration="417000" />
+      <workItem from="1738410298885" duration="8266000" />
     </task>
     <task id="LOCAL-00035" summary="feat: Healing Pickup">
       <option name="closed" value="true" />

@@ -453,4 +453,6 @@ public:
 	bool IsLocallyReloading() const;
 	bool IsHoldingTheFlag() const;
 	ETeam GetTeam();
+	void SetHoldingTheFlag(bool bHold);
+	void SetTheFlag(bool bHold);
 };
