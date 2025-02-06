@@ -10,6 +10,9 @@ APickupSpawnPoint::APickupSpawnPoint()
 {
 	PrimaryActorTick.bCanEverTick = true;
 	bReplicates = true;
+
+	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComponent"));
+	RootComponent = MeshComponent;
 }
 
 void APickupSpawnPoint::BeginPlay()

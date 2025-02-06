@@ -34,6 +34,9 @@ private:
 	TObjectPtr<APickup> SpawnedPickup;
 
 	UPROPERTY(EditAnywhere)
+	TObjectPtr<UStaticMeshComponent> MeshComponent;
+
+	UPROPERTY(EditAnywhere)
 	float MinSpawnPickupTime = 5.0f;
 	UPROPERTY(EditAnywhere)
 	float MaxSpawnPickupTime = 10.0f;

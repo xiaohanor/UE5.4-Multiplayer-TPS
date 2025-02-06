@@ -17,10 +17,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="feat: ctf gamemode">
+    <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/MultiplayerSessions/Content/WBP_Menu.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/MultiplayerSessions/Content/WBP_Menu.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/MultiplayerSessions/Source/MultiplayerSessions/Public/Menu.h" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/MultiplayerSessions/Source/MultiplayerSessions/Public/Menu.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultGame.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultGame.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/GameModes/BP_BlasterGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/GameModes/BP_BlasterGameMode.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/GameModes/BP_CTFGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/GameModes/BP_CTFGameMode.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/GameModes/BP_TeamGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/GameModes/BP_TeamGameMode.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Maps/BlasterMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/BlasterMap.umap" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,6 +88,7 @@
     <setting file="file://$PROJECT_DIR$/../../UE_5.4.4/UE_5.4/Engine/Source/Runtime/Core/Public/Delegates/Delegate.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.4.4/UE_5.4/Engine/Source/Runtime/Core/Public/Delegates/DelegateSignatureImpl.inl" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.4.4/UE_5.4/Engine/Source/Runtime/Core/Public/Internationalization/Text.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../UE_5.4.4/UE_5.4/Engine/Source/Runtime/Core/Public/Misc/AssertionMacros.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.4.4/UE_5.4/Engine/Source/Runtime/Engine/Classes/GameFramework/Actor.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.4.4/UE_5.4/Engine/Source/Runtime/Engine/Classes/Materials/MaterialInstance.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../UE_5.4.4/UE_5.4/Engine/Source/Runtime/Engine/Private/GameMode.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -670,15 +674,8 @@
       <workItem from="1737815304111" duration="5253000" />
       <workItem from="1737888572068" duration="49417000" />
       <workItem from="1738409818039" duration="417000" />
-      <workItem from="1738410298885" duration="9899000" />
-    </task>
-    <task id="LOCAL-00036" summary="add: Speed Buff">
-      <option name="closed" value="true" />
-      <created>1733908542074</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1733908542074</updated>
+      <workItem from="1738410298885" duration="11537000" />
+      <workItem from="1738483658746" duration="1524000" />
     </task>
     <task id="LOCAL-00037" summary="add: Shield Buff">
       <option name="closed" value="true" />
@@ -1064,7 +1061,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738420656907</updated>
     </task>
-    <option name="localTasksCounter" value="85" />
+    <task id="LOCAL-00085" summary="feat: accessing subsystem">
+      <option name="closed" value="true" />
+      <created>1738424044920</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1738424044920</updated>
+    </task>
+    <option name="localTasksCounter" value="86" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1085,7 +1090,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="feat: Spawn projectile locally" />
     <MESSAGE value="feat: Hitbox Collision Box&#10;fix: 缺失碰撞通道-SkeletonMesh" />
     <MESSAGE value="feat: projectile server side rewind" />
     <MESSAGE value="feat: projectile score request" />
@@ -1110,7 +1114,8 @@
     <MESSAGE value="feat: holding the flag" />
     <MESSAGE value="feat: picking up the flag" />
     <MESSAGE value="feat: ctf gamemode" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: ctf gamemode" />
+    <MESSAGE value="feat: accessing subsystem" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: accessing subsystem" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
