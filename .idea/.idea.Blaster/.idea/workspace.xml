@@ -19,11 +19,9 @@
   <component name="ChangeListManager">
     <list default="true" id="f8dea3c4-b6cc-4335-9482-722b8fb22cb1" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Blaster/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultGame.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultGame.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/GameModes/BP_BlasterGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/GameModes/BP_BlasterGameMode.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/GameModes/BP_CTFGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/GameModes/BP_CTFGameMode.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/GameModes/BP_TeamGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/GameModes/BP_TeamGameMode.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/BlasterMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/BlasterMap.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Pickups/PickupSpawnPoint.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Pickups/PickupSpawnPoint.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Blaster/Pickups/PickupSpawnPoint.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Blaster/Pickups/PickupSpawnPoint.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -676,22 +674,7 @@
       <workItem from="1738409818039" duration="417000" />
       <workItem from="1738410298885" duration="11537000" />
       <workItem from="1738483658746" duration="1524000" />
-    </task>
-    <task id="LOCAL-00037" summary="add: Shield Buff">
-      <option name="closed" value="true" />
-      <created>1734089744311</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1734089744311</updated>
-    </task>
-    <task id="LOCAL-00038" summary="add: SpawnPickupPoint">
-      <option name="closed" value="true" />
-      <created>1734162840905</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1734162840905</updated>
+      <workItem from="1738847463595" duration="3142000" />
     </task>
     <task id="LOCAL-00039" summary="add: JumpBuff">
       <option name="closed" value="true" />
@@ -1069,7 +1052,23 @@
       <option name="project" value="LOCAL" />
       <updated>1738424044920</updated>
     </task>
-    <option name="localTasksCounter" value="86" />
+    <task id="LOCAL-00086" summary="add: 3 gamemode bp">
+      <option name="closed" value="true" />
+      <created>1738848303051</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1738848303052</updated>
+    </task>
+    <task id="LOCAL-00087" summary="add: respawn mesh for pickup">
+      <option name="closed" value="true" />
+      <created>1738848906828</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1738848906828</updated>
+    </task>
+    <option name="localTasksCounter" value="88" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1090,8 +1089,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="feat: Hitbox Collision Box&#10;fix: 缺失碰撞通道-SkeletonMesh" />
-    <MESSAGE value="feat: projectile server side rewind" />
     <MESSAGE value="feat: projectile score request" />
     <MESSAGE value="feat: limiting server-side rewind" />
     <MESSAGE value="feat: swap anim" />
@@ -1115,7 +1112,9 @@
     <MESSAGE value="feat: picking up the flag" />
     <MESSAGE value="feat: ctf gamemode" />
     <MESSAGE value="feat: accessing subsystem" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: accessing subsystem" />
+    <MESSAGE value="add: 3 gamemode bp" />
+    <MESSAGE value="add: respawn mesh for pickup" />
+    <option name="LAST_COMMIT_MESSAGE" value="add: respawn mesh for pickup" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

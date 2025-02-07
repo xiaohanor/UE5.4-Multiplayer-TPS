@@ -15,7 +15,6 @@ class BLASTER_API APickupSpawnPoint : public AActor
 
 public:
 	APickupSpawnPoint();
-	virtual void Tick(float DeltaTime) override;
 protected:
 	virtual void BeginPlay() override;
 

@@ -8,7 +8,6 @@
 
 APickupSpawnPoint::APickupSpawnPoint()
 {
-	PrimaryActorTick.bCanEverTick = true;
 	bReplicates = true;
 
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComponent"));
@@ -48,10 +47,5 @@ void APickupSpawnPoint::StartSpawnPickupTimer(AActor* DestroyedActor)
 {
 	const float SpawnTime = FMath::RandRange(MinSpawnPickupTime, MaxSpawnPickupTime);
 	GetWorldTimerManager().SetTimer(SpawnPickupTimer, this, &APickupSpawnPoint::SpawnPickupTimerFinished, SpawnTime);
-}
-
-void APickupSpawnPoint::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
 }
 
