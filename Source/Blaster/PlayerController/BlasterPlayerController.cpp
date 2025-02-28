@@ -605,7 +605,7 @@ void ABlasterPlayerController::OnRep_MatchState()
 
 void ABlasterPlayerController::HandleMatchHasStarted(bool bTeamsMatch)
 {
-	if (HasAuthority()) bShowTeamScores = true;
+	if (HasAuthority()) bShowTeamScores = bTeamsMatch;
 
 	BlasterHUD = BlasterHUD == nullptr ? TObjectPtr<ABlasterHUD>(Cast<ABlasterHUD>(GetHUD())) : BlasterHUD;
 	if (BlasterHUD)
