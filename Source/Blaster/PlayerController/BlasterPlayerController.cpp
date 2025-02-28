@@ -142,18 +142,6 @@ void ABlasterPlayerController::GetLifetimeReplicatedProps(TArray<class FLifetime
 	DOREPLIFETIME(ABlasterPlayerController, bShowTeamScores);
 }
 
-void ABlasterPlayerController::OnRep_ShowTeamScores()
-{
-	if (bShowTeamScores)
-	{
-		InitTeamScores();
-	}
-	else
-	{
-		HideTeamScores();
-	}
-}
-
 void ABlasterPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
@@ -434,6 +422,7 @@ void ABlasterPlayerController::HideTeamScores()
 
 void ABlasterPlayerController::InitTeamScores()
 {
+	if (!HasAuthority()) UE_LOG(LogTemp, Warning, TEXT("InitTeamScoresCalled"));
 	BlasterHUD == nullptr ? BlasterHUD = Cast<ABlasterHUD>(GetHUD()) : BlasterHUD;
 
 	bool bHUDValid = BlasterHUD &&
@@ -443,11 +432,17 @@ void ABlasterPlayerController::InitTeamScores()
 					BlasterHUD->CharacterOverlay->ScoreSpacerText;
 	if (bHUDValid)
 	{
+		if (!HasAuthority()) UE_LOG(LogTemp, Warning, TEXT("bHUDIsValidTeamScores"));
 		FString Zero("0");
 		FString Spacer(":");
 		BlasterHUD->CharacterOverlay->RedTeamScore->SetText(FText::FromString(Zero));
 		BlasterHUD->CharacterOverlay->BlueTeamScore->SetText(FText::FromString(Zero));
 		BlasterHUD->CharacterOverlay->ScoreSpacerText->SetText(FText::FromString(Spacer));
+	}
+	else
+	{
+		bInitializeTeamScores = true;
+		if (!HasAuthority()) UE_LOG(LogTemp, Warning, TEXT("bInitializeTeamScores called"));
 	}
 }
 
@@ -532,6 +527,7 @@ void ABlasterPlayerController::PollInit()
 			CharacterOverlay = BlasterHUD->CharacterOverlay;
 			if (CharacterOverlay)
 			{
+				if (bInitializeTeamScores) InitTeamScores();
 				if (bInitializeHealth) SetHUDHealth(HUDHealth, HUDMaxHealth);
 				if (bInitializeShield) SetHUDShield(HUDShield, HUDMaxShield);
 				if (bInitializeScore) SetHUDScore(HUDScore);
@@ -555,11 +551,11 @@ void ABlasterPlayerController::ServerRequestServerTime_Implementation(float Time
 }
 
 void ABlasterPlayerController::ClientReportServerTime_Implementation(float TimeOfClientRequest,
-                                                                     float TimeOfServerReceivedClientRequset)
+                                                                     float TimeOfServerReceivedClientRequest)
 {
 	float RoundTripTime = GetWorld()->GetTimeSeconds() - TimeOfClientRequest;
 	SingleTripTime = RoundTripTime * 0.5f;
-	float CurrentServerTime = TimeOfServerReceivedClientRequset + (RoundTripTime * 0.5f);
+	float CurrentServerTime = TimeOfServerReceivedClientRequest + (RoundTripTime * 0.5f);
 	ClientServerDelta = CurrentServerTime - GetWorld()->GetTimeSeconds();
 }
 
@@ -609,7 +605,7 @@ void ABlasterPlayerController::OnRep_MatchState()
 
 void ABlasterPlayerController::HandleMatchHasStarted(bool bTeamsMatch)
 {
-	if (HasAuthority()) bShowTeamScores = bTeamsMatch;
+	if (HasAuthority()) bShowTeamScores = true;
 
 	BlasterHUD = BlasterHUD == nullptr ? TObjectPtr<ABlasterHUD>(Cast<ABlasterHUD>(GetHUD())) : BlasterHUD;
 	if (BlasterHUD)
@@ -623,17 +619,30 @@ void ABlasterPlayerController::HandleMatchHasStarted(bool bTeamsMatch)
 			BlasterHUD->Announcement->SetVisibility(ESlateVisibility::Hidden);
 		}
 		
-		if (!HasAuthority()) return;
+		if (!HasAuthority())
+		{
+			return;
+		}
 		if (bShowTeamScores)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("Init team scores"));
 			InitTeamScores();
 		}
 		else
 		{
-			UE_LOG(LogTemp, Warning, TEXT("Hide team scores"));
 			HideTeamScores();
 		}
+	}
+}
+
+void ABlasterPlayerController::OnRep_ShowTeamScores()
+{
+	if (bShowTeamScores)
+	{
+		InitTeamScores();
+	}
+	else
+	{
+		HideTeamScores();
 	}
 }
 

@@ -70,7 +70,7 @@ protected:
 	void ServerRequestServerTime(float TimeOfClientRequest);
 
 	UFUNCTION(Client, Reliable)
-	void ClientReportServerTime(float TimeOfClientRequest, float TimeOfServerReceivedClientRequset);
+	void ClientReportServerTime(float TimeOfClientRequest, float TimeOfServerReceivedClientRequest);
 
 	float ClientServerDelta = 0.f; //客户端与服务器时间差
 
@@ -156,6 +156,7 @@ private:
 	int32 HUDWeaponAmmo;
 	bool bInitializeCarriedAmmo = false;
 	int32 HUDCarriedAmmo;
+	bool bInitializeTeamScores = false;
 
 	float HighPingRunningTime = 0.f;
 	float HighPingAnimRunningTime = 0.f;

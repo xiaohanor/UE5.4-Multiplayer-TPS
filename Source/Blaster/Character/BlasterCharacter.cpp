@@ -293,7 +293,7 @@ void ABlasterCharacter::BeginPlay()
 		//设置角色移动速度等于自定义的基础速度
 		GetCharacterMovement()->MaxWalkSpeed = BaseSpeed;
 	}
-
+				
 	SpawnDefaultWeapon();
 	UpdateHUDAmmo();
 	UpdateHUDHealth();
