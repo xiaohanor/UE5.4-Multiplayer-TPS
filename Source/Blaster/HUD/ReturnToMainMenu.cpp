@@ -16,12 +16,12 @@ void UReturnToMainMenu::MenuSetup()
 	SetIsFocusable(true);
 
 	UWorld* World = GetWorld();
-	if (World)
+	if (IsValid(World))
 	{
 		PlayerController = PlayerController == nullptr ? World->GetFirstPlayerController() : PlayerController;
-		if (PlayerController)
+		if (IsValid(PlayerController))
 		{
-			FInputModeGameAndUI InputModeData;
+			FInputModeUIOnly InputModeData;
 			InputModeData.SetWidgetToFocus(TakeWidget());
 			PlayerController->SetInputMode(InputModeData);
 			PlayerController->SetShowMouseCursor(true);
@@ -34,11 +34,12 @@ void UReturnToMainMenu::MenuSetup()
 	}
 	
 	UGameInstance* GameInstance = GetGameInstance();
-	if (GameInstance)
+	if (IsValid(GameInstance))
 	{
 		MultiplayerSessionsSubsystem = GameInstance->GetSubsystem<UMultiplayerSessionsSubsystem>();
-		if (MultiplayerSessionsSubsystem && !MultiplayerSessionsSubsystem->MultiplayerOnDestroySessionComplete.IsBound())
+		if (IsValid(MultiplayerSessionsSubsystem) && !MultiplayerSessionsSubsystem->MultiplayerOnDestroySessionComplete.IsBound())
 		{
+			UE_LOG(LogTemp, Warning, TEXT("Binding OnDestroySessionComplete"));
 			MultiplayerSessionsSubsystem->MultiplayerOnDestroySessionComplete.AddDynamic(this, &UReturnToMainMenu::OnSessionDestroyed);
 		}
 	}
@@ -56,20 +57,20 @@ void UReturnToMainMenu::OnSessionDestroyed(bool bWasSuccessful)
 		ReturnButton->SetIsEnabled(true);
 		return;
 	}
-	
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Session Destroyed"));
 	UWorld* World = GetWorld();
-	if (World)
+	if (IsValid(World))
 	{
 		AGameModeBase* GameMode = World->GetAuthGameMode<AGameModeBase>();
 		// If we are the host, we can return to the main menu directly
-		if (GameMode)
+		if (IsValid(GameMode))
 		{
 			GameMode->ReturnToMainMenuHost();
 		}
 		else // If we are a client, we need to ask the host to return to the main menu
 		{
 			PlayerController = PlayerController == nullptr ? World->GetFirstPlayerController() : PlayerController;
-			if (PlayerController)
+			if (IsValid(PlayerController))
 			{
 				PlayerController->ClientReturnToMainMenuWithTextReason(FText());
 			}
@@ -81,12 +82,12 @@ void UReturnToMainMenu::MenuTearDown()
 {
 	RemoveFromParent();
 	UWorld* World = GetWorld();
-	if (World)
+	if (IsValid(World))
 	{
 		PlayerController = PlayerController == nullptr ? World->GetFirstPlayerController() : PlayerController;
-		if (PlayerController)
+		if (IsValid(PlayerController))
 		{
-			FInputModeGameOnly InputModeData;
+			FInputModeGameAndUI InputModeData;
 			PlayerController->SetInputMode(InputModeData);
 			PlayerController->SetShowMouseCursor(false);
 		}
@@ -95,7 +96,7 @@ void UReturnToMainMenu::MenuTearDown()
 	{
 		ReturnButton->OnClicked.RemoveDynamic(this, &UReturnToMainMenu::ReturnButtonClicked);
 	}
-	if (MultiplayerSessionsSubsystem && MultiplayerSessionsSubsystem->MultiplayerOnDestroySessionComplete.IsBound())
+	if (IsValid(MultiplayerSessionsSubsystem) && MultiplayerSessionsSubsystem->MultiplayerOnDestroySessionComplete.IsBound())
 	{
 		MultiplayerSessionsSubsystem->MultiplayerOnDestroySessionComplete.RemoveDynamic(this, &UReturnToMainMenu::OnSessionDestroyed);
 	}
@@ -104,15 +105,14 @@ void UReturnToMainMenu::MenuTearDown()
 void UReturnToMainMenu::ReturnButtonClicked()
 {
 	ReturnButton->SetIsEnabled(false);
-	
 	UWorld* World = GetWorld();
-	if (World)
+	if (IsValid(World))
 	{
 		APlayerController* FirstPlayerController = World->GetFirstPlayerController();
-		if (FirstPlayerController)
+		if (IsValid(FirstPlayerController))
 		{
 			ABlasterCharacter* BlasterCharacter = Cast<ABlasterCharacter>(FirstPlayerController->GetPawn());
-			if (BlasterCharacter)
+			if (IsValid(BlasterCharacter))
 			{
 				BlasterCharacter->ServerLeaveGame();
 				BlasterCharacter->OnLeftGame.AddDynamic(this, &UReturnToMainMenu::OnPlayerLeftGame);
@@ -129,7 +129,7 @@ void UReturnToMainMenu::OnPlayerLeftGame()
 {
 	UE_LOG(LogTemp, Warning, TEXT("OnPlayerLeftGame()"))
 
-	if (MultiplayerSessionsSubsystem)
+	if (IsValid(MultiplayerSessionsSubsystem))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("MultiplayerSessionsSubsystem valid"))
 		MultiplayerSessionsSubsystem->DestroySession();

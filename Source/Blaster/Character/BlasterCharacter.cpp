@@ -757,6 +757,11 @@ void ABlasterCharacter::ServerLeaveGame_Implementation()
 	{
 		BlasterGameMode->PlayerLeftGame(BlasterPlayerState);
 	}
+	// 当玩家在 lobby 中离开游戏时，直接销毁角色
+	if (BlasterGameMode == nullptr)
+	{
+		MulticastElim(true);
+	}
 }
 
 void ABlasterCharacter::PlayFireMontage(bool bAiming)
