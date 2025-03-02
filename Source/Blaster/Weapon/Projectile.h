@@ -48,7 +48,7 @@ protected:
 	                   FVector NormalImpulse, const FHitResult& Hit);
 
 	void SpawnTrailSystem();
-	void ExplodeDamege();
+	void ExplodeDamage();
 
 	UPROPERTY(EditAnywhere, Category="VFX")
 	TObjectPtr<UParticleSystem> ImpactParticle;

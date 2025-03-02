@@ -69,7 +69,7 @@ void AProjectile::SpawnTrailSystem()
 	}
 }
 
-void AProjectile::ExplodeDamege()
+void AProjectile::ExplodeDamage()
 {
 	APawn* FiringPawn = GetInstigator();
 	if (FiringPawn && HasAuthority())

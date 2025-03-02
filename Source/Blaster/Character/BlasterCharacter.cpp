@@ -520,6 +520,9 @@ void ABlasterCharacter::PollInit()
 			                          : BlasterPlayerController;
 		if (BlasterPlayerController)
 		{
+			UpdateHUDAmmo();
+			UpdateHUDGrenades();
+
 			//注册增强输入子系统
 			UEnhancedInputLocalPlayerSubsystem* LocalSS = ULocalPlayer::GetSubsystem<
 				UEnhancedInputLocalPlayerSubsystem>(

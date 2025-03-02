@@ -14,21 +14,30 @@ ACasing::ACasing()
 	SetRootComponent(CasingMesh);
 	CasingMesh->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
 	CasingMesh->SetCollisionResponseToChannel(ECC_Pawn, ECR_Ignore);
-	CasingMesh->SetSimulatePhysics(true);
-	CasingMesh->SetEnableGravity(true);
-	CasingMesh->SetNotifyRigidBodyCollision(true);
 
 	ShellEjectImpulse = 10.f;
-
-	bIsSoundPlaying = false;
 }
 
-void ACasing::BeginPlay()
+void ACasing::SetInUse(bool InUse)
 {
-	Super::BeginPlay();
-	CasingMesh->OnComponentHit.AddDynamic(this, &ACasing::OnHit);
+	Super::SetInUse(InUse);
 
-	CasingMesh->AddImpulse(GetActorForwardVector() * ShellEjectImpulse);
+	if (bInUse)
+	{
+		CasingMesh->OnComponentHit.AddDynamic(this, &ACasing::OnHit);
+		CasingMesh->SetSimulatePhysics(true);
+		CasingMesh->SetEnableGravity(true);
+		CasingMesh->SetNotifyRigidBodyCollision(true);
+		bIsSoundPlaying = false;
+		CasingMesh->AddImpulse(GetActorForwardVector() * ShellEjectImpulse);
+	}
+	else
+	{
+		CasingMesh->SetSimulatePhysics(false);
+		CasingMesh->SetEnableGravity(false);
+		CasingMesh->SetNotifyRigidBodyCollision(false);
+		CasingMesh->OnComponentHit.RemoveDynamic(this, &ACasing::OnHit);
+	}
 }
 
 void ACasing::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent,
@@ -39,6 +48,4 @@ void ACasing::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrim
 		UGameplayStatics::PlaySoundAtLocation(this, ShellSound, GetActorLocation());
 		bIsSoundPlaying = true;
 	}
-	//等待3秒后销毁
-	SetLifeSpan(3.f);
 }

@@ -7,6 +7,7 @@
 #include "WeaponTypes.h"
 #include "Weapon.generated.h"
 
+class UObjectPool;
 enum class ETeam : uint8;
 class ABlasterPlayerController;
 class ABlasterCharacter;
@@ -173,7 +174,7 @@ private:
 	TObjectPtr<UAnimationAsset> FireAnimation;
 
 	UPROPERTY(EditAnywhere, Category="Weapon Properties")
-	TSubclassOf<class ACasing> CasingClass;
+	UObjectPool* CasingPool;
 
 	UPROPERTY(EditAnywhere, Category="武器属性")
 	int32 Ammo;

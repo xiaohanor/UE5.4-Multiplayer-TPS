@@ -3,9 +3,9 @@
 
 #include "Weapon.h"
 
-#include "Casing.h"
 #include "Blaster/BlasterComponents/CombatComponent.h"
 #include "Blaster/Character/BlasterCharacter.h"
+#include "Blaster/ObjectPool/ObjectPool.h"
 #include "Blaster/PlayerController/BlasterPlayerController.h"
 #include "Components/SphereComponent.h"
 #include "Components/WidgetComponent.h"
@@ -38,6 +38,8 @@ AWeapon::AWeapon()
 
 	PickUpWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("PickUpWidget"));
 	PickUpWidget->SetupAttachment(RootComponent);
+
+	CasingPool = CreateDefaultSubobject<UObjectPool>("CasingPool");
 }
 
 void AWeapon::EnableCustomDepth(bool bEnable)
@@ -145,21 +147,13 @@ void AWeapon::Fire(const FVector& HitTarget)
 	{
 		WeaponMesh->PlayAnimation(FireAnimation, false);
 	}
-	if (CasingClass)
+	if (CasingPool)
 	{
 		const USkeletalMeshSocket* AmmoEjectSocket = WeaponMesh->GetSocketByName(FName("AmmoEject"));
 		if (AmmoEjectSocket)
 		{
 			FTransform SocketTransform = AmmoEjectSocket->GetSocketTransform(WeaponMesh);
-			UWorld* World = GetWorld();
-			if (World)
-			{
-				World->SpawnActor<ACasing>(
-					CasingClass,
-					SocketTransform.GetLocation(),
-					SocketTransform.GetRotation().Rotator()
-				);
-			}
+			CasingPool->SpawnFromPool(SocketTransform);
 		}
 	}
 	SpendRound();

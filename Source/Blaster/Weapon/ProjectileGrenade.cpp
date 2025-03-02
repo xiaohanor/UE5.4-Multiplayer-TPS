@@ -64,7 +64,7 @@ void AProjectileGrenade::OnBounce(const FHitResult& ImpactResult, const FVector&
 
 void AProjectileGrenade::Destroyed()
 {
-	ExplodeDamege();
+	ExplodeDamage();
 	Super::Destroyed();
 }
 
