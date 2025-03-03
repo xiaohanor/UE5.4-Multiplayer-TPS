@@ -21,7 +21,7 @@ void UReturnToMainMenu::MenuSetup()
 		PlayerController = PlayerController == nullptr ? World->GetFirstPlayerController() : PlayerController;
 		if (IsValid(PlayerController))
 		{
-			FInputModeUIOnly InputModeData;
+			FInputModeGameAndUI InputModeData;
 			InputModeData.SetWidgetToFocus(TakeWidget());
 			PlayerController->SetInputMode(InputModeData);
 			PlayerController->SetShowMouseCursor(true);
@@ -37,7 +37,7 @@ void UReturnToMainMenu::MenuSetup()
 	if (IsValid(GameInstance))
 	{
 		MultiplayerSessionsSubsystem = GameInstance->GetSubsystem<UMultiplayerSessionsSubsystem>();
-		if (IsValid(MultiplayerSessionsSubsystem) && !MultiplayerSessionsSubsystem->MultiplayerOnDestroySessionComplete.IsBound())
+		if (IsValid(MultiplayerSessionsSubsystem))
 		{
 			UE_LOG(LogTemp, Warning, TEXT("Binding OnDestroySessionComplete"));
 			MultiplayerSessionsSubsystem->MultiplayerOnDestroySessionComplete.AddDynamic(this, &UReturnToMainMenu::OnSessionDestroyed);
@@ -87,7 +87,7 @@ void UReturnToMainMenu::MenuTearDown()
 		PlayerController = PlayerController == nullptr ? World->GetFirstPlayerController() : PlayerController;
 		if (IsValid(PlayerController))
 		{
-			FInputModeGameAndUI InputModeData;
+			FInputModeGameOnly InputModeData;
 			PlayerController->SetInputMode(InputModeData);
 			PlayerController->SetShowMouseCursor(false);
 		}

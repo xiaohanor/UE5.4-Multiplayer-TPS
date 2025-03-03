@@ -50,6 +50,7 @@ private:
 	void MenuTeardown();
 
 	// The subsystem designed to handle all online session functionality
+	UPROPERTY()
 	class UMultiplayerSessionsSubsystem* MultiplayerSessionsSubsystem;
 
 	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess = "true"))
