@@ -211,7 +211,7 @@ void ABlasterPlayerController::ServerCheckMatchState_Implementation()
 		WarmupTime = GameMode->WarmupTime;
 		MatchTime = GameMode->MatchTime;
 		CooldownTime = GameMode->CooldownTime;
-		LevelStartingTime = GameMode->LevelStaringTime;
+		LevelStartingTime = GameMode->LevelStartingTime;
 		MatchState = GameMode->GetMatchState();
 		ClientJoinMidGame(MatchState, WarmupTime, MatchTime, LevelStartingTime, CooldownTime);
 	}
@@ -365,6 +365,11 @@ void ABlasterPlayerController::SetHUDMatchCountdown(float CountdownTime)
 		FString CountdownText = FString::Printf(TEXT("%02d:%02d"), Minutes, Seconds);
 		BlasterHUD->CharacterOverlay->MatchCountdownText->SetText(FText::FromString(CountdownText));
 	}
+	else
+	{
+		bInitializeMatchCountdown = true;
+		HUDMatchCountdown = CountdownTime;
+	}
 }
 
 void ABlasterPlayerController::SetHUDAnnouncementCountdown(float CountdownTime)
@@ -494,6 +499,14 @@ void ABlasterPlayerController::SetHUDTime()
 	//如果是服务器，直接从游戏模式中获取倒计时时间
 	if (HasAuthority())
 	{
+		if (BlasterGameMode == nullptr)
+		{
+			BlasterGameMode = Cast<ABlasterGameMode>(UGameplayStatics::GetGameMode(this));
+			if (IsValid(BlasterGameMode))
+			{
+				LevelStartingTime = BlasterGameMode->LevelStartingTime;
+			}
+		}
 		BlasterGameMode = BlasterGameMode == nullptr
 			                  ? Cast<ABlasterGameMode>(UGameplayStatics::GetGameMode(this))
 			                  : BlasterGameMode;
@@ -534,6 +547,7 @@ void ABlasterPlayerController::PollInit()
 				if (bInitializeDefeats) SetHUDDefeats(HUDDefeats);
 				if (bInitializeWeaponAmmo) SetHUDWeaponAmmo(HUDWeaponAmmo);
 				if (bInitializeCarriedAmmo) SetHUDCarriedAmmo(HUDCarriedAmmo);
+				if (bInitializeMatchCountdown) SetHUDMatchCountdown(HUDMatchCountdown);
 				ABlasterCharacter* BlasterCharacter = Cast<ABlasterCharacter>(GetPawn());
 				if (BlasterCharacter && BlasterCharacter->GetCombatComponent())
 				{

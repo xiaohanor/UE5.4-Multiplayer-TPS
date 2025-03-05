@@ -24,15 +24,16 @@ void ABlasterGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	LevelStaringTime = GetWorld()->GetTimeSeconds();
+	LevelStartingTime = GetWorld()->GetTimeSeconds();
 }
 
 void ABlasterGameMode::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
+	
 	if (MatchState == MatchState::WaitingToStart)
 	{
-		CountdownTime = WarmupTime - GetWorld()->GetTimeSeconds() + LevelStaringTime;
+		CountdownTime = WarmupTime - GetWorld()->GetTimeSeconds() + LevelStartingTime;
 		if (CountdownTime <= 0.f)
 		{
 			StartMatch();
@@ -40,7 +41,7 @@ void ABlasterGameMode::Tick(float DeltaSeconds)
 	}
 	else if (MatchState == MatchState::InProgress)
 	{
-		CountdownTime = WarmupTime + MatchTime - GetWorld()->GetTimeSeconds() + LevelStaringTime;
+		CountdownTime = WarmupTime + MatchTime - GetWorld()->GetTimeSeconds() + LevelStartingTime;
 		if (CountdownTime <= 0.f)
 		{
 			SetMatchState(MatchState::Cooldown);
@@ -48,7 +49,7 @@ void ABlasterGameMode::Tick(float DeltaSeconds)
 	}
 	else if (MatchState == MatchState::Cooldown)
 	{
-		CountdownTime = CooldownTime + WarmupTime + MatchTime - GetWorld()->GetTimeSeconds() + LevelStaringTime;
+		CountdownTime = CooldownTime + WarmupTime + MatchTime - GetWorld()->GetTimeSeconds() + LevelStartingTime;
 		if (CountdownTime <= 0.f)
 		{
 			RestartGame();

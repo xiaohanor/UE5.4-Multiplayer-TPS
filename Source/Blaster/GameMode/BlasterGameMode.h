@@ -45,7 +45,8 @@ public:
 	UPROPERTY(EditDefaultsOnly)
 	float CooldownTime = 10.f;
 
-	float LevelStaringTime;
+	// 用于在游戏开始时设置倒计时
+	float LevelStartingTime;
 
 	bool bTeamsMatch = false;
 

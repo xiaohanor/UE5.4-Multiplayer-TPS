@@ -157,6 +157,8 @@ private:
 	bool bInitializeCarriedAmmo = false;
 	int32 HUDCarriedAmmo;
 	bool bInitializeTeamScores = false;
+	bool bInitializeMatchCountdown = false;
+	float HUDMatchCountdown;
 
 	float HighPingRunningTime = 0.f;
 	float HighPingAnimRunningTime = 0.f;
