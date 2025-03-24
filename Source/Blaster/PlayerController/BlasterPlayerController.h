@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+#include "Player/DSPlayerController.h"
 #include "BlasterPlayerController.generated.h"
 
 class ABlasterGameState;
@@ -20,7 +21,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FHighPingDelegate, bool, bHighPing);
  * 
  */
 UCLASS()
-class BLASTER_API ABlasterPlayerController : public APlayerController
+class BLASTER_API ABlasterPlayerController : public ADSPlayerController
 {
 	GENERATED_BODY()
 
@@ -43,14 +44,15 @@ public:
 	virtual void OnPossess(APawn* InPawn) override;
 	virtual void Tick(float DeltaSeconds) override;
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
+	
 	virtual void SetupInputComponent() override;
+	virtual void EnableInput(class APlayerController* PlayerController) override;
+	virtual void DisableInput(class APlayerController* PlayerController) override;
 
 	virtual float GetServerTime(); //与服务器世界时钟同步
-	virtual void ReceivedPlayer() override; //当接收玩家时更快与服务器世界时钟同步
 	void OnMatchStateSet(FName State, bool bTeamsMatch = false);
 	void HandleMatchHasStarted(bool bTeamsMatch = false);
 	void HandleCooldown();
-	float SingleTripTime = 0.f; //单程时间
 
 	FHighPingDelegate HighPingDelegate;
 
@@ -58,33 +60,13 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
-	void SetHUDTime();
 	void PollInit();
-
-	/**
-	 * 同步客户端与服务器时间
-	 */
-
-	//请求当前服务器时间，传入发送请求时客户端的时间
-	UFUNCTION(Server, Reliable)
-	void ServerRequestServerTime(float TimeOfClientRequest);
-
-	UFUNCTION(Client, Reliable)
-	void ClientReportServerTime(float TimeOfClientRequest, float TimeOfServerReceivedClientRequest);
-
-	float ClientServerDelta = 0.f; //客户端与服务器时间差
-
+	
 	UPROPERTY(EditAnywhere, Category="Time")
 	float TimeSyncFrequency = 5.f; //时间同步频率
 
 	float TimeSyncRunningTime = 0.f; //时间同步运行时间
 	void CheckTimeSync(float DeltaSeconds);
-
-	UFUNCTION(Server, Reliable)
-	void ServerCheckMatchState();
-
-	UFUNCTION(Client, Reliable)
-	void ClientJoinMidGame(FName StateOfMatch, float Warmup, float Match, float StartingTime, float Cooldown);
 	
 	void HighPingWarning();
 	void StopHighPingWarning();

@@ -20,10 +20,12 @@ class DEDICATEDSERVERS_API ADSPlayerController : public APlayerController
 
 public:
 	ADSPlayerController();
-	virtual void ReceivedPlayer() override;
+	virtual void ReceivedPlayer() override;	//当接收玩家时更快与服务器世界时钟同步
 	virtual void OnRep_PlayerState() override;
 	virtual void PostSeamlessTravel() override;
 	virtual void BeginPlay() override;
+
+	float SingleTripTime; // 单程时间
 
 	UFUNCTION(Client, Reliable)
 	void Client_TimerUpdated(float CountdownTimeLeft, ECountdownTimerType Type) const;
@@ -53,6 +55,4 @@ protected:
 
 	UFUNCTION(Client,Reliable)
 	void ClientPong(float TimeOfRequest);
-private:
-	float SingleTripTime;
 };
