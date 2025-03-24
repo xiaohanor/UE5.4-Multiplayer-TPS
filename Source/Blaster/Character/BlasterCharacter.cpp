@@ -23,7 +23,6 @@
 #include "Blaster/PlayerController/BlasterPlayerController.h"
 #include "Blaster/PlayerStart/TeamPlayerStart.h"
 #include "Blaster/PlayerState/BlasterPlayerState.h"
-#include "Blaster/Weapon/Flag.h"
 #include "Kismet/GameplayStatics.h"
 #include "Sound/SoundCue.h"
 #include "Blaster/Weapon/WeaponTypes.h"

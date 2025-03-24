@@ -19,7 +19,6 @@ class DEDICATEDSERVERS_API UCareerPage : public UUserWidget
 	GENERATED_BODY()
 
 public:
- 
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UTextBlock> TextBlock_Username;
  
@@ -34,6 +33,9 @@ public:
  
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UTextBlock> TextBlock_StatusMessage;
+
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<UCareerAchievement> CareerAchievementClass;
  
 	UFUNCTION()
 	virtual void OnRetrieveMatchStats(const FDSRetrieveMatchStatsResponse& RetrieveMatchStatsResponse);

@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blaster/BlasterTypes/Team.h"
-#include "GameFramework/PlayerState.h"
+#include "Player/DS_MatchPlayerState.h"
 #include "BlasterPlayerState.generated.h"
 
 class ABlasterPlayerController;
@@ -13,7 +13,7 @@ class ABlasterCharacter;
  * 
  */
 UCLASS()
-class BLASTER_API ABlasterPlayerState : public APlayerState
+class BLASTER_API ABlasterPlayerState : public ADS_MatchPlayerState
 {
 	GENERATED_BODY()
 
