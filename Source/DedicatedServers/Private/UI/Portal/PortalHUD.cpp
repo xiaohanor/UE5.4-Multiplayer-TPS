@@ -18,7 +18,7 @@ void APortalHUD::BeginPlay()
 		SignInOverlay->AddToViewport();
 	}
 
-	FInputModeGameAndUI InputModeData;
+	FInputModeUIOnly InputModeData;
 	OwningPlayerController->SetInputMode(InputModeData);
 	OwningPlayerController->SetShowMouseCursor(true);
 }
