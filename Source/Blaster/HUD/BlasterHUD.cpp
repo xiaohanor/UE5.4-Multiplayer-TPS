@@ -137,6 +137,8 @@ void ABlasterHUD::ElimAnnouncementTimerFinished(UElimAnnouncement* MsgToRemove)
 void ABlasterHUD::DrawCrosshair(UTexture2D* Texture, FVector2d ViewportCenter, FVector2d Spread,
                                 FLinearColor CrossHairColor)
 {
+	if (!IsValid(Texture)) return;
+	
 	const float TextureWidth = Texture->GetSizeX();
 	const float TextureHeight = Texture->GetSizeY();
 	const FVector2d TextureDrawPoint(
