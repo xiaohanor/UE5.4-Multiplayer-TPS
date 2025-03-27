@@ -61,7 +61,7 @@ private:
 
 	UPROPERTY()
 	TObjectPtr<APlayerController> OwningPlayerController;
-	
+
 	FHUDPackage HUDPackage;
 
 	void DrawCrosshair(UTexture2D* Texture, FVector2d ViewportCenter, FVector2d Spread, FLinearColor CrossHairColor);

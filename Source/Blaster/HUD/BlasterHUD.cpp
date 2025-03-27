@@ -23,28 +23,28 @@ void ABlasterHUD::DrawHUD()
 		const FVector2d ViewportCenter(ViewportSize.X / 2.f, ViewportSize.Y / 2.f);
 
 		float SpreadScaled = HUDPackage.CrossHairSpread * CrosshairSpreadMax;
-
-		if (HUDPackage.CrossHairCenter)
+		
+		if (IsValid(HUDPackage.CrossHairCenter))
 		{
 			FVector2d Spread(0.f, 0.f);
 			DrawCrosshair(HUDPackage.CrossHairCenter, ViewportCenter, Spread, HUDPackage.CrossHairColor);
 		}
-		if (HUDPackage.CrossHairLeft)
+		if (IsValid(HUDPackage.CrossHairLeft))
 		{
 			FVector2d Spread(-SpreadScaled, 0.f);
 			DrawCrosshair(HUDPackage.CrossHairLeft, ViewportCenter, Spread, HUDPackage.CrossHairColor);
 		}
-		if (HUDPackage.CrossHairRight)
+		if (IsValid(HUDPackage.CrossHairRight))
 		{
 			FVector2d Spread(SpreadScaled, 0.f);
 			DrawCrosshair(HUDPackage.CrossHairRight, ViewportCenter, Spread, HUDPackage.CrossHairColor);
 		}
-		if (HUDPackage.CrossHairTop)
+		if (IsValid(HUDPackage.CrossHairTop))
 		{
 			FVector2d Spread(0.f, -SpreadScaled); //UV坐标系Y轴向下
 			DrawCrosshair(HUDPackage.CrossHairTop, ViewportCenter, Spread, HUDPackage.CrossHairColor);
 		}
-		if (HUDPackage.CrossHairBottom)
+		if (IsValid(HUDPackage.CrossHairBottom))
 		{
 			FVector2d Spread(0.f, SpreadScaled);
 			DrawCrosshair(HUDPackage.CrossHairBottom, ViewportCenter, Spread, HUDPackage.CrossHairColor);
