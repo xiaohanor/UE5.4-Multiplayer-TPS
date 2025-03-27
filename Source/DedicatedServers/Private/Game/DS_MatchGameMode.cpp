@@ -91,9 +91,17 @@ void ADS_MatchGameMode::SetClientInputEnabled(bool bEnabled)
 	}
 }
 
-void ADS_MatchGameMode::OnMatchEnded()
+void ADS_MatchGameMode::UpdateLeaderboard(const TArray<FString>& LeaderboardNames)
 {
-	// 由子类实现
+	if (IsValid(GameStatsManager))
+	{
+		GameStatsManager->UpdateLeaderboard(LeaderboardNames);
+	}
+}
+
+void ADS_MatchGameMode::OnLeaderboardUpdated()
+{
+	EndMatchForPlayerStates();
 }
 
 void ADS_MatchGameMode::EndMatchForPlayerStates()
@@ -110,18 +118,11 @@ void ADS_MatchGameMode::EndMatchForPlayerStates()
 	}
 }
 
-void ADS_MatchGameMode::UpdateLeaderboard(const TArray<FString>& LeaderboardNames)
+void ADS_MatchGameMode::OnMatchEnded()
 {
-	if (IsValid(GameStatsManager))
-	{
-		GameStatsManager->UpdateLeaderboard(LeaderboardNames);
-	}
+	// 由子类实现
 }
 
-void ADS_MatchGameMode::OnLeaderboardUpdated()
-{
-	EndMatchForPlayerStates();
-}
 
 
 

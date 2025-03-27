@@ -142,13 +142,13 @@ void UGameSessionsManager::CreatePlayerSession_Response(FHttpRequestPtr Request,
 		FJsonObjectConverter::JsonObjectToUStruct(JsonObject.ToSharedRef(), &PlayerSessionResponse);
 		PlayerSessionResponse.Dump();
 
-		APlayerController* LocalPlayerController = GEngine->GetFirstLocalPlayerController(GetWorld());
+		/*APlayerController* LocalPlayerController = GEngine->GetFirstLocalPlayerController(GetWorld());
 		if (IsValid(LocalPlayerController))
 		{
 			FInputModeGameOnly InputModeData;
 			LocalPlayerController->SetInputMode(InputModeData);
 			LocalPlayerController->SetShowMouseCursor(false);
-		}
+		}*/
 		
 		const FString Options = "?PlayerSessionId=" + PlayerSessionResponse.PlayerSession.PlayerSessionId + "?Username=" + PlayerSessionResponse.PlayerSession.PlayerId;
 		const FString IpAndPort = PlayerSessionResponse.PlayerSession.IpAddress + TEXT(":") + FString::FromInt(PlayerSessionResponse.PlayerSession.Port);
