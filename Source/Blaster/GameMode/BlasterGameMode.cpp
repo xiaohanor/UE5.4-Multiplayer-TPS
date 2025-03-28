@@ -58,6 +58,25 @@ void ABlasterGameMode::PlayerLeftGame(ABlasterPlayerState* PlayerLeaving)
 	}
 }
 
+void ABlasterGameMode::OnMatchEnded()
+{
+	Super::OnMatchEnded();
+
+	TArray<FString> LeaderIds;
+	if (ABlasterGameState* MatchGameState = GetGameState<ABlasterGameState>(); IsValid(MatchGameState))
+	{
+		TArray<ABlasterPlayerState*> Leaders = MatchGameState->TopScoringPlayers;
+		for (ABlasterPlayerState* Leader : Leaders)
+		{
+			if (ADSPlayerController* LeaderPC = Cast<ADSPlayerController>(Leader->GetPlayerController()); IsValid(LeaderPC))
+			{
+				LeaderIds.Add(LeaderPC->Username);
+			}
+		}
+	}
+	UpdateLeaderboard(LeaderIds);
+}
+
 void ABlasterGameMode::PlayerEliminated(ABlasterCharacter* ElimmedCharacter, ABlasterPlayerController* VictimController,
                                         ABlasterPlayerController* AttackerController)
 {

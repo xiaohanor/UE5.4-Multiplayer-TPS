@@ -7,7 +7,7 @@
 
 void ADS_MatchPlayerState::OnMatchEnded(const FString& Username)
 {
-	
+	// 由子类实现
 }
 
 void ADS_MatchPlayerState::BeginPlay()

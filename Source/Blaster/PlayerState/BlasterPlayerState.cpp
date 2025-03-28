@@ -4,8 +4,18 @@
 #include "BlasterPlayerState.h"
 
 #include "Blaster/Character/BlasterCharacter.h"
+#include "Blaster/GameState/BlasterGameState.h"
 #include "Blaster/PlayerController/BlasterPlayerController.h"
+#include "Kismet/GameplayStatics.h"
 #include "Net/UnrealNetwork.h"
+#include "UI/HTTP/HTTPRequestTypes.h"
+
+ABlasterPlayerState::ABlasterPlayerState()
+{
+	Defeats = 0;
+	SetScore(0);
+	bWinner = false;
+}
 
 void ABlasterPlayerState::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
 {
@@ -13,6 +23,26 @@ void ABlasterPlayerState::GetLifetimeReplicatedProps(TArray<class FLifetimePrope
 
 	DOREPLIFETIME(ABlasterPlayerState, Defeats);
 	DOREPLIFETIME(ABlasterPlayerState, Team);
+}
+
+void ABlasterPlayerState::OnMatchEnded(const FString& Username)
+{
+	Super::OnMatchEnded(Username);
+
+	ABlasterGameState* BlasterGameState = Cast<ABlasterGameState>(UGameplayStatics::GetGameState(this));
+	if (IsValid(BlasterGameState))
+	{
+		bWinner = BlasterGameState->TopScoringPlayers.Contains(this);
+	}
+	
+	FDSRecordMatchStatsInput RecordMatchStatsInput;
+	RecordMatchStatsInput.username = Username;
+
+	RecordMatchStatsInput.matchStats.defeats = Defeats;
+	RecordMatchStatsInput.matchStats.scoredElims = GetScore();
+	RecordMatchStatsInput.matchStats.matchWins = bWinner ? 1 : 0;
+	RecordMatchStatsInput.matchStats.matchLosses = bWinner ? 0 : 1;
+	RecordMatchStats(RecordMatchStatsInput);
 }
 
 void ABlasterPlayerState::AddToScore(float ScoreAmount)

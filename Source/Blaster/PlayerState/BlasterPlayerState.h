@@ -18,7 +18,9 @@ class BLASTER_API ABlasterPlayerState : public ADS_MatchPlayerState
 	GENERATED_BODY()
 
 public:
+	ABlasterPlayerState();
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
+	virtual void OnMatchEnded(const FString& Username) override;
 
 	/*
 	 ** 复制属性通知 
@@ -42,6 +44,8 @@ private:
 
 	UPROPERTY(ReplicatedUsing = OnRep_Defeats)
 	int32 Defeats;
+
+	bool bWinner;
 
 	UPROPERTY(ReplicatedUsing=OnRep_Team)
 	ETeam Team = ETeam::ET_NoTeam;
