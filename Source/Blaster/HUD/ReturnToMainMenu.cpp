@@ -4,7 +4,6 @@
 #include "ReturnToMainMenu.h"
 
 #include "Components/Button.h"
-#include "MultiplayerSessionsSubsystem.h"
 #include "Blaster/Character/BlasterCharacter.h"
 #include "Blaster/PlayerController/BlasterPlayerController.h"
 #include "GameFramework/GameModeBase.h"
@@ -33,7 +32,7 @@ void UReturnToMainMenu::MenuSetup()
 		ReturnButton->OnClicked.AddDynamic(this, &UReturnToMainMenu::ReturnButtonClicked);
 	}
 	
-	UGameInstance* GameInstance = GetGameInstance();
+	/*UGameInstance* GameInstance = GetGameInstance();
 	if (IsValid(GameInstance))
 	{
 		MultiplayerSessionsSubsystem = GameInstance->GetSubsystem<UMultiplayerSessionsSubsystem>();
@@ -42,12 +41,17 @@ void UReturnToMainMenu::MenuSetup()
 			UE_LOG(LogTemp, Warning, TEXT("Binding OnDestroySessionComplete"));
 			MultiplayerSessionsSubsystem->MultiplayerOnDestroySessionComplete.AddDynamic(this, &UReturnToMainMenu::OnSessionDestroyed);
 		}
-	}
+	}*/
 }
 
-bool UReturnToMainMenu::Initialize()
+void UReturnToMainMenu::NativeConstruct()
 {
-	return Super::Initialize();
+	Super::NativeConstruct();
+
+	if (ReturnButton && !ReturnButton->OnClicked.IsBound())
+	{
+		ReturnButton->OnClicked.AddDynamic(this, &UReturnToMainMenu::ReturnButtonClicked);
+	}
 }
 
 void UReturnToMainMenu::OnSessionDestroyed(bool bWasSuccessful)
@@ -96,10 +100,10 @@ void UReturnToMainMenu::MenuTearDown()
 	{
 		ReturnButton->OnClicked.RemoveDynamic(this, &UReturnToMainMenu::ReturnButtonClicked);
 	}
-	if (IsValid(MultiplayerSessionsSubsystem) && MultiplayerSessionsSubsystem->MultiplayerOnDestroySessionComplete.IsBound())
+	/*if (IsValid(MultiplayerSessionsSubsystem) && MultiplayerSessionsSubsystem->MultiplayerOnDestroySessionComplete.IsBound())
 	{
 		MultiplayerSessionsSubsystem->MultiplayerOnDestroySessionComplete.RemoveDynamic(this, &UReturnToMainMenu::OnSessionDestroyed);
-	}
+	}*/
 }
 
 void UReturnToMainMenu::ReturnButtonClicked()
@@ -129,9 +133,11 @@ void UReturnToMainMenu::OnPlayerLeftGame()
 {
 	UE_LOG(LogTemp, Warning, TEXT("OnPlayerLeftGame()"))
 
-	if (IsValid(MultiplayerSessionsSubsystem))
+	OnSessionDestroyed(true);
+
+	/*if (IsValid(MultiplayerSessionsSubsystem))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("MultiplayerSessionsSubsystem valid"))
 		MultiplayerSessionsSubsystem->DestroySession();
-	}
+	}*/
 }

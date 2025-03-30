@@ -20,7 +20,7 @@ public:
 	void MenuTearDown();
 
 protected:
-	virtual bool Initialize() override;
+	virtual void NativeConstruct() override;
 
 	UFUNCTION()
 	void OnSessionDestroyed(bool bWasSuccessful);
