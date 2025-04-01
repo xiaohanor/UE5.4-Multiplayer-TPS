@@ -17,7 +17,8 @@ class DEDICATEDSERVERS_API ADS_MatchPlayerState : public APlayerState
 	GENERATED_BODY()
 public:
 	virtual void OnMatchEnded(const FString& Username);
-	
+	void SetUserNameToPlayerName();
+
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UGameStatsManager> GameStatsManagerClass;
 	

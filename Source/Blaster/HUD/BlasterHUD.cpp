@@ -16,38 +16,40 @@ void ABlasterHUD::DrawHUD()
 {
 	Super::DrawHUD();
 
-	FVector2d ViewportSize;
-	if (GEngine)
+	if (IsValid(GEngine))
 	{
-		GEngine->GameViewport->GetViewportSize(ViewportSize);
-		const FVector2d ViewportCenter(ViewportSize.X / 2.f, ViewportSize.Y / 2.f);
+		if (IsValid(GEngine->GameViewport))
+		{
+			FVector2d ViewportSize;
+			GEngine->GameViewport->GetViewportSize(ViewportSize);
+			const FVector2d ViewportCenter(ViewportSize.X / 2.f, ViewportSize.Y / 2.f);
 
-		float SpreadScaled = HUDPackage.CrossHairSpread * CrosshairSpreadMax;
-		
-		if (IsValid(HUDPackage.CrossHairCenter))
-		{
-			FVector2d Spread(0.f, 0.f);
-			DrawCrosshair(HUDPackage.CrossHairCenter, ViewportCenter, Spread, HUDPackage.CrossHairColor);
-		}
-		if (IsValid(HUDPackage.CrossHairLeft))
-		{
-			FVector2d Spread(-SpreadScaled, 0.f);
-			DrawCrosshair(HUDPackage.CrossHairLeft, ViewportCenter, Spread, HUDPackage.CrossHairColor);
-		}
-		if (IsValid(HUDPackage.CrossHairRight))
-		{
-			FVector2d Spread(SpreadScaled, 0.f);
-			DrawCrosshair(HUDPackage.CrossHairRight, ViewportCenter, Spread, HUDPackage.CrossHairColor);
-		}
-		if (IsValid(HUDPackage.CrossHairTop))
-		{
-			FVector2d Spread(0.f, -SpreadScaled); //UV坐标系Y轴向下
-			DrawCrosshair(HUDPackage.CrossHairTop, ViewportCenter, Spread, HUDPackage.CrossHairColor);
-		}
-		if (IsValid(HUDPackage.CrossHairBottom))
-		{
-			FVector2d Spread(0.f, SpreadScaled);
-			DrawCrosshair(HUDPackage.CrossHairBottom, ViewportCenter, Spread, HUDPackage.CrossHairColor);
+			float SpreadScaled = HUDPackage.CrossHairSpread * CrosshairSpreadMax;
+			if (IsValid(HUDPackage.CrossHairCenter))
+			{
+				FVector2d Spread(0.f, 0.f);
+				DrawCrosshair(HUDPackage.CrossHairCenter, ViewportCenter, Spread, HUDPackage.CrossHairColor);
+			}
+			if (IsValid(HUDPackage.CrossHairLeft))
+			{
+				FVector2d Spread(-SpreadScaled, 0.f);
+				DrawCrosshair(HUDPackage.CrossHairLeft, ViewportCenter, Spread, HUDPackage.CrossHairColor);
+			}
+			if (IsValid(HUDPackage.CrossHairRight))
+			{
+				FVector2d Spread(SpreadScaled, 0.f);
+				DrawCrosshair(HUDPackage.CrossHairRight, ViewportCenter, Spread, HUDPackage.CrossHairColor);
+			}
+			if (IsValid(HUDPackage.CrossHairTop))
+			{
+				FVector2d Spread(0.f, -SpreadScaled); //UV坐标系Y轴向下
+				DrawCrosshair(HUDPackage.CrossHairTop, ViewportCenter, Spread, HUDPackage.CrossHairColor);
+			}
+			if (IsValid(HUDPackage.CrossHairBottom))
+			{
+				FVector2d Spread(0.f, SpreadScaled);
+				DrawCrosshair(HUDPackage.CrossHairBottom, ViewportCenter, Spread, HUDPackage.CrossHairColor);
+			}
 		}
 	}
 }
@@ -55,7 +57,6 @@ void ABlasterHUD::DrawHUD()
 void ABlasterHUD::BeginPlay()
 {
 	Super::BeginPlay();
-
 }
 
 void ABlasterHUD::AddCharacterOverlay()
@@ -81,8 +82,8 @@ void ABlasterHUD::AddAnnouncement()
 void ABlasterHUD::AddElimAnnouncement(const FString& AttackerName, const FString& VictimName)
 {
 	OwningPlayerController = OwningPlayerController == nullptr
-		                       ? TObjectPtr<APlayerController>(GetOwningPlayerController())
-		                       : OwningPlayerController;
+		                         ? TObjectPtr<APlayerController>(GetOwningPlayerController())
+		                         : OwningPlayerController;
 	if (OwningPlayerController && ElimAnnouncementClass)
 	{
 		TObjectPtr<UElimAnnouncement> ElimAnnouncementWidget = CreateWidget<UElimAnnouncement>(OwningPlayerController,
@@ -105,14 +106,14 @@ void ABlasterHUD::AddElimAnnouncement(const FString& AttackerName, const FString
 						FVector2d NewPosition(
 							Slot->GetPosition().X,
 							Position.Y - Slot->GetSize().Y
-							);
+						);
 						Slot->SetPosition(NewPosition);
 					}
 				}
 			}
 
 			ElimMessages.Add(ElimAnnouncementWidget);
-			
+
 			FTimerHandle ElimMsgTimer;
 			FTimerDelegate ElimMsgTimerDelegate;
 			ElimMsgTimerDelegate.BindUFunction(this, FName("ElimAnnouncementTimerFinished"), ElimAnnouncementWidget);
@@ -138,7 +139,7 @@ void ABlasterHUD::DrawCrosshair(UTexture2D* Texture, FVector2d ViewportCenter, F
                                 FLinearColor CrossHairColor)
 {
 	if (!IsValid(Texture)) return;
-	
+
 	const float TextureWidth = Texture->GetSizeX();
 	const float TextureHeight = Texture->GetSizeY();
 	const FVector2d TextureDrawPoint(
@@ -159,4 +160,3 @@ void ABlasterHUD::DrawCrosshair(UTexture2D* Texture, FVector2d ViewportCenter, F
 		CrossHairColor
 	);
 }
-
