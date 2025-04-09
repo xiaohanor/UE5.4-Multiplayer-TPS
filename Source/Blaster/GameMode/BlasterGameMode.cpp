@@ -62,13 +62,21 @@ void ABlasterGameMode::OnMatchEnded()
 {
 	Super::OnMatchEnded();
 
+	for (FConstPlayerControllerIterator Iterator = GetWorld()->GetPlayerControllerIterator(); Iterator; ++Iterator)
+	{
+		if (ABlasterPlayerController* PlayerController = Cast<ABlasterPlayerController>(Iterator->Get()); IsValid(PlayerController))
+		{
+			PlayerController->HandleCooldown();
+		}
+	}
+
 	TArray<FString> LeaderIds;
 	if (ABlasterGameState* MatchGameState = GetGameState<ABlasterGameState>(); IsValid(MatchGameState))
 	{
 		TArray<ABlasterPlayerState*> Leaders = MatchGameState->TopScoringPlayers;
 		for (ABlasterPlayerState* Leader : Leaders)
 		{
-			if (ADSPlayerController* LeaderPC = Cast<ADSPlayerController>(Leader->GetPlayerController()); IsValid(LeaderPC))
+			if (ABlasterPlayerController* LeaderPC = Cast<ABlasterPlayerController>(Leader->GetPlayerController()); IsValid(LeaderPC))
 			{
 				LeaderIds.Add(LeaderPC->Username);
 			}

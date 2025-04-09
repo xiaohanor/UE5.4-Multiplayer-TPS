@@ -64,6 +64,10 @@ void ABlasterPlayerController::BeginPlay()
 	Super::BeginPlay();
 
 	BlasterHUD = Cast<ABlasterHUD>(GetHUD());
+	if (IsValid(BlasterHUD))
+	{
+		BlasterHUD->AddAnnouncement();
+	}
 }
 
 void ABlasterPlayerController::Tick(float DeltaSeconds)
@@ -580,14 +584,14 @@ void ABlasterPlayerController::HandleCooldown()
 	BlasterHUD = BlasterHUD == nullptr ? TObjectPtr<ABlasterHUD>(Cast<ABlasterHUD>(GetHUD())) : BlasterHUD;
 	if (BlasterHUD)
 	{
-		BlasterHUD->CharacterOverlay->RemoveFromParent();
+		//BlasterHUD->CharacterOverlay->RemoveFromParent();
 		bool bHUDValid = BlasterHUD && BlasterHUD->Announcement && BlasterHUD->Announcement->AnnouncementText &&
 			BlasterHUD->Announcement->InfoText;
 		if (bHUDValid)
 		{
 			BlasterHUD->Announcement->SetVisibility(ESlateVisibility::Visible);
-			FText AnnouncementText = FText::FromString(Announcement::NewMatchCountdown);
-			BlasterHUD->Announcement->AnnouncementText->SetText(AnnouncementText);
+			/*FText AnnouncementText = FText::FromString(Announcement::NewMatchCountdown);
+			BlasterHUD->Announcement->AnnouncementText->SetText(AnnouncementText);*/
 
 			ABlasterGameState* BlasterGameState = Cast<ABlasterGameState>(UGameplayStatics::GetGameState(this));
 			ABlasterPlayerState* BlasterPlayerState = GetPlayerState<ABlasterPlayerState>();
@@ -601,12 +605,12 @@ void ABlasterPlayerController::HandleCooldown()
 			}
 		}
 	}
-	ABlasterCharacter* BlasterCharacter = Cast<ABlasterCharacter>(GetPawn());
+	/*ABlasterCharacter* BlasterCharacter = Cast<ABlasterCharacter>(GetPawn());
 	if (BlasterCharacter && BlasterCharacter->GetCombatComponent())
 	{
 		BlasterCharacter->bDisableGameplay = true;
 		BlasterCharacter->GetCombatComponent()->FireButtonPressed(false);
-	}
+	}*/
 }
 
 FString ABlasterPlayerController::GetInfoText(const TArray<ABlasterPlayerState*>& Players)
