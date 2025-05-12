@@ -49,6 +49,7 @@ void ADS_LobbyGameMode::Logout(AController* Exiting)
 	Super::Logout(Exiting);
 
 	CheckAndStopLobbyCountdown();
+	RemovePlayerSession(Exiting);
 	if (LobbyStatus != ELobbyStatus::SeamlessTravelling)
 	{
 		RemovePlayerInfoFromLobbyState(Exiting);
@@ -61,6 +62,8 @@ void ADS_LobbyGameMode::PreLogin(const FString& Options, const FString& Address,
  
 	const FString PlayerSessionId = UGameplayStatics::ParseOption(Options, TEXT("PlayerSessionId"));
 	const FString Username = UGameplayStatics::ParseOption(Options, TEXT("Username"));
+
+	TryAcceptPlayerSession(PlayerSessionId, Username, ErrorMessage);
 }
 
 FString ADS_LobbyGameMode::InitNewPlayer(APlayerController* NewPlayerController, const FUniqueNetIdRepl& UniqueId,

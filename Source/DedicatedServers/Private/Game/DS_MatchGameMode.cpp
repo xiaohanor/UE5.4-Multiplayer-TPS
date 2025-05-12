@@ -56,6 +56,7 @@ void ADS_MatchGameMode::OnCountdownTimerFinished(ECountdownTimerType Type)
 		StopCountdownTimer(PreMatchTimer);
 		StartCountdownTimer(MatchTimer);
 		SetClientInputEnabled(true);
+		OnMatchStarted();
 	}
 	if (Type == ECountdownTimerType::Match)
 	{
@@ -118,6 +119,10 @@ void ADS_MatchGameMode::EndMatchForPlayerStates()
 	}
 }
 
+void ADS_MatchGameMode::OnMatchStarted()
+{
+	// 由子类实现
+}
 void ADS_MatchGameMode::OnMatchEnded()
 {
 	// 由子类实现

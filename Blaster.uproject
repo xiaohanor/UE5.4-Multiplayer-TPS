@@ -29,7 +29,7 @@
 		},
 		{
 			"Name": "OnlineSubsystemSteam",
-			"Enabled": true
+			"Enabled": false
 		},
 		{
 			"Name": "GameLiftPlugin",

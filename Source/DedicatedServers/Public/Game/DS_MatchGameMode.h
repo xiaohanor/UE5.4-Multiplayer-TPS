@@ -31,6 +31,7 @@ protected:
 	virtual void OnCountdownTimerFinished(ECountdownTimerType Type) override;
 	virtual void Logout(AController* Exiting) override;
 	void SetClientInputEnabled(bool bEnabled);
+	virtual void OnMatchStarted();
 	virtual void OnMatchEnded();
 	void EndMatchForPlayerStates();
 	void UpdateLeaderboard(const TArray<FString>& LeaderboardNames);

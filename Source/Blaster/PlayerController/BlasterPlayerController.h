@@ -42,6 +42,7 @@ public:
 	void SetHUDBlueTeamScore(int32 Score);
 
 	virtual void OnPossess(APawn* InPawn) override;
+	virtual void OnRep_PlayerState() override;
 	virtual void Tick(float DeltaSeconds) override;
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
 	
@@ -52,7 +53,11 @@ public:
 	virtual float GetServerTime(); //与服务器世界时钟同步
 	void OnMatchStateSet(FName State, bool bTeamsMatch = false);
 	void HandleMatchHasStarted(bool bTeamsMatch = false);
+	UFUNCTION(Client, Reliable)
+	void ClientHandleMatchHasStarted(bool bTeamsMatch = false);
 	void HandleCooldown();
+	UFUNCTION(Client, Reliable)
+	void ClientHandleCooldown();
 
 	FHighPingDelegate HighPingDelegate;
 
@@ -106,12 +111,6 @@ private:
 	
 	UPROPERTY()
 	ABlasterGameMode* BlasterGameMode;
-
-	float MatchTime = 0.f;
-	float WarmupTime = 0.f;
-	float LevelStartingTime;
-	float CooldownTime = 0.f;
-	uint32 CountdownInt = 0;
 
 	UPROPERTY(ReplicatedUsing=OnRep_MatchState)
 	FName MatchState;

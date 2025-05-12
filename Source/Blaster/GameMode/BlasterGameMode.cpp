@@ -20,21 +20,6 @@ ABlasterGameMode::ABlasterGameMode()
 	
 }
 
-void ABlasterGameMode::OnMatchStateSet()
-{
-	Super::OnMatchStateSet();
-
-	//通知所有玩家控制器比赛状态
-	for (FConstPlayerControllerIterator It = GetWorld()->GetPlayerControllerIterator(); It; ++It)
-	{
-		ABlasterPlayerController* BlasterPlayerController = Cast<ABlasterPlayerController>(*It);
-		if (BlasterPlayerController)
-		{
-			BlasterPlayerController->OnMatchStateSet(MatchState, bTeamsMatch);
-		}
-	}
-}
-
 float ABlasterGameMode::CalculateDamage(AController* Attacker, AController* Victim, float BaseDamage)
 {
 	return BaseDamage;
@@ -66,7 +51,7 @@ void ABlasterGameMode::OnMatchEnded()
 	{
 		if (ABlasterPlayerController* PlayerController = Cast<ABlasterPlayerController>(Iterator->Get()); IsValid(PlayerController))
 		{
-			PlayerController->HandleCooldown();
+			PlayerController->ClientHandleCooldown();
 		}
 	}
 
@@ -83,6 +68,21 @@ void ABlasterGameMode::OnMatchEnded()
 		}
 	}
 	UpdateLeaderboard(LeaderIds);
+}
+
+void ABlasterGameMode::OnMatchStarted()
+{
+	Super::OnMatchStarted();
+
+	//通知所有玩家控制器比赛状态
+	for (FConstPlayerControllerIterator It = GetWorld()->GetPlayerControllerIterator(); It; ++It)
+	{
+		ABlasterPlayerController* BlasterPlayerController = Cast<ABlasterPlayerController>(*It);
+		if (BlasterPlayerController)
+		{
+			BlasterPlayerController->ClientHandleMatchHasStarted();
+		}
+	}
 }
 
 void ABlasterGameMode::PlayerEliminated(ABlasterCharacter* ElimmedCharacter, ABlasterPlayerController* VictimController,
